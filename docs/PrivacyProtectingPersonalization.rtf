@@ -1,0 +1,60 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1265\cocoasubrtf200
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+\margl1440\margr1440\vieww17980\viewh14740\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+
+\f0\fs24 \cf0 In-browser, privacy protecting content personalization.\
+\
+The feature\
+- A user commonly visits cnn.com\
+- A user reads sports and politics stories on cnn.com\
+- Furthermore, a user primarily interested in baseball and middle east politics content on cnn.com\
+- A user would appreciate if his/her browser proactively recommends relevant stories from cnn.com as they are published\
+- The task of the browser, then, is to consume cnn.com feed and show a user "relevant" (that is "baseball" and "middle east") stories from that feed.\
+\
+Prototype technical implementation\
+\
+1) Training cnn.con user interests classifier\
+- Given a user history on cnn.com, it is possible to train a classifier that determines which content on cnn.com is relevant to a user\
+- Training such classifier requires positive and negative story examples. \
+- Positive examples are stories that user visited, while negative examples are all other cnn.com stories that user did not pay attention to.\
+- Therefore, training user cnn.com interests classifier requires historical corpus of cnn.com stories, which explains our need for historical data\
+\
+NOTE.   Since the browser only keeps URL and title of the story and CAN NOT share it with back end server, we have to collect sizable history of can.com and send it to the browser, to allow access to full-text and tagging of the visited pages.\
+\
+2) Recommending "relevant" content to a user\
+- Once cnn.com classifier is trained, the next task is to select "relevant" stories from the cnn.com Moreover feed.\
+- All recent cnn.com stories are being sent to a browser\
+- The browser applies cnn.com-user-interest-classifier to a cnn.com feed and selects "relevant" stories\
+- The browser suggests "relevant" stories to a user via newtab-tiles, start page snippet, etc..\
+\
+3) Backend services\
+\
+Browser communicates ONLY to Mozilla server due to privacy concerns.\
+\
+3.a  Mozilla server content pull\
+- The browser shares with Mozilla server domains a user commonly visits \
+- The mozilla server collects a frequently-visited domains from each browser and creates a 
+\b list of domains
+\b0 \
+- The mozilla server downloads fresh content for all domains in the list (for example hourly updates).\
+-  For the unseen (new) domains it downloads historical content (for the past 30 days), this is a one time operation per site\
+\
+Mozilla server communicates to Moreover Search Toolkit and issues two types of queries:\
+ Query1 - Stories published for the past hour on any of the domain in the list of domains\
+ Query2 - Stories published for the past 30 days on an unseen (new) domain \
+\
+Query1 is executed periodically (for example every hour)\
+Query2 is executed whenever a domain that is not in the list is submitted by a browser\
+\
+3.b Browser Content requests\
+- Browser requests content from Mozilla server:\
+- for user-interest-classification training, in which case it will request a historical content for a give site (or sites)\
+- for \'93recommending\'94 stories, in which case, it requests \'93fresh\'94 content for all user frequently-visited domains.\
+\
+\
+\
+\
+\
+}
