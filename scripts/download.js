@@ -17,7 +17,6 @@ download.on("saved-file", function(filePath) {
 });
 
 download.on("json", function(json) {
-
   if (json.response.articles && json.response.articles instanceof Object) {
     console.log(json.response.articles.article.length);
     json.response.articles.article.forEach(function(doc) {
