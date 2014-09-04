@@ -1,11 +1,23 @@
 var mongo = require('mongoskin');
 
-function Collection(dbname, collection) {
-  this.db = mongo.db("mongodb://localhost:27017/" + dbname, {native_parser:true});
+function Collection(db, collection) {
+
+  if (db instanceof Object) {
+    // assume connection is passed in
+    this.db = db;
+  }
+  else {
+    // assume db is dbname
+    this.db = mongo.db("mongodb://localhost:27017/" + db, {native_parser:true});
+  }
   this.collection = this.db.collection(collection);
 };
 
 Collection.prototype = {
+  newCollection: function(name) {
+    return new Collection(this.db, name);
+  },
+
   clarCollection: function(cb) {
     this.collection.remove({}, function(err,result) {
       if(cb) cb();
