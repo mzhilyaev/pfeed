@@ -1,6 +1,8 @@
 var hasher = require('hash-string');
+var tld = require('tldjs');
 
 var MoreoverStoryFilter = {
+
   getTags: function(doc, obj) {
     if (doc.tags && doc.tags instanceof Object) {
       obj.tags = doc.tags.tag;
@@ -36,7 +38,7 @@ var MoreoverStoryFilter = {
       urlHash: hasher.hashCode(doc.originalUrl),
       duplicateGroupId: doc.duplicateGroupId,
       source: doc.source.homeUrl,
-      host: require("url").parse(doc.source.homeUrl).host,
+      host: tld.getDomain(require("url").parse(doc.source.homeUrl).host),
     };
     this.getTags(doc, obj);
     this.getImage(doc, obj);

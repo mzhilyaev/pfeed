@@ -12,7 +12,8 @@
     "jade": "~1.3.0",
     "mongodb": "*",
     "mongoskin": "*",
-    "hash-string": "*"
+    "hash-string": "*",
+    "tldjs": "*"
   },
   "devDependencies": {
      "tobi": "0.3.2",
