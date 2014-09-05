@@ -1,16 +1,19 @@
 var mongo = require('mongoskin');
 
-function Collection(db, collection) {
-
+function Collection(db, colName, cb) {
   if (db instanceof Object) {
     // assume connection is passed in
     this.db = db;
   }
   else {
     // assume db is dbname
-    this.db = mongo.db("mongodb://localhost:27017/" + db, {native_parser:true});
+    this.db = mongo.db("mongodb://localhost:27017/" + db, {native_parser:true, safe:true});
   }
-  this.collection = this.db.collection(collection);
+  this.db.collection(colName, function(err, col) {
+    if (err) throw err;
+    this.collection = col;
+    if (cb) cb(this.collection);
+  }.bind(this));
 };
 
 Collection.prototype = {
@@ -33,6 +36,12 @@ Collection.prototype = {
       if (err) throw err;
       cb(result);
     });
+  },
+
+  getUnorderedBulk: function() {
+    var y = this.collection.initializeUnorderedBulkOp({});
+    console.log("dfhjkdjfh " + y.helloBody);
+    return y;
   },
 };
 

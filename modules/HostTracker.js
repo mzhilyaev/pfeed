@@ -4,14 +4,15 @@ var Collection = require("./Collection");
 
 var HostTracker = Object.create(Collection.prototype);
 
-HostTracker.init = function(dbname, collection) {
+HostTracker.init = function(dbname, collection, cb) {
   var dbName = dbname || config.hosts.database;
   var collectionName = collection || config.hosts.collection;
-  Collection.call(this, dbName, collectionName);
-  // this is an async call - and should have callback
-  this.collection.ensureIndex( { host: 1 }, { unique: true }, function(err,res) {
-    console.log("index exists");
-  });
+  Collection.call(this, dbName, collectionName, function() {
+    this.collection.ensureIndex( { host: 1 }, { unique: true }, function(err,res) {
+      console.log("index exists");
+      if (cb) cb();
+    });
+  }.bind(this));
 };
 
 HostTracker.insertHosts = function(hosts, cb) {

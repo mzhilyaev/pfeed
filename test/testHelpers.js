@@ -2,6 +2,10 @@
 var should = require('should');
 var helpers = require('./helpers');
 
+before(function(done) {
+  helpers.init(done);
+});
+
 describe('test doc db helpers', function(){
   it('population', function(done) {
     helpers.populateDocs(function() {

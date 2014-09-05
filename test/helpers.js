@@ -4,10 +4,23 @@ var config = require("../config/config");
 var docHelper = require("../modules/DocHelper");
 var hostTracker = require("../modules/HostTracker");
 
-docHelper.init("test");
-hostTracker.init("test");
 
 module.exports = {
+
+  initilized: false,
+
+  init: function(done) {
+    if (!this.initilized) {
+      docHelper.init("test", null, function() {
+        hostTracker.init("test", null, function() {
+          done();
+        });
+      });
+      this.initilized = true;
+    } else {
+      done();
+    }
+  },
 
   clearHosts: function(done) {
     hostTracker.clarCollection(done);

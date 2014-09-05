@@ -3,9 +3,12 @@ var should = require('should');
 var helpers = require('../helpers');
 var hostTracker = require('../../modules/HostTracker');
 
+before(function(done) {
+  helpers.init(done);
+});
+
 describe('test host tracker', function(){
   before(function(done) {
-    console.log("clearing");
     hostTracker.clarCollection(done);
   });
 

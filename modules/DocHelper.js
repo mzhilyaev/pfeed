@@ -4,10 +4,10 @@ var Collection = require("./Collection");
 
 var DocHelper = Object.create(Collection.prototype);
 
-DocHelper.init = function(dbname, collection) {
+DocHelper.init = function(dbname, collection, cb) {
   var dbName = dbname || config.docs.database;
   var collectionName = collection || config.docs.collection;
-  Collection.call(this, dbName, collectionName);
+  Collection.call(this, dbName, collectionName, cb);
 };
 
 DocHelper.getRecentDocsForSite = function(callback, site, seconds) {
@@ -35,6 +35,20 @@ DocHelper.addDocument = function(doc, cb) {
     function (err, result) {
       if (err) throw err;
       if (cb) cb();
+  });
+};
+
+DocHelper.aggregateHostDocCount = function(cb) {
+  this.collection.aggregate(
+    {$group: {_id: "$host", count: {$sum: 1}}},
+    function(err, results) {
+       if (err) throw err;
+       var ret = {};
+       for (var i in results) {
+         var item = results[i];
+         ret[item._id] = item.count;
+       }
+       cb(ret);
   });
 };
 

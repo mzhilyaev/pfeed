@@ -6,6 +6,9 @@ var should = require('should');
 var helpers = require('../helpers');
 var hostTracker = require('../../modules/HostTracker');
 
+before(function(done) {
+  helpers.init(done);
+});
 
 describe('route /hosts/topdomains', function(){
   before(function(done) {

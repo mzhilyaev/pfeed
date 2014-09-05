@@ -5,6 +5,9 @@ var request = require('supertest');
 var should = require('should');
 var helpers = require('../helpers');
 
+before(function(done) {
+  helpers.init(done);
+});
 
 describe('route /hosts/recentdocs', function(){
   before(function(done) {
