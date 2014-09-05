@@ -1,4 +1,5 @@
 var hasher = require('hash-string');
+var crypto = require('crypto');
 var tld = require('tldjs');
 
 var MoreoverStoryFilter = {
@@ -25,6 +26,11 @@ var MoreoverStoryFilter = {
     }
   },
 
+  computeUrlHash: function(url) {
+    var md5 = crypto.createHash('md5').update(url).digest("hex");
+    return Math.abs(hasher.hashCode(md5));
+  },
+
   filter: function(doc) {
     if (doc.language != "English") return null;
     var obj = {
@@ -35,7 +41,7 @@ var MoreoverStoryFilter = {
       published: Math.floor(Date.parse(doc.publishedDate) / 1000),
       harvested: Math.floor(Date.parse(doc.harvestDate) / 1000),
       url: doc.originalUrl,
-      urlHash: hasher.hashCode(doc.originalUrl),
+      urlHash: this.computeUrlHash(doc.originalUrl),
       duplicateGroupId: doc.duplicateGroupId,
       source: doc.source.homeUrl,
       host: tld.getDomain(require("url").parse(doc.source.homeUrl).host),
