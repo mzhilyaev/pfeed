@@ -3,6 +3,7 @@
 var config = require("../config/config");
 var docHelper = require("../modules/DocHelper");
 var hostTracker = require("../modules/HostTracker");
+var hostKeeper = require("../modules/HostKeeper");
 
 
 module.exports = {
@@ -13,7 +14,9 @@ module.exports = {
     if (!this.initilized) {
       docHelper.init("test", null, function() {
         hostTracker.init("test", null, function() {
-          done();
+          hostKeeper.init("test", null, function() {
+            done();
+          });
         });
       });
       this.initilized = true;
@@ -55,4 +58,5 @@ module.exports = {
   getCollection: function() {
     return docHelper.getCollection();
   },
+
 };

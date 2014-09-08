@@ -38,6 +38,20 @@ DocHelper.addDocument = function(doc, cb) {
   });
 };
 
+DocHelper.insertDocuments = function(doc, cb) {
+  var docs;
+  if (doc instanceof Array) {
+    docs = doc;
+  }
+  else {
+    docs = [doc];
+  }
+  this.collection.insert(docs, function(err,res) {
+    if (err) throw err;
+    if (cb) cb();
+  });
+};
+
 DocHelper.aggregateHostDocCount = function(cb) {
   this.collection.aggregate(
     {$group: {_id: "$host", count: {$sum: 1}}},

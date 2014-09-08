@@ -39,9 +39,11 @@ Collection.prototype = {
   },
 
   getUnorderedBulk: function() {
-    var y = this.collection.initializeUnorderedBulkOp({});
-    console.log("dfhjkdjfh " + y.helloBody);
-    return y;
+    return this.collection.initializeUnorderedBulkOp();
+  },
+
+  getOrderedBulk: function() {
+    return this.collection.initializeOrderedBulkOp();
   },
 };
 
