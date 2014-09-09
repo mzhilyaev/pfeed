@@ -66,5 +66,30 @@ DocHelper.aggregateHostDocCount = function(cb) {
   });
 };
 
+DocHelper.selectDocByUrlHash = function(host, hashes, crowdFactor, cb) {
+  console.log(host, JSON.stringify(hashes));
+  var cursor = this.collection.find({
+    host: host,
+  },
+  {
+    "_id": 0,
+  });
+  var res = {
+    host: host,
+    crowdFactor: crowdFactor,
+    docs: [],
+  };
+  cursor.each(function(err, doc) {
+    if (doc != null) {
+      var urlHash = doc.urlHash % crowdFactor;
+      if (hashes[urlHash]) {
+        res.docs.push(doc);
+      }
+    } else {
+      cb(res);
+    }
+  });
+};
+
 module.exports = DocHelper;
 

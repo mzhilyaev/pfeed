@@ -32,6 +32,7 @@ HostTracker.insertHosts = function(hosts, cb) {
       if (err) {
         // ignore duplicate key errors
         // console.log("Ignore error " + err);
+        console.log("ERROROR " + err);
       }
       if (cb) {
         cb();

@@ -33,6 +33,12 @@ module.exports = {
     docHelper.clarCollection(done);
   },
 
+  clearAll: function(done) {
+    this.clearHosts(function() {
+      this.clearDocs(done);
+    }.bind(this));
+  },
+
   populateDocs: function(done) {
     var docs = require("./data/TestDbDocs").testDocsGroup1;
     var docCount = 0;

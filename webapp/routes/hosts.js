@@ -1,5 +1,6 @@
 var docHelper = require("../../modules/DocHelper");
 var hostTracker = require("../../modules/HostTracker");
+var hostKeeper = require("../../modules/HostKeeper");
 var express = require('express');
 var router = express.Router();
 
@@ -43,5 +44,28 @@ router.post('/tophosts', function(req, res) {
     res.end();
   });
 });
+
+/*
+ * POST request for top domains info
+ */
+router.post('/tophosts/info', function(req, res) {
+  var topHosts = req.body;
+  res.json(hostKeeper.getHostInfo(topHosts));
+});
+
+/*
+ * POST request for domain documents
+ */
+router.post('/tophosts/history', function(req, res) {
+  var host = req.body.host;
+  hostKeeper.getHostDocs(
+    req.body.host,
+    req.body.hashes,
+    function(results) {
+      res.json(results);
+    }
+  );
+});
+
 
 module.exports = router;

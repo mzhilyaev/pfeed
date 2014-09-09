@@ -16,7 +16,7 @@ HostKeeper.init = function(dbname, collection, cb) {
 };
 
 HostKeeper.readHostTable = function(cb) {
-  this.collection.find({}).toArray(function(err, results) {
+  this.collection.find({}, {"_id": 0}).toArray(function(err, results) {
     // walk the hosts and build the table
     this.hosts = {};
     for (var i in results) {
@@ -26,10 +26,17 @@ HostKeeper.readHostTable = function(cb) {
   }.bind(this));
 };
 
+HostKeeper.refresh = function(cb) {
+  this.readHostTable(function() {
+    this.updateCrowdFactor(cb);
+  }.bind(this));
+};
+
 HostKeeper.updateCrowdFactor = function(cb) {
   // fiund out how many docs are stored for each host
   docHelper.aggregateHostDocCount(function(results) {
     var bulk = this.getUnorderedBulk();
+    var inserted = false;
     Object.keys(results).forEach(function(host) {
       var hostRecord = this.hosts[host];
       if (!hostRecord) return;
@@ -42,15 +49,58 @@ HostKeeper.updateCrowdFactor = function(cb) {
           factor: Math.floor(results[host]/3) + 1,
         };
         bulk.find({host: host}).update({$set: {crowdFactor: hostRecord.crowdFactor}});
+        inserted = true;
       }
     }.bind(this));
-    bulk.execute(function(err, res) {
-      console.log(res.nModified);
-      if (err) throw err;
-      if (cb) cb();
-    });
+    // if there's an operation recorded in bulk
+    if (inserted) {
+      bulk.execute(function(err, res) {
+        // console.log("modified " + res.nModified);
+        if (err) throw err;
+        if (cb) cb();
+      });
+    } else {
+    // otherwise run callback
+      cb();
+    }
   }.bind(this));
 }
+
+HostKeeper.getHostInfo = function(arg) {
+  var ret = {};
+  if (arg instanceof Array) {
+    arg.forEach(function(host) {
+      ret[host] = this.hosts[host];
+    }.bind(this));
+  }
+  else {
+    ret[arg] = this.hosts[arg];
+  }
+  return ret;
+};
+
+
+HostKeeper.getHostDocs = function(host, hashes, cb) {
+  var clientHashes = {};
+  if (hashes instanceof Array) {
+    hashes.forEach(function(hash) {
+        clientHashes[hash] = true;
+    })
+  }
+  else if (hashes instanceof Object) {
+    clientHashes = hashes;
+  }
+  else {
+    throw new Error("bad hashes type");
+  }
+
+  if (this.hosts[host] && this.hosts[host].crowdFactor) {
+    docHelper.selectDocByUrlHash(host, clientHashes, this.hosts[host].crowdFactor.factor, cb);
+  }
+  else {
+    cb({});
+  }
+};
 
 module.exports = HostKeeper;
 

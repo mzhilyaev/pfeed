@@ -7,6 +7,10 @@ before(function(done) {
 });
 
 describe('test doc db helpers', function(){
+  before(function(done) {
+    helpers.clearAll(done);
+  });
+
   it('population', function(done) {
     helpers.populateDocs(function() {
       helpers.getCollection().find({}).count(function(err, result) {
