@@ -13,7 +13,9 @@
     "mongodb": "*",
     "mongoskin": "*",
     "hash-string": "*",
-    "tldjs": "*"
+    "tldjs": "*",
+    "date-utils": "*",
+    "archiver": "*"
   },
   "devDependencies": {
      "tobi": "0.3.2",

@@ -3,23 +3,22 @@ var events = require("events");
 var fs = require("fs");
 var http = require("http");
 var path = require("path");
-var mongo = require('mongoskin');
-var config = require("../config/config");
 var http = require("http");
 var xml2js = require("xml2js");
+var dateUtils = require("date-utils");
+
+var config = require("../config/config");
+var utils = require("./Utils");
 
 var Download = {
 
   emitter: new events.EventEmitter(),
 
   init: function() {
-    this.downloadPath = path.join(config.rootDir, config.workDir, config.download.outputDir);
+    this.idFile = path.join(config.rootDir, config.workDir, config.download.seqIdFile);
+    this.outputDir = path.join(config.rootDir, config.workDir, config.download.outputDir);
     this.downloadInterval = config.download.interval;
-    if (!fs.existsSync(this.downloadPath)) {
-      fs.mkdirSync(this.downloadPath);
-    }
-    this.db = mongo.db("mongodb://localhost:27017/" + config.download.database, {native_parser:true});
-    this.lastId = 0;
+    this.setupPath();
     this.getLastSequenceId();
     // setup url
     this.url = config.download.url + "?limit=" + config.download.docNumber + "&key=" + config.download.apiKey;
@@ -28,21 +27,31 @@ var Download = {
     this.start();
   },
 
+  checkDate: function() {
+    if (Date.now() >= this.tomorrow) {
+      this.setupPath(true);
+    }
+  },
+
+  setupPath: function(force) {
+    if (!this.downloadPath || force) {
+      this.downloadPath  = utils.makeDateDirectory(this.outputDir);
+      this.tomorrow = Date.tomorrow().getTime();
+    }
+  },
+
   getLastSequenceId: function() {
-    this.db.collection("lastId").find().toArray(function (err, res) {
-      console.log(JSON.stringify(res));
-      if (res && res[0]) {
-        this.lastId = res[0].lastId;
-      }
-      console.log(this.lastId);
-    }.bind(this));
+    if (!fs.existsSync(this.idFile)) {
+      this.setLastSequenceId(0);
+    }
+    else {
+      var id = fs.readFileSync(this.idFile + "", "utf8");
+      this.lastId = parseInt(id);
+    }
   },
 
   setLastSequenceId: function(newId) {
-    this.db.collection("lastId").update({lastId: this.lastId},{lastId: newId}, function (err, result) {
-      if (err) throw err;
-      console.log('updated');
-    });
+    fs.writeFileSync(this.idFile, newId + "", "utf8");
     this.lastId = newId;
   },
 
@@ -57,6 +66,7 @@ var Download = {
   fireOne: function(interval) {
     if (this.pleaseStop) return;
     setTimeout(function() {
+        this.checkDate();
         this.download();
         console.log("call to download");
     }.bind(this), interval || this.downloadInterval);

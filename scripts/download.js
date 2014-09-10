@@ -8,11 +8,9 @@ var config = require("../config/config");
 var download = require("../modules/Download");
 var moreoverFilter = require("../modules/MoreoverStoryFilter");
 var docHelper = require("../modules/DocHelper");
-var hostKeeper = require("../modules/HostKeeper");
 
 download.init();
 docHelper.init();
-hostKeeper.init();
 
 download.on("saved-file", function(filePath) {
   console.log(filePath + " saved");
@@ -24,7 +22,6 @@ download.on("json", function(json) {
     json.response.articles.article.forEach(function(doc) {
       var filtered = moreoverFilter.filter(doc);
       if (filtered) {
-        hostKeeper.appendUrlHash(doc);
         docHelper.addDocument(filtered);
       }
     });
