@@ -6,6 +6,7 @@ var path = require("path");
 var http = require("http");
 var xml2js = require("xml2js");
 var dateUtils = require("date-utils");
+var zlib = require("zlib");
 
 var config = require("../config/config");
 var utils = require("./Utils");
@@ -76,20 +77,25 @@ var Download = {
     if (this.pleaseStop) return;
     var url = this.url + "&sequence_id=" + this.lastId;
     console.log(url);
-    var savePath = path.join(this.downloadPath, "" + process.pid + "." + this.lastId + ".xml");
-    var saveFile = fs.openSync(savePath, "w");
+    var savePath = path.join(this.downloadPath, "" + process.pid + "." + this.lastId + ".xml.gz");
+    var saveFileStream = fs.createWriteStream(savePath);
+    var gzipStream = zlib.createGzip();
+    gzipStream.pipe(saveFileStream);
+    saveFileStream.on('finish', function() {
+      this.emitter.emit("saved-file", savePath);
+    }.bind(this));
+
     var xmlBody = "";
     http.get( url, function (res) {
       console.log("Got response: " + res.statusCode);
       res.on("data", function(chunk) {
-        fs.writeSync(saveFile, chunk, 0, chunk.length);
+        gzipStream.write(chunk);
         xmlBody += chunk;
       });
 
       res.on("end", function() {
         console.log("ending");
-        fs.closeSync(saveFile);
-        this.emitter.emit("saved-file", savePath);
+        gzipStream.end();
 
         // parse xml string
         xml2js.parseString(xmlBody, {explicitArray: false}, function (err, result) {
