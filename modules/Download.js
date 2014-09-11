@@ -94,7 +94,6 @@ var Download = {
       });
 
       res.on("end", function() {
-        console.log("ending");
         gzipStream.end();
 
         // parse xml string
@@ -109,14 +108,14 @@ var Download = {
             }
 
             var arts = result.response.articles.article;
-            var firstStory;
+            var lastStory;
             if (Array.isArray(arts)) {
-              firstStory = arts[0];
+              lastStory = arts[arts.length-1];
             } else {
-              firstStory = arts;
+              lastStory = arts;
             }
-            console.log(firstStory.sequenceId);
-            this.setLastSequenceId(firstStory.sequenceId);
+            console.log(lastStory.sequenceId);
+            this.setLastSequenceId(lastStory.sequenceId);
             this.emitter.emit("json", result);
           }
         }.bind(this));
