@@ -4,10 +4,10 @@ var path = require("path");
 var Utils = {
 
   // Date Utils
-  makeDateDirectory: function(root) {
-    var dt = new Date();
+  makeDateDirectory: function(root, theDate) {
+    var dt = theDate || (new Date());
     var year = dt.getUTCFullYear();
-    var month = dt.getUTCMonth();
+    var month = dt.getUTCMonth() + 1;
     var day = dt.getUTCDate();
 
     var dirPath = path.join(root, "" + year);

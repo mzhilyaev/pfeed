@@ -3,7 +3,6 @@ var events = require("events");
 var fs = require("fs");
 var http = require("http");
 var path = require("path");
-var http = require("http");
 var xml2js = require("xml2js");
 var dateUtils = require("date-utils");
 var zlib = require("zlib");

@@ -4,8 +4,9 @@ module.exports = {
   download: {
     interval: 20000,
     seqIdFile: "seqId",
-    docNumber: 100,
+    docNumber: 500,
     outputDir: "download",
+    hostsOutputDir: "hostDocs",
     url: "http://metabase.moreover.com/api/v10/articles",
     apiKey: "",
     database: "moreover",
