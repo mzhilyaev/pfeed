@@ -27,6 +27,10 @@ var Download = {
     this.start();
   },
 
+  setSkipFlag: function(val) {
+    this.skip = val;
+  },
+
   checkDate: function() {
     if (Date.now() >= this.tomorrow) {
       this.setupPath(true);
@@ -73,7 +77,7 @@ var Download = {
   },
 
   download: function() {
-    if (this.pleaseStop) return;
+    if (this.pleaseStop || this.skip) return;
     var url = this.url + "&sequence_id=" + this.lastId;
     console.log(url);
     var savePath = path.join(this.downloadPath, "" + process.pid + "." + this.lastId + ".xml.gz");

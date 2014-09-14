@@ -17,14 +17,27 @@ download.on("saved-file", function(filePath) {
 });
 
 download.on("json", function(json) {
-  if (json.response.articles && json.response.articles instanceof Object) {
-    console.log(json.response.articles.article.length);
-    json.response.articles.article.forEach(function(doc) {
-      var filtered = moreoverFilter.filter(doc);
-      if (filtered) {
-        docHelper.addDocument(filtered);
-      }
-    });
+  if (json.response.articles
+      && json.response.articles instanceof Object
+      && json.response.articles.article instanceof Array) {
+        // filter out non-english and blogs docs
+        var filteredDocs = [];
+        json.response.articles.article.forEach(function(doc) {
+          var filtered = moreoverFilter.filter(doc);
+          if (filtered) {
+            filteredDocs.push(filtered);
+          }
+        });
+
+        if (filteredDocs.length > 0) {
+          // skip donwload if database is too busy
+          download.setSkipFlag(true);
+          docHelper.insertDocuments(filteredDocs, function() {
+            console.log("inserted " + filteredDocs.length + " docs");
+            // after all insertions are done, set skip falg to false
+            download.setSkipFlag(false);
+          });
+        }
   }
 });
 
