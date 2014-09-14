@@ -72,7 +72,9 @@ HostSaver = {
       var input = fs.createReadStream(path.join(hostDir, file));
       var lineStream = new LineStream();
       lineStream.on('data', function(line) {
-        cb(JSON.parse(line));
+        try {
+          cb(JSON.parse(line));
+        } catch (e) {}
       });
       lineStream.on('end', function() {
         finished++;
