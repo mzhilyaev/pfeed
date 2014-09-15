@@ -9,7 +9,6 @@ HostTracker.init = function(dbname, collection, cb) {
   var collectionName = collection || config.hosts.collection;
   Collection.call(this, dbName, collectionName, function() {
     this.collection.ensureIndex( { host: 1 }, { unique: true }, function(err,res) {
-      console.log("index exists");
       if (cb) cb();
     });
   }.bind(this));
