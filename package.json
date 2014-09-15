@@ -15,7 +15,8 @@
     "hash-string": "*",
     "tldjs": "*",
     "date-utils": "*",
-    "byline": "*"
+    "byline": "*",
+    "when": "*"
   },
   "devDependencies": {
      "tobi": "0.3.2",
