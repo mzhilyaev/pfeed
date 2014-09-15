@@ -50,8 +50,9 @@ DocHelper.insertDocuments = function(doc, cb) {
   else {
     docs = [doc];
   }
-  this.collection.insert(docs, function(err,res) {
-    if (err) throw err;
+  this.collection.insert(docs, {continueOnError: true}, function(err,res) {
+    // ingore duplicate keys error
+    // if (err) throw err;
     if (cb) cb();
   });
 };
