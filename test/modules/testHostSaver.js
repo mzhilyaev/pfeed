@@ -2,6 +2,7 @@
 var should = require('should');
 var helpers = require('../helpers');
 var hostSaver = require('../../modules/HostSaver');
+var docHelper = require('../../modules/DocHelper');
 
 before(function(done) {
   helpers.init(done);
@@ -20,26 +21,27 @@ describe('test host saver', function(){
     hostSaver.consume({
       harvested: Math.floor(Date.now() / 1000),
       host: "foo",
-      c: 1,
+      id: 1,
     });
     hostSaver.consume({
       harvested: Math.floor(Date.now() / 1000),
       host: "foo",
-      c: 2,
+      id: 2,
     });
     hostSaver.consume({
       harvested: Math.floor(Date.now() / 1000),
       host: "foo",
-      c: 3,
+      id: 3,
     });
     hostSaver.consume({
       harvested: Math.floor(Date.now() / 1000) - 86400,
       host: "foo",
-      c: 4
+      id: 4
     });
     hostSaver.consume({
       harvested: Math.floor(Date.now() / 1000) - 86400,
       host: "bar",
+      id: 21,
     });
     hostSaver.flush();
     // read hosts docs back in
@@ -71,6 +73,18 @@ describe('test host saver', function(){
         should.equal(docs.length, 1);
         hostDocReader.next(function(docs) {
           should.equal(docs, null);
+          done();
+        });
+      });
+    });
+  });
+
+  it('test docHelper drain', function(done) {
+    docHelper.clarCollection(function() {
+      docHelper.drainHostDocReader(hostSaver.getHostDocReader("foo"), function() {
+        // test that the collection size is 4
+        docHelper.getCollectionSize(function(size) {
+          should.equal(size, 4);
           done();
         });
       });

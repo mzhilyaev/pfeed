@@ -96,5 +96,24 @@ DocHelper.selectDocByUrlHash = function(host, hashes, crowdFactor, cb) {
   });
 };
 
+DocHelper.drainHostDocReader = function(hostDocReader, cb) {
+  var self = this;
+  function drainNext(docs) {
+    if (docs) {
+      self.insertDocuments(docs, function() {
+        setTimeout(function () {
+          hostDocReader.next(drainNext);
+        }, 0);
+      });
+    }
+    else {
+      // finished draining
+      cb();
+    }
+  };
+
+  hostDocReader.next(drainNext);
+};
+
 module.exports = DocHelper;
 
