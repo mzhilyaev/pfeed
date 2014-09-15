@@ -62,6 +62,7 @@ HostSaver = {
   },
 
   flush: function() {
+    console.log("flushing hosts docs to disk");
     Object.keys(this.collector).forEach(function(host) {
       this.flushHost(host);
     }.bind(this));

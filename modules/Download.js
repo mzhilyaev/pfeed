@@ -72,12 +72,16 @@ var Download = {
     setTimeout(function() {
         this.checkDate();
         this.download();
-        console.log("call to download");
+        this.fireOne();
     }.bind(this), interval || this.downloadInterval);
   },
 
   download: function() {
-    if (this.pleaseStop || this.skip) return;
+    if (this.pleaseStop || this.skip) {
+      console.log("Skipping download...");
+      return;
+    }
+    console.log("Starting download");
     var url = this.url + "&sequence_id=" + this.lastId;
     console.log(url);
     var savePath = path.join(this.downloadPath, "" + process.pid + "." + this.lastId + ".xml.gz");
@@ -128,7 +132,6 @@ var Download = {
       console.log("Got error: " + e.message);
     });
 
-    this.fireOne();
   },
 
   on: function(event, callback) {

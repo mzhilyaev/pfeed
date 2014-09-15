@@ -102,5 +102,16 @@ HostKeeper.getHostDocs = function(host, hashes, cb) {
   }
 };
 
+HostKeeper.isListed = function(host) {
+  return this.hosts[host] != null;
+};
+
+HostKeeper.downloadRefresh = function(cb) {
+  console.log("Refreshing for next download");
+  this.readHostTable(function() {
+    if (cb) cb();
+  }.bind(this));
+};
+
 module.exports = HostKeeper;
 
