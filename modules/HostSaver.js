@@ -6,6 +6,37 @@ var LineStream = require('byline').LineStream;
 var config = require("../config/config");
 var utils = require("./Utils");
 
+function HostDocReader(hostDir) {
+  this.hostDir = hostDir;
+  this.files = fs.readdirSync(hostDir);
+};
+
+HostDocReader.prototype = {
+  next: function(cb) {
+    if (this.files.length == 0) {
+      // execute callback when function exists
+      setTimeout(function() {cb(null);}, 0);
+      return;
+    }
+    // otherwise pick the next file and process it
+    var file = this.files.pop();
+    var docArray = [];
+    var input = fs.createReadStream(path.join(this.hostDir, file));
+    var lineStream = new LineStream();
+    lineStream.on('data', function(line) {
+      try {
+        var doc = JSON.parse(line);
+        docArray.push(doc);
+      } catch (e) {}
+    });
+    lineStream.on('end', function() {
+      // execute callback when function exists
+      setTimeout(function() {cb(docArray);}, 0);
+    });
+    input.pipe(lineStream);
+  },
+};
+
 HostSaver = {
   init: function() {
     utils.ensureDirectory(path.join(config.rootDir, config.workDir));
@@ -86,6 +117,11 @@ HostSaver = {
     });
   },
 
+  getHostDocReader: function(host) {
+    var hostDir = path.join(this.outputDir, host);
+    if (!fs.existsSync(hostDir)) return null;
+    else                         return new HostDocReader(hostDir);
+  },
 };
 
 module.exports = HostSaver;

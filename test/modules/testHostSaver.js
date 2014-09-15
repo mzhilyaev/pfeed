@@ -63,5 +63,19 @@ describe('test host saver', function(){
     });
   });
 
+  it('host reader', function(done) {
+    var hostDocReader = hostSaver.getHostDocReader("foo");
+    hostDocReader.next(function(docs) {
+      should.equal(docs.length, 3);
+      hostDocReader.next(function(docs) {
+        should.equal(docs.length, 1);
+        hostDocReader.next(function(docs) {
+          should.equal(docs, null);
+          done();
+        });
+      });
+    });
+  });
+
 });
 
