@@ -45,6 +45,10 @@ Collection.prototype = {
   getOrderedBulk: function() {
     return this.collection.initializeOrderedBulkOp();
   },
+
+  closeDb: function(cb) {
+    this.db.close()
+  },
 };
 
 module.exports = Collection;

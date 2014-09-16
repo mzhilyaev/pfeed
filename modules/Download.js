@@ -6,6 +6,7 @@ var path = require("path");
 var xml2js = require("xml2js");
 var dateUtils = require("date-utils");
 var zlib = require("zlib");
+var LineStream = require('byline').LineStream;
 
 var config = require("../config/config");
 var utils = require("./Utils");
@@ -15,8 +16,18 @@ var Download = {
   emitter: new events.EventEmitter(),
 
   init: function() {
-    this.idFile = path.join(config.rootDir, config.workDir, config.download.seqIdFile);
-    this.outputDir = path.join(config.rootDir, config.workDir, config.download.outputDir);
+    this.workDir = path.join(config.rootDir, config.workDir);
+    utils.ensureDirectory(this.workDir);
+    this.idFile = path.join(this.workDir, config.download.seqIdFile);
+
+    this.outputDir = path.join(this.workDir, config.download.outputDir);
+    this.runDir = path.join(this.workDir, config.download.runDir);
+
+    utils.ensureDirectory(this.outputDir);
+    utils.ensureDirectory(this.runDir);
+
+    this.commandFile = path.join(this.runDir, config.download.commandFile);
+
     this.downloadInterval = config.download.interval;
     this.setupPath();
     this.getLastSequenceId();
@@ -24,11 +35,26 @@ var Download = {
     this.url = config.download.url + "?limit=" + config.download.docNumber + "&key=" + config.download.apiKey;
     console.log(this.lastId);
     console.log(this.downloadPath);
-    this.start();
   },
 
   setSkipFlag: function(val) {
     this.skip = val;
+  },
+
+  readCommands: function(cb) {
+    if (fs.existsSync(this.commandFile)) {
+      var input = fs.createReadStream(this.commandFile);
+      var lineStream = new LineStream();
+      lineStream.on('data', function(line) {
+        this.emitter.emit("command", line);
+      }.bind(this));
+      lineStream.on('end', function() {
+        fs.unlinkSync(this.commandFile);
+        if (cb) cb();
+      }.bind(this));
+      input.pipe(lineStream);
+    }
+    else if(cb) cb();
   },
 
   checkDate: function() {
@@ -64,15 +90,22 @@ var Download = {
   },
 
   stop: function() {
+    console.log("Stopping Downloads");
     this.pleaseStop = true;
+  },
+
+  isStopped: function() {
+    return this.pleaseStop;
   },
 
   fireOne: function(interval) {
     if (this.pleaseStop) return;
     setTimeout(function() {
-        this.checkDate();
-        this.download();
-        this.fireOne();
+        this.readCommands(function() {
+          this.checkDate();
+          this.download();
+          this.fireOne();
+        }.bind(this));
     }.bind(this), interval || this.downloadInterval);
   },
 

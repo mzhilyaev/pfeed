@@ -7,6 +7,8 @@ module.exports = {
     docNumber: 500,
     outputDir: "download",
     hostsOutputDir: "hostDocs",
+    runDir: "run",
+    commandFile: "command",
     url: "http://metabase.moreover.com/api/v10/articles",
     apiKey: "",
     database: "moreover",
@@ -14,10 +16,9 @@ module.exports = {
   docs: {
     database: "moreover",
     collection: "docs",
-    uniqIndex: "id",
   },
   hosts: {
-    database: "hosts",
+    database: "moreover",
     collection: "hosts",
   },
 }
