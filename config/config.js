@@ -1,6 +1,10 @@
 module.exports = {
   rootDir: "/Users/maximzhilyaev/pfeed",
   workDir: "work",
+  mongo: {
+    host: "localhost",
+    port: 27017
+  },
   download: {
     interval: 20000,
     seqIdFile: "seqId",

@@ -1,4 +1,5 @@
 var mongo = require('mongoskin');
+var config = require('../config/config.js');
 
 function Collection(db, colName, cb) {
   if (db instanceof Object) {
@@ -7,7 +8,7 @@ function Collection(db, colName, cb) {
   }
   else {
     // assume db is dbname
-    this.db = mongo.db("mongodb://localhost:27017/" + db, {native_parser:true, safe:true});
+    this.db = mongo.db("mongodb://" + config.mongo.host + ":" + config.mongo.port + "/" + db, {native_parser:true, safe:true});
   }
   this.db.collection(colName, function(err, col) {
     if (err) throw err;
