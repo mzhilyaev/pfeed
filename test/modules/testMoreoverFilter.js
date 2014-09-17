@@ -11,7 +11,7 @@ describe('test host saver', function(){
     xml2js.parseString(xmlBody, {explicitArray: false}, function (err, result) {
       var doc = result.articles.article[0];
       var filtered = moreoverFilter.filter(doc);
-      //console.log(JSON.stringify(filtered, null, 1));
+      console.log(JSON.stringify(filtered, null, 1));
       done();
     });
   });

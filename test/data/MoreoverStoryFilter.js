@@ -71,7 +71,7 @@ exports.moreoverXmlExample = " \
       </content> \
       <tags> \
         <tag>t1</tag> \
-        <tag>t2</tag> \
+        <tag>T2</tag> \
       </tags> \
 			<publishedDate>2014-09-12T12:37:00Z</publishedDate> \
 			<harvestDate>2014-09-12T12:38:21Z</harvestDate> \

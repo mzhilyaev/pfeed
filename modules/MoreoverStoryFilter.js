@@ -1,12 +1,19 @@
 var hasher = require('hash-string');
 var crypto = require('crypto');
 var tld = require('tldjs');
+var stem = require('stem-porter')
+var stopWords = require('./StopWords').StopWords;
+
+const kNotWordPattern = /[^a-zA-Z0-9 ]+/g;
 
 var MoreoverStoryFilter = {
 
   getTags: function(doc, obj) {
-    if (doc.tags && doc.tags instanceof Object) {
-      obj.tags = doc.tags.tag;
+    if (doc.tags && doc.tags instanceof Object && doc.tags.tag instanceof Array) {
+      obj.tags = [];
+      doc.tags.tag.forEach(function(tag) {
+        obj.tags.push(tag.toLowerCase());
+      });
     }
   },
 
@@ -20,8 +27,8 @@ var MoreoverStoryFilter = {
     if (doc.topics && doc.topics instanceof Object && doc.topics.topic instanceof Array) {
       var topics = {};
       doc.topics.topic.forEach(function(item) {
-        topics[item.group] = true;
-        var name = item.name.replace(/ news$/,"");
+        topics[item.group.toLowerCase()] = true;
+        var name = item.name.toLowerCase().replace(/ news$/,"");
         topics[name] = true;
       });
       var keys = Object.keys(topics);
@@ -36,17 +43,18 @@ var MoreoverStoryFilter = {
       if (doc.companies.company instanceof Array) {
         var comps = {};
         doc.companies.company.forEach(function(comp) {
-          comps[comp.name] = true;
+          comps[comp.name.toLowerCase()] = true;
         });
         obj.companies = Object.keys(comps);
       } else if (doc.companies.company instanceof Object) {
-        obj.companies = [doc.companies.company.name];
+        obj.companies = [doc.companies.company.name.toLowerCase()];
       }
     }
   },
 
   getSemantic: function(doc, obj) {
     var props = {};
+    var names = {};
     function objectWalker(object, parentKey) {
       if (object instanceof Array) {
         object.forEach(function(child) {
@@ -54,6 +62,14 @@ var MoreoverStoryFilter = {
         });
       }
       else if (parentKey == "property" && object.name == "value") {
+        // extract named entities from text
+        //props[object.value.toLowerCase()] = true;
+        var rawWords = object.value.replace(kNotWordPattern, " ").split(/\s+/);
+        rawWords.forEach(function(word) {
+          if (word.match(/^[A-Z]/) != null) {
+            names[word] = true;
+          }
+        });
         props[object.value] = true;
       }
       else if (object instanceof Object) {
@@ -67,6 +83,37 @@ var MoreoverStoryFilter = {
     if (keys.length > 0) {
       obj.semantics = keys;
     }
+    return names;
+  },
+
+  textToWords: function(text, wordArray, stemArray, names) {
+    if (!text) return;
+    var rawWords = text.replace(kNotWordPattern, " ").split(/\s+/);
+    rawWords.forEach(function(word) {
+      if (word.length > 1 && word.match(/^[0-9]+$/) == null) {
+        // test if we need to lowcase
+        if (word.match(/^[A-Z][A-Z0-9]+$/)) {
+          // all caps
+          wordArray.push(word);
+          stemArray.push(word);
+        } else if (word.match(/^[A-Z]/) && names[word]) {
+          // first letter capitalized and in the names dictionary
+          wordArray.push(word);
+          stemArray.push(word);
+        } else if (!stopWords[word.toLowerCase()]){
+          // lowcase
+          wordArray.push(word.toLowerCase());
+          stemArray.push(stem(word.toLowerCase()));
+        }
+      }
+    });
+  },
+
+  getWordArray: function(doc, obj, names) {
+    obj.words = [];
+    obj.stems = [];
+    this.textToWords(doc.title, obj.words, obj.stems, names);
+    this.textToWords(doc.content, obj.words, obj.stems, names);
   },
 
   computeUrlHash: function(url) {
@@ -75,7 +122,6 @@ var MoreoverStoryFilter = {
   },
 
   filter: function(doc) {
-    if (doc.language != "English") return null;
     var obj = {
       id: doc.id,
       sequenceId: doc.sequenceId,
@@ -93,7 +139,8 @@ var MoreoverStoryFilter = {
     this.getImage(doc, obj);
     this.getTopics(doc, obj);
     this.getCompanies(doc, obj);
-    this.getSemantic(doc, obj);
+    var names = this.getSemantic(doc, obj);
+    this.getWordArray(doc, obj, names);
     return obj;
   },
 };
