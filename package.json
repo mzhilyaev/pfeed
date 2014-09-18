@@ -16,7 +16,9 @@
     "tldjs": "*",
     "date-utils": "*",
     "byline": "*",
-    "when": "*"
+    "when": "*",
+    "xml2js": "*",
+    "stem-porter": "*"
   },
   "devDependencies": {
      "tobi": "0.3.2",
