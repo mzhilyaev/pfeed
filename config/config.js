@@ -1,4 +1,4 @@
-module.exports = {
+var config = {
   rootDir: "/Users/maximzhilyaev/pfeed",
   workDir: "work",
   mongo: {
@@ -17,6 +17,11 @@ module.exports = {
     apiKey: "",
     database: "moreover",
   },
+  useSubdomains: {
+    "wordpress.com": true,
+    "livejournal.com": true,
+    "blogspot.com": true,
+  },
   docs: {
     database: "moreover",
     collection: "docs",
@@ -26,3 +31,17 @@ module.exports = {
     collection: "hosts",
   },
 }
+
+function initConfig() {
+  config.subRevHosts = [];
+  config.subRevHostsMap = {};
+  Object.keys(config.useSubdomains).forEach(function(domain) {
+    var revHost = domain.split('').reverse().join('') + ".";
+    config.subRevHosts.push(revHost);
+    config.subRevHostsMap[revHost] = domain;
+  });
+};
+
+initConfig();
+
+module.exports = config;

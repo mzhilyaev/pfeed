@@ -24,6 +24,7 @@ download.on("saved-file", function(filePath) {
 });
 
 download.on("json", function(json) {
+  console.log("Processing Articles");
   if (json.response.articles
       && json.response.articles instanceof Object
       && json.response.articles.article instanceof Array) {

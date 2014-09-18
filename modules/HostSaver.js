@@ -69,9 +69,22 @@ HostSaver = {
     this.collector = {};
   },
 
+  getHostDir: function(host) {
+    var revHost = host.split('').reverse().join('');
+    for (var i in config.subRevHosts) {
+      if (revHost.indexOf(config.subRevHosts[i]) == 0) {
+        var domainDir = path.join(this.outputDir, config.subRevHostsMap[config.subRevHosts[i]]);
+        utils.ensureDirectory(domainDir);
+        return path.join(domainDir, host);
+      }
+    }
+    // domain not found
+    return path.join(this.outputDir, host);
+  },
+
   flushHost: function(host) {
     // make surte host directory exists
-    var hostDir = path.join(this.outputDir, host);
+    var hostDir = this.getHostDir(host);
     utils.ensureDirectory(hostDir);
     var docs = this.collector[host];
     var fileHolder = {};
@@ -91,7 +104,7 @@ HostSaver = {
   },
 
   readHostDocs: function(host, cb) {
-    var hostDir = path.join(this.outputDir, host);
+    var hostDir = this.getHostDir(host);
     if (!fs.existsSync(hostDir)) {
       cb(null);
       return;
@@ -119,7 +132,7 @@ HostSaver = {
   },
 
   getHostDocReader: function(host) {
-    var hostDir = path.join(this.outputDir, host);
+    var hostDir = this.getHostDir(host);
     if (!fs.existsSync(hostDir)) return null;
     else                         return new HostDocReader(hostDir);
   },

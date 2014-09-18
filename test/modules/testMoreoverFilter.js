@@ -11,10 +11,16 @@ describe('test host saver', function(){
     xml2js.parseString(xmlBody, {explicitArray: false}, function (err, result) {
       var doc = result.articles.article[0];
       var filtered = moreoverFilter.filter(doc);
-      console.log(JSON.stringify(filtered, null, 1));
+      //console.log(JSON.stringify(filtered, null, 1));
       done();
     });
   });
 
+  it('parse subdomains', function() {
+    var filtered = moreoverFilter.filter({originalUrl: "http://foo.wordpress.com/xyz", source: {}});
+    should.equal(filtered.host, "foo.wordpress.com");
+    var filtered = moreoverFilter.filter({originalUrl: "http://foo.bar.com/xyz", source: {}});
+    should.equal(filtered.host, "bar.com");
+  });
 });
 

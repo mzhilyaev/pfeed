@@ -1,5 +1,6 @@
 'use strict';
 var should = require('should');
+var when = require("when");
 var helpers = require('../helpers');
 var hostSaver = require('../../modules/HostSaver');
 var docHelper = require('../../modules/DocHelper');
@@ -91,5 +92,37 @@ describe('test host saver', function(){
     });
   });
 
-});
+  it ('subdomains', function(done) {
+    hostSaver.consume({
+      host: "foo.blogspot.com",
+      harvested: Math.floor(Date.now() / 1000),
+      id: 31,
+    });
+    hostSaver.consume({
+      host: "foo.wordpress.com",
+      harvested: Math.floor(Date.now() / 1000),
+      id: 32,
+    });
+    hostSaver.consume({
+      host: "foo.bar.livejournal.com",
+      harvested: Math.floor(Date.now() / 1000),
+      id: 33,
+    });
+    hostSaver.flush();
+    when.promise(function (resolve) {
+      var hostDocReader = hostSaver.getHostDocReader("foo.wordpress.com");
+      hostDocReader.next(function(docs) {
+        should.equal(docs[0].host, "foo.wordpress.com");
+        resolve();
+      });
+    }).then(function() {
+      hostSaver.readHostDocs("foo.wordpress.com", function (doc) {
+        if (doc == null) done();
+        else {
+          should.equal(docs[0].host, "foo.wordpress.com");
+        }
+      });
+    });
+  });
 
+});

@@ -3,6 +3,7 @@ var crypto = require('crypto');
 var tld = require('tldjs');
 var stem = require('stem-porter')
 var stopWords = require('./StopWords').StopWords;
+var config = require('../config/config');
 
 const kNotWordPattern = /[^a-zA-Z0-9 ]+/g;
 
@@ -121,6 +122,16 @@ var MoreoverStoryFilter = {
     return Math.abs(hasher.hashCode(md5));
   },
 
+  figureHost: function(host) {
+    var domain = tld.getDomain(host);
+    if (config.useSubdomains[domain]) {
+      return tld.getSubdomain(host) + "." + domain;
+    }
+    else {
+      return domain;
+    }
+  },
+
   filter: function(doc) {
     var obj = {
       id: doc.id,
@@ -133,8 +144,9 @@ var MoreoverStoryFilter = {
       urlHash: this.computeUrlHash(doc.originalUrl),
       duplicateGroupId: doc.duplicateGroupId,
       source: doc.source.homeUrl,
-      host: tld.getDomain(require("url").parse(doc.source.homeUrl).host),
+      host: this.figureHost(require("url").parse(doc.originalUrl).host),
     };
+
     this.getTags(doc, obj);
     this.getImage(doc, obj);
     this.getTopics(doc, obj);
