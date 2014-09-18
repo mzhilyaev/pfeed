@@ -2,6 +2,7 @@ var fs = require("fs");
 var path = require("path");
 var dateUtils = require("date-utils");
 var LineStream = require('byline').LineStream;
+var zlib = require("zlib");
 
 var config = require("../config/config");
 var utils = require("./Utils");
@@ -67,14 +68,6 @@ HostSaver = {
     }
   },
 
-  flush: function() {
-    console.log("flushing hosts docs to disk");
-    Object.keys(this.collector).forEach(function(host) {
-      this.flushHost(host);
-    }.bind(this));
-    this.collector = {};
-  },
-
   getHostDir: function(host) {
     var revHost = host.split('').reverse().join('');
     for (var i in config.subRevHosts) {
@@ -88,25 +81,28 @@ HostSaver = {
     return path.join(this.outputDir, host);
   },
 
-  flushHost: function(host) {
+  flush: function(date) {
+    console.log("flushing hosts docs to disk");
+    Object.keys(this.collector).forEach(function(host) {
+      this.flushHost(host, date);
+    }.bind(this));
+    this.collector = {};
+  },
+
+  flushHost: function(host, date) {
     // make surte host directory exists
     var hostDir = this.getHostDir(host);
     utils.ensureDirectory(hostDir);
     var docs = this.collector[host];
-    var fileHolder = {};
+    var harvestDate = date || (new Date(Date.now()));
+    var file = path.join(hostDir, harvestDate.toFormat("YYYY.MM.DD"));
+    var fileFd = fs.openSync(file, "a+");
     docs.forEach(function(doc) {
-      var harvestDate = new Date(doc.harvested*1000);
-      var file = path.join(hostDir, harvestDate.toFormat("YYYY.MM.DD"));
-      if (!fileHolder[file]) {
-        fileHolder[file] = fs.openSync(file, "a+");
-      }
-      fs.writeSync(fileHolder[file], JSON.stringify(doc));
-      fs.writeSync(fileHolder[file], "\n");
+      fs.writeSync(fileFd, JSON.stringify(doc));
+      fs.writeSync(fileFd, "\n");
     }.bind(this));
 
-    Object.keys(fileHolder).forEach(function(file) {
-      fs.closeSync(fileHolder[file]);
-    });
+    fs.closeSync(fileFd);
   },
 
   readHostDocs: function(host, cb) {

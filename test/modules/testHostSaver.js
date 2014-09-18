@@ -20,6 +20,12 @@ describe('test host saver', function(){
 
   it('test saving', function(done) {
     hostSaver.consume({
+      harvested: Math.floor(Date.now() / 1000) - 86400,
+      host: "foo",
+      id: 4
+    });
+    hostSaver.flush(new Date(Date.now() - 86400000));
+    hostSaver.consume({
       harvested: Math.floor(Date.now() / 1000),
       host: "foo",
       id: 1,
@@ -34,11 +40,7 @@ describe('test host saver', function(){
       host: "foo",
       id: 3,
     });
-    hostSaver.consume({
-      harvested: Math.floor(Date.now() / 1000) - 86400,
-      host: "foo",
-      id: 4
-    });
+    hostSaver.flush();
     hostSaver.consume({
       harvested: Math.floor(Date.now() / 1000) - 86400,
       host: "bar",
