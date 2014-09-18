@@ -153,7 +153,7 @@ var MoreoverStoryFilter = {
     this.getTopics(doc, obj);
     this.getCompanies(doc, obj);
     var names = this.getSemantic(doc, obj);
-    this.getWordArray(doc, obj, names);
+    //this.getWordArray(doc, obj, names);
     return obj;
   },
 };
