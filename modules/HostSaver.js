@@ -6,9 +6,15 @@ var LineStream = require('byline').LineStream;
 var config = require("../config/config");
 var utils = require("./Utils");
 
-function HostDocReader(hostDir) {
+function HostDocReader(hostDir, startFile) {
   this.hostDir = hostDir;
-  this.files = fs.readdirSync(hostDir);
+  // sort files in ascending order
+  this.files = fs.readdirSync(hostDir).sort();
+  if (startFile) {
+    while (this.files.length && this.files[0] < startFile) {
+      this.files.shift();
+    }
+  }
 };
 
 HostDocReader.prototype = {
@@ -19,7 +25,7 @@ HostDocReader.prototype = {
       return;
     }
     // otherwise pick the next file and process it
-    var file = this.files.pop();
+    var file = this.files.shift();
     var docArray = [];
     var input = fs.createReadStream(path.join(this.hostDir, file));
     var lineStream = new LineStream();
@@ -31,7 +37,7 @@ HostDocReader.prototype = {
     });
     lineStream.on('end', function() {
       // execute callback when function exists
-      setTimeout(function() {cb(docArray);}, 0);
+      setTimeout(function() {cb(docArray, file);}, 0);
     });
     input.pipe(lineStream);
   },
