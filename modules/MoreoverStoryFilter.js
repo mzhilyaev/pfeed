@@ -117,8 +117,8 @@ var MoreoverStoryFilter = {
     this.textToWords(doc.content, obj.words, obj.stems, names);
   },
 
-  computeUrlHash: function(url) {
-    var md5 = crypto.createHash('md5').update(url).digest("hex");
+  computeStringHash: function(str) {
+    var md5 = crypto.createHash('md5').update(str || "").digest("hex");
     return Math.abs(hasher.hashCode(md5));
   },
 
@@ -137,11 +137,12 @@ var MoreoverStoryFilter = {
       id: doc.id,
       sequenceId: doc.sequenceId,
       title: doc.title,
+      titleHash: this.computeStringHash(doc.title),
       content: doc.content,
       published: Math.floor(Date.parse(doc.publishedDate) / 1000),
       harvested: Math.floor(Date.parse(doc.harvestDate) / 1000),
       url: doc.originalUrl,
-      urlHash: this.computeUrlHash(doc.originalUrl),
+      urlHash: this.computeStringHash(doc.originalUrl),
       duplicateGroupId: doc.duplicateGroupId,
       source: doc.source.homeUrl,
       host: this.figureHost(require("url").parse(doc.originalUrl).host),
