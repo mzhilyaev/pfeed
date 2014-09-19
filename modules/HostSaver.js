@@ -28,7 +28,6 @@ HostDocReader.prototype = {
     // otherwise pick the next file and process it
     var file = this.files.shift();
     var docArray = [];
-    var input = fs.createReadStream(path.join(this.hostDir, file));
     var lineStream = new LineStream();
     lineStream.on('data', function(line) {
       try {
@@ -40,7 +39,15 @@ HostDocReader.prototype = {
       // execute callback when function exists
       setTimeout(function() {cb(docArray, file);}, 0);
     });
-    input.pipe(lineStream);
+    var fileStream = fs.createReadStream(path.join(this.hostDir, file));
+    // @TODO - rew-write with endsWith
+    if (file.match(/.gz$/)) {
+      var gunzipStream = zlib.createGunzip();
+      fileStream.pipe(gunzipStream).pipe(lineStream);
+    }
+    else {
+      fileStream.pipe(lineStream);
+    }
   },
 };
 
@@ -116,7 +123,6 @@ HostSaver = {
     var files = fs.readdirSync(hostDir);
     var finished = 0;
     files.forEach(function(file) {
-      var input = fs.createReadStream(path.join(hostDir, file));
       var lineStream = new LineStream();
       lineStream.on('data', function(line) {
         try {
@@ -129,7 +135,15 @@ HostSaver = {
           cb(null);
         }
       });
-      input.pipe(lineStream);
+      var fileStream = fs.createReadStream(path.join(hostDir, file));
+      // @TODO - rew-write with endsWith
+      if (file.match(/.gz$/)) {
+        var gunzipStream = zlib.createGunzip();
+        fileStream.pipe(gunzipStream).pipe(lineStream);
+      }
+      else {
+        fileStream.pipe(lineStream);
+      }
     });
   },
 
