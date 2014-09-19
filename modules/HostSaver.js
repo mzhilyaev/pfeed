@@ -7,12 +7,17 @@ var zlib = require("zlib");
 var config = require("../config/config");
 var utils = require("./Utils");
 
+// descending order compare function
+function descOrderComp(a, b) {
+  return (a<b) ? 1 : ((b==a) ? 0 : -1);
+}
+
 function HostDocReader(hostDir, startFile) {
   this.hostDir = hostDir;
-  // sort files in ascending order
-  this.files = fs.readdirSync(hostDir).sort();
+  // sort files in descending order - youngest file first
+  this.files = fs.readdirSync(hostDir).sort(descOrderComp);
   if (startFile) {
-    while (this.files.length && this.files[0] < startFile) {
+    while (this.files.length && this.files[0] <= startFile) {
       this.files.shift();
     }
   }
@@ -119,8 +124,8 @@ HostSaver = {
       return;
     }
 
-    // readin data files
-    var files = fs.readdirSync(hostDir);
+    // readin data files in descending order
+    var files = fs.readdirSync(hostDir).sort(descOrderComp);
     var finished = 0;
     files.forEach(function(file) {
       var lineStream = new LineStream();
