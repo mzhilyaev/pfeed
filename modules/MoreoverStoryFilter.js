@@ -30,6 +30,7 @@ var MoreoverStoryFilter = {
       doc.topics.topic.forEach(function(item) {
         topics[item.group.toLowerCase()] = true;
         var name = item.name.toLowerCase().replace(/ news$/,"");
+        name = name.replace(/ latest$/,"");
         topics[name] = true;
       });
       var keys = Object.keys(topics);
