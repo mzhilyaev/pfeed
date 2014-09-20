@@ -16,6 +16,7 @@ var config = {
     url: "http://metabase.moreover.com/api/v10/articles",
     apiKey: "",
     database: "moreover",
+    drainInterval: 60000,
   },
   useSubdomains: {
     "wordpress.com": true,
