@@ -1,5 +1,6 @@
 #!/usr/local/bin/node
 
+require("../modules/ProcHelper");
 var mongo = require("mongoskin");
 var http = require("http");
 var xml2js = require("xml2js");
@@ -18,10 +19,6 @@ hostSaver.init();
 hostKeeper.init();
 
 download.start();
-
-download.on("saved-file", function(filePath) {
-  console.log(filePath + " saved");
-});
 
 download.on("json", function(json) {
   console.log("Processing Articles");
@@ -59,17 +56,10 @@ download.on("json", function(json) {
   }
 });
 
-download.on("command", function(command) {
-  console.log("Command " + command);
-  if (command == "stop") {
-    stop();
-  }
-});
-
 function stop() {
   download.stop();
-  docHelper.closeDb();
   hostKeeper.closeDb();
+  docHelper.closeDb();
 };
 
 function doBookkeeping() {
@@ -81,4 +71,5 @@ function doBookkeeping() {
   });
 };
 
+process.on('SIGQUIT', stop);
 

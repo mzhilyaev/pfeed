@@ -41,6 +41,7 @@ var Download = {
     this.skip = val;
   },
 
+  // @TODO - this may not be a useful function, remove later
   readCommands: function(cb) {
     if (fs.existsSync(this.commandFile)) {
       var input = fs.createReadStream(this.commandFile);
@@ -92,6 +93,7 @@ var Download = {
   stop: function() {
     console.log("Stopping Downloads");
     this.pleaseStop = true;
+    clearTimeout(this.nextTimeout);
   },
 
   isStopped: function() {
@@ -100,12 +102,11 @@ var Download = {
 
   fireOne: function(interval) {
     if (this.pleaseStop) return;
-    setTimeout(function() {
-        this.readCommands(function() {
-          this.checkDate();
-          this.download();
-          this.fireOne();
-        }.bind(this));
+    this.nextTimeout = setTimeout(function() {
+      this.readCommands();
+      this.checkDate();
+      this.download();
+      this.fireOne();
     }.bind(this), interval || this.downloadInterval);
   },
 
