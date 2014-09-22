@@ -135,8 +135,8 @@ var MoreoverStoryFilter = {
 
   filter: function(doc) {
     var obj = {
-      id: doc.id,
-      sequenceId: doc.sequenceId,
+      id: parseInt(doc.id),
+      sequenceId: parseInt(doc.sequenceId),
       title: doc.title,
       titleHash: this.computeStringHash(doc.title),
       content: doc.content,
