@@ -85,7 +85,8 @@ DocHelper.selectDocByUrlHash = function(host, hashes, crowdFactor, cb) {
   },
   {
     "_id": 0,
-  });
+  })
+  .sort({id: 1});
   var res = {
     host: host,
     crowdFactor: crowdFactor,
