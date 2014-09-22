@@ -1,4 +1,5 @@
 var mongo = require('mongoskin');
+var when = require('when');
 var config = require("../config/config");
 var Collection = require("./Collection");
 
@@ -7,11 +8,17 @@ var DocHelper = Object.create(Collection.prototype);
 DocHelper.init = function(dbname, collection, cb) {
   var dbName = dbname || config.docs.database;
   var collectionName = collection || config.docs.collection;
+  var self = this;
+  // @TODO - remove index creation into an admin script
   Collection.call(this, dbName, collectionName, function() {
-    this.collection.ensureIndex( { id: 1 }, { unique: true }, function(err,res) {
-      if (cb) cb();
+    self.collection.ensureIndex({id: 1}, {unique: true}, function(err,res) {
+      self.collection.ensureIndex({host: 1, sequenceId: -1}, function(err,res) {
+        self.collection.ensureIndex({host: 1, harvested: -1}, function(err,res) {
+          if (cb) cb();
+        });
+      });
     });
-  }.bind(this));
+  });
 };
 
 DocHelper.getRecentDocsForSite = function(callback, site, seconds) {
