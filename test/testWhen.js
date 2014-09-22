@@ -1,6 +1,7 @@
 'use strict';
 
 var when = require("when");
+var sequence = require("when/sequence");
 var should = require('should');
 
 describe('test when api', function(){
@@ -12,6 +13,30 @@ describe('test when api', function(){
     });
     p1.then(function(val) {
       should.equal(val, 10);
+      done();
+    });
+  });
+
+  it ('test sequence', function(done) {
+    sequence([
+      function() {
+        return when.promise(function(resolve, reject, notify) {
+          resolve(10);
+        });
+      },
+      function() {
+        return when.promise(function(resolve, reject, notify) {
+          resolve(20);
+        });
+      },
+      function() {
+        return when.promise(function(resolve, reject, notify) {
+          resolve(30);
+        });
+      },
+     ]
+    ).then(function(res) {
+      should(res).eql([10, 20, 30]);
       done();
     });
   });
