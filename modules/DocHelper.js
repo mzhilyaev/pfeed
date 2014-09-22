@@ -21,18 +21,21 @@ DocHelper.init = function(dbname, collection, cb) {
   });
 };
 
-DocHelper.getRecentDocsForSite = function(callback, site, seconds) {
-  var secondsBack = seconds || 0;
-  var sites;
-  if (site instanceof Array) {
-    sites = site;
-  } else {
-    sites = [site];
+DocHelper.getRecentDocsForSite = function(callback, searchEntry) {
+  var findEntry = {
+    host: searchEntry.host,
+  };
+  if (searchEntry.sequenceId) {
+    findEntry.sequenceId  = {$gt: searchEntry.sequenceId};
   }
-  return this.collection.find({
-    host: {$in: sites},
-    published: {$gt: (secondsBack<=0) ? 0 : Math.floor(Date.now()/1000) - secondsBack}
-  }).toArray(function(err, results) {
+  if (searchEntry.secondsAgo) {
+    findEntry.harvested  = {$gt: Math.floor(Date.now()/1000) - searchEntry.secondsAgo};
+  }
+  var limit = searchEntry.limit || 100;
+  return this.collection.find(findEntry)
+  .sort({sequenceId: -1})
+  .limit(limit)
+  .toArray(function(err, results) {
     if (err) throw err;
     callback(results);
   });

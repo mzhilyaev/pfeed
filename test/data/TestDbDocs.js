@@ -2,8 +2,8 @@
 
 exports.testDocsGroup1 = [
   {
-   "id": "1",
-   "sequenceId": "1",
+   "id": 1,
+   "sequenceId": 1,
    "title": "testDoc1",
    "content": "testDoc1",
    "published": 0,
@@ -15,8 +15,8 @@ exports.testDocsGroup1 = [
    "host": "foo.com",
   },
   {
-   "id": "2",
-   "sequenceId": "2",
+   "id": 2,
+   "sequenceId": 2,
    "title": "testDoc2",
    "content": "testDoc2",
    "published": 1,
@@ -28,8 +28,8 @@ exports.testDocsGroup1 = [
    "host": "foo.com",
   },
   {
-   "id": "3",
-   "sequenceId": "3",
+   "id": 3,
+   "sequenceId": 3,
    "title": "testDoc3",
    "content": "testDoc3",
    "published": 0,

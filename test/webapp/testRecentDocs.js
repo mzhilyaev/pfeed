@@ -57,24 +57,27 @@ describe('route /hosts/recentdocs', function(){
   it('host list post', function(done){
     request(app)
     .post("/hosts/recentdocs")
-    .send({hosts: ["foo.com", "bar.com"]})
+    .send({host: "foo.com"})
     .expect(200)
     .end(function (err, res) {
        should.not.exist(err);
        var docs = JSON.parse(res.text);
-       should.equal(docs.length, 3);
+       should.equal(docs.length, 2);
+       should.equal(docs[0].sequenceId, 2);
+       should.equal(docs[1].sequenceId, 1);
        done();
     });
   });
 
-  it ('get seconds ago', function(done) {
+  it ('get seq id', function(done) {
     request(app)
-    .get("/hosts/recentdocs/foo.com/3600")
+    .get("/hosts/recentdocs/foo.com/1")
     .expect(200)
     .end(function (err, res) {
        should.not.exist(err);
        var docs = JSON.parse(res.text);
        should.equal(docs.length, 1);
+       should.equal(docs[0].sequenceId, 2);
        done();
     });
   });
@@ -82,7 +85,7 @@ describe('route /hosts/recentdocs', function(){
   it('post seconds ago', function(done){
     request(app)
     .post("/hosts/recentdocs")
-    .send({hosts: ["foo.com"], seconds: 3600})
+    .send({host: "foo.com", secondsAgo: 3600})
     .expect(200)
     .end(function (err, res) {
        should.not.exist(err);
@@ -91,6 +94,21 @@ describe('route /hosts/recentdocs', function(){
        done();
     });
   });
+
+  it('post limit', function(done){
+    request(app)
+    .post("/hosts/recentdocs")
+    .send({host: "foo.com", limit: 1})
+    .expect(200)
+    .end(function (err, res) {
+       should.not.exist(err);
+       var docs = JSON.parse(res.text);
+       should.equal(docs.length, 1);
+       should.equal(docs[0].sequenceId, 2);
+       done();
+    });
+  });
+
 });
 
 

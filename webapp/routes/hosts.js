@@ -4,22 +4,22 @@ var hostKeeper = require("../../modules/HostKeeper");
 var express = require('express');
 var router = express.Router();
 
-function getDocsForHost(req,res,host,seconds) {
+function getDocsForHost(req, res, search) {
   function handleResults(results) {
     res.json(results);
   };
-  docHelper.getRecentDocsForSite(handleResults, host, seconds);
+  docHelper.getRecentDocsForSite(handleResults, search);
 }
 
 /*
  * GET resent docs for a host.
  */
 router.get('/recentdocs/:host', function(req, res) {
-  getDocsForHost(req, res, req.params.host, 0);
+  getDocsForHost(req, res, {host: req.params.host});
 });
 
-router.get('/recentdocs/:host/:seconds', function(req, res) {
-  getDocsForHost(req, res, req.params.host, parseInt(req.params.seconds));
+router.get('/recentdocs/:host/:sequenceId', function(req, res) {
+  getDocsForHost(req, res, {host: req.params.host, sequenceId: parseInt(req.params.sequenceId)});
 });
 
 /*
@@ -27,12 +27,7 @@ router.get('/recentdocs/:host/:seconds', function(req, res) {
  */
 router.post('/recentdocs', function(req, res) {
   var searchObj = req.body;
-  if (searchObj.hosts instanceof Array) {
-    getDocsForHost(req, res, searchObj.hosts, searchObj.seconds || 0);
-  }
-  else {
-    res.json({});
-  }
+  getDocsForHost(req, res, searchObj);
 });
 
 /*
