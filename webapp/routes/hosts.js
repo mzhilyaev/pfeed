@@ -1,3 +1,4 @@
+var when = require("when");
 var docHelper = require("../../modules/DocHelper");
 var hostTracker = require("../../modules/HostTracker");
 var hostKeeper = require("../../modules/HostKeeper");
@@ -6,6 +7,11 @@ var router = express.Router();
 
 function getDocsForHost(req, res, search) {
   function handleResults(results) {
+    // if nothing was found, then the host should be inseted
+    // to start the drain
+    if (Object.keys(results).length == 0) {
+      hostTracker.insertHosts(search.host);
+    }
     res.json(results);
   };
   docHelper.getRecentDocsForSite(handleResults, search);

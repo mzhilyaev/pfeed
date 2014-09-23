@@ -1,5 +1,7 @@
 var fs = require("fs");
 var path = require("path");
+var tld = require('tldjs');
+var config = require('../config/config');
 
 var Utils = {
 
@@ -27,6 +29,22 @@ var Utils = {
     if (!fs.existsSync(dir)) {
       fs.mkdirSync("" + dir);
     }
+  },
+
+  // host management
+  normalizeHost: function(host) {
+    var domain = tld.getDomain(host);
+    if (config.useSubdomains[domain]) {
+      return tld.getSubdomain(host) + "." + domain;
+    }
+    else {
+      return domain;
+    }
+  },
+
+  normalizeReverseHost: function(host) {
+    host = host.replace(/^www\./, "");
+    return host.split('').reverse().join('') + ".";
   },
 
 };

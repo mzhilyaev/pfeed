@@ -13,6 +13,7 @@ exports.testDocsGroup1 = [
    "urlHash": 1,
    "source": "http://www.foo.com",
    "host": "foo.com",
+   "revHost": "moc.oof.",
   },
   {
    "id": 2,
@@ -26,6 +27,7 @@ exports.testDocsGroup1 = [
    "urlHash": 1,
    "source": "http://www.foo.com",
    "host": "foo.com",
+   "revHost": "moc.oof.",
   },
   {
    "id": 3,
@@ -39,6 +41,7 @@ exports.testDocsGroup1 = [
    "urlHash": 3,
    "source": "http://www.bar.com",
    "host": "bar.com",
+   "revHost": "moc.rab.",
   },
 ];
 

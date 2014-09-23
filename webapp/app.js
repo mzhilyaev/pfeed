@@ -58,5 +58,7 @@ app.use(function(err, req, res, next) {
 
 // init helepr modules
 require('../modules/DocHelper').init();
+require('../modules/HostTracker').init();
+require('../modules/HostKeeper').init();
 
 module.exports = app;

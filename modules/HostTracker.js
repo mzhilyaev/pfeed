@@ -1,5 +1,6 @@
 var mongo = require('mongoskin');
 var config = require("../config/config");
+var utils = require("./Utils");
 var Collection = require("./Collection");
 
 var HostTracker = Object.create(Collection.prototype);
@@ -18,11 +19,11 @@ HostTracker.insertHosts = function(hosts, cb) {
   var hostsArray;
   if (hosts instanceof Array) {
     hostsArray = hosts.map(function(host) {
-      return {host: host};
+      return {host: utils.normalizeHost(host)};
     });
   }
   else {
-    hostsArray = [{host: hosts}];
+    hostsArray = [{host: utils.normalizeHost(hosts)}];
   }
   this.collection.insert(
     hostsArray,
@@ -31,7 +32,7 @@ HostTracker.insertHosts = function(hosts, cb) {
       if (err) {
         // ignore duplicate key errors
         // console.log("Ignore error " + err);
-        console.log("ERROROR " + err);
+        // console.log("ERROROR " + err);
       }
       if (cb) {
         cb();

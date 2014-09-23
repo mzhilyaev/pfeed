@@ -1,6 +1,7 @@
 var mongo = require('mongoskin');
 var when = require('when');
 var config = require("../config/config");
+var utils = require("./Utils");
 var Collection = require("./Collection");
 
 var DocHelper = Object.create(Collection.prototype);
@@ -12,8 +13,8 @@ DocHelper.init = function(dbname, collection, cb) {
   // @TODO - remove index creation into an admin script
   Collection.call(this, dbName, collectionName, function() {
     self.collection.ensureIndex({id: 1}, {unique: true}, function(err,res) {
-      self.collection.ensureIndex({host: 1, sequenceId: -1}, function(err,res) {
-        self.collection.ensureIndex({host: 1, harvested: -1}, function(err,res) {
+      self.collection.ensureIndex({revHost: 1, sequenceId: -1}, function(err,res) {
+        self.collection.ensureIndex({revHost: 1, harvested: -1}, function(err,res) {
           if (cb) cb();
         });
       });
@@ -23,7 +24,8 @@ DocHelper.init = function(dbname, collection, cb) {
 
 DocHelper.getRecentDocsForSite = function(callback, searchEntry) {
   var findEntry = {
-    host: searchEntry.host,
+    // @TODO - esacope periods in regexp otherwise riskmatching wrong hosts
+    revHost: {$regex: new RegExp("^" + utils.normalizeReverseHost(searchEntry.host))},
   };
   if (searchEntry.sequenceId) {
     findEntry.sequenceId  = {$gt: searchEntry.sequenceId};
