@@ -125,7 +125,16 @@ var MoreoverStoryFilter = {
   },
 
   filter: function(doc) {
+    if (!doc.originalUrl) {
+      console.log("MISSING ORIGINAL URL " + JSON.stringify(doc));
+      return null;
+    }
     var host = require("url").parse(doc.originalUrl).host;
+    if (!host) {
+      console.log("FIALED TO PARSE ORIGINAL URL " + doc.originalUrl);
+      console.log(JSON.stringify(doc));
+      return null;
+    }
     var obj = {
       id: parseInt(doc.id),
       sequenceId: parseInt(doc.sequenceId),
