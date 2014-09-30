@@ -16,15 +16,21 @@ HostTracker.init = function(dbname, collection, cb) {
 };
 
 HostTracker.insertHosts = function(hosts, cb) {
-  var hostsArray;
+  var hostsArray = [];
+  var hList;
   if (hosts instanceof Array) {
-    hostsArray = hosts.map(function(host) {
-      return {host: utils.normalizeHost(host)};
-    });
+    hList = hosts;
   }
   else {
-    hostsArray = [{host: utils.normalizeHost(hosts)}];
+    hList = [hosts];
   }
+  hList.forEach(function(host) {
+    var normed = utils.normalizeHost(host);
+    if (normed) {
+      hostsArray.push({host: normed});
+    }
+  });
+
   this.collection.insert(
     hostsArray,
     {continueOnError: true},
