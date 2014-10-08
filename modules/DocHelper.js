@@ -13,9 +13,11 @@ DocHelper.init = function(dbname, collection, cb) {
   // @TODO - remove index creation into an admin script
   Collection.call(this, dbName, collectionName, function() {
     self.collection.ensureIndex({id: 1}, {unique: true}, function(err,res) {
-      self.collection.ensureIndex({revHost: 1, sequenceId: -1}, function(err,res) {
-        self.collection.ensureIndex({revHost: 1, harvested: -1}, function(err,res) {
-          if (cb) cb();
+      self.collection.ensureIndex({urlHash: 1}, {unique: true}, function(err,res) {
+        self.collection.ensureIndex({revHost: 1, sequenceId: -1}, function(err,res) {
+          self.collection.ensureIndex({revHost: 1, harvested: -1}, function(err,res) {
+            if (cb) cb();
+          });
         });
       });
     });
