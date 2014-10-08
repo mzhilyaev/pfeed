@@ -111,6 +111,24 @@ DocHelper.selectDocByUrlHash = function(host, hashes, crowdFactor, cb) {
   });
 };
 
+DocHelper.selectDocByTitleHash = function(host, crowdFactor, cb) {
+  var cursor = this.collection.find({
+    host: host,
+    titleHash: {$in: hashes}
+  },
+  {
+    "_id": 0,
+  })
+  .sort({sequenceId: 1})
+  .toArray(function(err, results) {
+    if (err) throw err;
+    cb({
+      host: host,
+      docs: results,
+    });
+  });
+};
+
 DocHelper.drainHostDocReader = function(hostDocReader, cb) {
   var self = this;
   function drainNext(docs) {
