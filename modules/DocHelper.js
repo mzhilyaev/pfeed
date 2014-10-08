@@ -3,6 +3,7 @@ var when = require('when');
 var config = require("../config/config");
 var utils = require("./Utils");
 var Collection = require("./Collection");
+var termAnnotator = require("./TermAnnotator");
 
 var DocHelper = Object.create(Collection.prototype);
 
@@ -64,6 +65,9 @@ DocHelper.insertDocuments = function(doc, cb) {
   else {
     docs = [doc];
   }
+  docs.forEach(function(doc) {
+    termAnnotator.annotate(doc);
+  });
   this.collection.insert(docs, {continueOnError: true}, function(err,res) {
     // ingore duplicate keys error
     // if (err) throw err;
