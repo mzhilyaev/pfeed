@@ -119,11 +119,6 @@ var MoreoverStoryFilter = {
     this.textToWords(doc.content, obj.words, obj.stems, names);
   },
 
-  computeStringHash: function(str) {
-    var md5 = crypto.createHash('md5').update(str || "").digest("hex");
-    return Math.abs(hasher.hashCode(md5));
-  },
-
   filter: function(doc) {
     if (!doc.originalUrl) {
       console.log("MISSING ORIGINAL URL " + JSON.stringify(doc));
@@ -139,12 +134,12 @@ var MoreoverStoryFilter = {
       id: parseInt(doc.id),
       sequenceId: parseInt(doc.sequenceId),
       title: doc.title,
-      titleHash: this.computeStringHash(doc.title),
+      titleHash: utils.computeStringHash(doc.title),
       content: doc.content,
       published: Math.floor(Date.parse(doc.publishedDate) / 1000),
       harvested: Math.floor(Date.parse(doc.harvestDate) / 1000),
       url: doc.originalUrl,
-      urlHash: this.computeStringHash(doc.originalUrl),
+      urlHash: utils.computeStringHash(doc.originalUrl),
       duplicateGroupId: doc.duplicateGroupId,
       source: doc.source.homeUrl,
       host: utils.normalizeHost(host),

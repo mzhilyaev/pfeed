@@ -1,6 +1,8 @@
 var fs = require("fs");
 var path = require("path");
 var tld = require('tldjs');
+var hasher = require('hash-string');
+var crypto = require('crypto');
 var config = require('../config/config');
 
 var Utils = {
@@ -45,6 +47,11 @@ var Utils = {
   normalizeReverseHost: function(host) {
     host = host.replace(/^www\./, "");
     return host.split('').reverse().join('') + ".";
+  },
+
+  computeStringHash: function(str) {
+    var md5 = crypto.createHash('md5').update(str || "").digest("hex");
+    return Math.abs(hasher.hashCode(md5));
   },
 
 };

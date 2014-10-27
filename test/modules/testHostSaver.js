@@ -22,23 +22,27 @@ describe('test host saver', function(){
     hostSaver.consume({
       harvested: Math.floor(Date.now() / 1000) - 86400,
       host: "foo",
-      id: 4
+      id: 4,
+      urlHash: 4,
     });
     hostSaver.flush(new Date(Date.now() - 86400000));
     hostSaver.consume({
       harvested: Math.floor(Date.now() / 1000),
       host: "foo",
       id: 1,
+      urlHash: 1,
     });
     hostSaver.consume({
       harvested: Math.floor(Date.now() / 1000),
       host: "foo",
       id: 2,
+      urlHash: 2,
     });
     hostSaver.consume({
       harvested: Math.floor(Date.now() / 1000),
       host: "foo",
       id: 3,
+      urlHash: 3,
     });
     hostSaver.flush();
     hostSaver.consume({

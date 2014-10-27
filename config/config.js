@@ -18,6 +18,9 @@ var config = {
     database: "moreover",
     drainInterval: 60000,
   },
+  stats: {
+    statsOutputDir: "webapp/public/stats",
+  },
   useSubdomains: {
     "wordpress.com": true,
     "livejournal.com": true,

@@ -89,8 +89,11 @@ DocHelper.aggregateHostDocCount = function(cb) {
   });
 };
 
+DocHelper.getHostCursor = function(host) {
+  return this.collection.find({host: host}, {"_id": 0});
+};
+
 DocHelper.selectDocByUrlHash = function(host, hashes, crowdFactor, cb) {
-  console.log(host, JSON.stringify(hashes));
   var cursor = this.collection.find({
     host: host,
   },
@@ -115,7 +118,7 @@ DocHelper.selectDocByUrlHash = function(host, hashes, crowdFactor, cb) {
   });
 };
 
-DocHelper.selectDocByTitleHash = function(host, crowdFactor, cb) {
+DocHelper.selectDocByTitleHash = function(host, hashes, cb) {
   var cursor = this.collection.find({
     host: host,
     titleHash: {$in: hashes}

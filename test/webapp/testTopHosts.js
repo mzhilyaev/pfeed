@@ -52,10 +52,10 @@ describe('route /hosts/topdomains', function(){
   it('get top host info', function(done) {
     docHelper.clarCollection(function() {
       docHelper.insertDocuments([
-        {id: 1, host: "foo.com", urlHash: 1},
-        {id: 2, host: "foo.com", urlHash: 2},
-        {id: 3, host: "foo.com", urlHash: 3},
-        {id: 4, host: "bar.com", urlHash: 3},
+        {id: 1, host: "foo.com", urlHash: 1, titleHash: 1},
+        {id: 2, host: "foo.com", urlHash: 2, titleHash: 2},
+        {id: 3, host: "foo.com", urlHash: 3, titleHash: 3},
+        {id: 4, host: "bar.com", urlHash: 4, titleHash: 4},
         ],
         function() {
           hostKeeper.refresh(function() {

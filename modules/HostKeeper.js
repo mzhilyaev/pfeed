@@ -83,19 +83,14 @@ HostKeeper.getHostInfo = function(arg) {
 HostKeeper.getHostDocs = function(host, hashes, cb) {
   var clientHashes = {};
   if (hashes instanceof Array) {
-    hashes.forEach(function(hash) {
-        clientHashes[hash] = true;
-    })
-  }
-  else if (hashes instanceof Object) {
     clientHashes = hashes;
   }
   else {
-    throw new Error("bad hashes type");
+    clientHashes = [hashes];
   }
 
-  if (this.hosts[host] && this.hosts[host].crowdFactor) {
-    docHelper.selectDocByUrlHash(host, clientHashes, this.hosts[host].crowdFactor.factor, cb);
+  if (this.hosts[host]) {
+    docHelper.selectDocByTitleHash(host, clientHashes, cb);
   }
   else {
     cb({});
