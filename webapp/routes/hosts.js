@@ -68,5 +68,17 @@ router.post('/tophosts/history', function(req, res) {
   );
 });
 
+router.post('/tophosts/history/titles', function(req, res) {
+  var host = req.body.host;
+  console.log(JSON.stringify(req.body));
+  hostKeeper.getHostDocsClearTitles(
+    req.body.host,
+    req.body.titles,
+    function(results) {
+      res.json(results);
+    }
+  );
+});
+
 
 module.exports = router;

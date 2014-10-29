@@ -1,9 +1,11 @@
 var mongo = require('mongoskin');
 var crypto = require('crypto');
+var tldjs = require('tldjs');
 var hasher = require('hash-string');
 var config = require("../config/config");
 var Collection = require("./Collection");
 var docHelper = require("./DocHelper");
+var utils = require("./Utils");
 
 var HostKeeper = Object.create(Collection.prototype);
 
@@ -81,7 +83,7 @@ HostKeeper.getHostInfo = function(arg) {
 
 
 HostKeeper.getHostDocs = function(host, hashes, cb) {
-  var clientHashes = {};
+  var clientHashes;
   if (hashes instanceof Array) {
     clientHashes = hashes;
   }
@@ -95,6 +97,23 @@ HostKeeper.getHostDocs = function(host, hashes, cb) {
   else {
     cb({});
   }
+};
+
+HostKeeper.cleanseTitle = function(host, title) {
+  var domain = tldjs.getDomain(host);
+  // extract the first name of the domain
+  var leadingTerm = domain.split('.')[0];
+  var regex = new RegExp("[^a-b0-9]*" + leadingTerm + ".*$", "i");
+  var cleansed = title.replace(regex, "");
+  return cleansed;
+};
+
+HostKeeper.getHostDocsClearTitles = function(host, titles, cb) {
+  var clientHashes = titles.map(function(title) {
+    return utils.computeStringHash(this.cleanseTitle(host, title));
+  }.bind(this));
+
+  return this.getHostDocs(host, clientHashes, cb);
 };
 
 HostKeeper.isListed = function(host) {

@@ -70,8 +70,8 @@ module.exports = {
 
   conditionDocArray: function(docs) {
     return docs.map(function(doc) {
-      doc.title = doc.host + " " + doc.id;
-      doc.url = "http://" + (doc.host || "foo.com") + "/" + doc.id;
+      doc.title = (doc.title) || (doc.host + " " + doc.id);
+      doc.url = (doc.url) || ("http://" + (doc.host || "foo.com") + "/" + doc.id);
       doc.titleHash = utils.computeStringHash(doc.title);
       doc.urlHash = utils.computeStringHash(doc.url);
       return doc;

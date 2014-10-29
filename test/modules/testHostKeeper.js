@@ -21,7 +21,6 @@ describe('test host keeper', function(){
     });
   });
 
-
   it('test getHostDocs', function(done) {
     should.equal(Object.keys(hostKeeper.hosts).length, 0);
     // insert hosts
@@ -97,6 +96,26 @@ describe('test host keeper', function(){
       );
     });
   });
+
+  it('test getHostDocsClearTitles', function(done) {
+    // populate docs
+    var docs = helpers.conditionDocArray(
+      [
+        {id: 110, host: "foo.com", title: "title 1"},
+        {id: 111, host: "foo.com", title: "title 2"},
+      ]);
+
+    docHelper.insertDocuments(
+      docs,
+      function() {
+        hostKeeper.readHostTable(function() {
+          hostKeeper.getHostDocsClearTitles("foo.com", ["title 1", "title 2 - FOO.COM!"], function(results) {
+            should(results.docs.length).eql(2);
+            done();
+          }); // end of get clear titles
+        }); // end of readHostTable
+      }); // end of insert docs
+  }); // end of test
 
 });
 
