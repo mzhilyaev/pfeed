@@ -29,6 +29,7 @@ var config = {
   docs: {
     database: "moreover",
     collection: "docs",
+    annotateOnInsert: false,
   },
   hosts: {
     database: "moreover",

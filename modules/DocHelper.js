@@ -11,6 +11,7 @@ DocHelper.init = function(dbname, collection, cb) {
   var dbName = dbname || config.docs.database;
   var collectionName = collection || config.docs.collection;
   var self = this;
+  this.annotate = config.docs.annotateOnInsert || false;
   // @TODO - remove index creation into an admin script
   Collection.call(this, dbName, collectionName, function() {
     self.collection.ensureIndex({id: 1}, {unique: true}, function(err,res) {
@@ -66,9 +67,11 @@ DocHelper.insertDocuments = function(doc, cb) {
   else {
     docs = [doc];
   }
-  docs.forEach(function(doc) {
-    termAnnotator.annotate(doc);
-  });
+  if (this.annotate) {
+    docs.forEach(function(doc) {
+      termAnnotator.annotate(doc);
+    });
+  }
   this.collection.insert(docs, {continueOnError: true}, function(err,res) {
     // ingore duplicate keys error
     // if (err) throw err;

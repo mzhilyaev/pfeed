@@ -54,6 +54,15 @@ var Utils = {
     return Math.abs(hasher.hashCode(md5));
   },
 
+  removeHostTrailer: function(host, title) {
+    var domain = tld.getDomain(host);
+    // extract the first name of the domain
+    var trailer = domain.split('.')[0];
+    var regex = new RegExp("[^A-Za-z0-9]*" + trailer + ".*$", "i");
+    var cleansed = title.replace(regex, "");
+    return cleansed;
+  },
+
 };
 
 module.exports = Utils;

@@ -130,11 +130,21 @@ var MoreoverStoryFilter = {
       console.log(JSON.stringify(doc));
       return null;
     }
+    // generate title hashes
+    var titleHashes = {};
+    if (doc.title) {
+      var cleanedTitle = utils.removeHostTrailer(host, doc.title);
+      var prefixCleanedTitle = cleanedTitle.replace(/^[^:][^:]*:[^A-Za-z0-9]*/,"");
+      titleHashes[utils.computeStringHash(doc.title)] = true;
+      titleHashes[utils.computeStringHash(cleanedTitle)] = true;
+      titleHashes[utils.computeStringHash(prefixCleanedTitle)] = true;
+    }
+
     var obj = {
       id: parseInt(doc.id),
       sequenceId: parseInt(doc.sequenceId),
       title: doc.title,
-      titleHash: utils.computeStringHash(doc.title),
+      titleHash: Object.keys(titleHashes),
       content: doc.content,
       published: Math.floor(Date.parse(doc.publishedDate) / 1000),
       harvested: Math.floor(Date.parse(doc.harvestDate) / 1000),

@@ -2,12 +2,12 @@ exports.moreoverTestDoc1 = {
      "sequenceId": "360762894174",
      "id": "18725910771",
      "language": "English",
-     "title": "hello",
+     "title": "foo: hello - RT NEWS",
      "content": "hello",
      "tags": "",
      "publishedDate": "2014-08-24T10:40:56Z",
      "harvestDate": "2014-08-24T12:00:06Z",
-     "originalUrl": "http://929wlmi.com/news/articles/2014/aug/24/quake-of-60-magnitude-registered-in-california/",
+     "originalUrl": "http://rt.com/news/articles/2014/aug/24/quake-of-60-magnitude-registered-in-california/",
      "duplicateGroupId": 1024,
      "media": "",
      "topics": {
@@ -63,7 +63,7 @@ exports.moreoverXmlExample = " \
 			<sequenceId>367554387332</sequenceId> \
 			<id>18922129442</id> \
 			<language>English</language> \
-			<title>Staples</title> \
+			<title>FT Section: Staples - Financialcontent!</title> \
 			<content>Staples ( NASDAQ: SPLS ) and global pop music superstar Katy Perry  \
       continue to “Make Roar Happen” in Portland today by announcing 58 local  \
       classroom projects have been funded as part of Staples’ $1 million  \
