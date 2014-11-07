@@ -148,6 +148,7 @@ HostDrainer.regenStats = function(entry) {
   var host = entry.host;
   self.stats[host] = true;
 
+  console.log("Generating stats for " + host);
   function updateDbRecord(cb) {
     self.collection.update(
       {host: host},
@@ -176,6 +177,7 @@ HostDrainer.regenStats = function(entry) {
         setTimeout(readNextDoc);
       } else {
         // cursor is done, write to disk
+        siteStats.cleanStats();
         fs.writeFileSync(path.join(self.statsOutputDir, host), JSON.stringify(siteStats.getStats()));
         updateDbRecord();
         delete self.stats[host];

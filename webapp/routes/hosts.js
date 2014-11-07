@@ -2,6 +2,7 @@ var when = require("when");
 var docHelper = require("../../modules/DocHelper");
 var hostTracker = require("../../modules/HostTracker");
 var hostKeeper = require("../../modules/HostKeeper");
+var utils = require("../../modules/Utils");
 var express = require('express');
 var router = express.Router();
 
@@ -18,7 +19,7 @@ function getDocsForHost(req, res, search) {
 }
 
 /*
- * GET resent docs for a host.
+ * GET recent docs for a host.
  */
 router.get('/recentdocs/:host', function(req, res) {
   getDocsForHost(req, res, {host: req.params.host});
@@ -26,6 +27,13 @@ router.get('/recentdocs/:host', function(req, res) {
 
 router.get('/recentdocs/:host/:sequenceId', function(req, res) {
   getDocsForHost(req, res, {host: req.params.host, sequenceId: parseInt(req.params.sequenceId)});
+});
+
+/*
+ * Get stats for a host
+ */
+router.get('/stats/:host', function(req, res) {
+  res.redirect("/public/stats/" + utils.normalizeHost(req.params.host));
 });
 
 /*

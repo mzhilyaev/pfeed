@@ -26,6 +26,7 @@ DocHelper.init = function(dbname, collection, cb) {
 };
 
 DocHelper.getRecentDocsForSite = function(callback, searchEntry) {
+  //console.log(JSON.stringify(searchEntry));
   var findEntry = {
     // @TODO - esacope periods in regexp otherwise riskmatching wrong hosts
     revHost: {$regex: new RegExp("^" + utils.normalizeReverseHost(searchEntry.host))},

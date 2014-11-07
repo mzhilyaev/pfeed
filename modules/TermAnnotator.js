@@ -59,7 +59,12 @@ var TermAnnotator = {
       names = this.getProperNouns(doc.semantics.join(" "));
     }
     this.textToWords(doc.title, words, stems, names);
+    words.push("__TE__");
     this.textToWords(doc.content, words, stems, names);
+    if (words.length == 1) {
+     // empty doc
+     words = [];
+    }
     doc.words = words;
   },
 };

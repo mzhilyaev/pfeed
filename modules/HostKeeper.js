@@ -103,7 +103,7 @@ HostKeeper.cleanseTitle = function(host, title) {
   var domain = tldjs.getDomain(host);
   // extract the first name of the domain
   var leadingTerm = domain.split('.')[0];
-  var regex = new RegExp("[^a-b0-9]*" + leadingTerm + ".*$", "i");
+  var regex = new RegExp("[^A-Za-z0-9]*" + leadingTerm + ".*$", "i");
   var cleansed = title.replace(regex, "");
   return cleansed;
 };
@@ -113,6 +113,7 @@ HostKeeper.getHostDocsClearTitles = function(host, titles, cb) {
     return utils.computeStringHash(this.cleanseTitle(host, title));
   }.bind(this));
 
+  // console.log(clientHashes);
   return this.getHostDocs(host, clientHashes, cb);
 };
 
