@@ -44,7 +44,9 @@ function accumulate(url, title, topics) {
       });
     }
   });
-  //console.log(url, title, " ====> ", Object.keys(cats), " +++ ", topics);
+  if (process.argv[4] != null) {
+    console.log("d " + url, " : ", Object.keys(cats), " <= ", JSON.stringify(topics));
+  }
   //deal with hosts
   var urlObj = require("url").parse(url);
   var host = urlObj.hostname;
@@ -56,7 +58,7 @@ function accumulate(url, title, topics) {
 
   var pathBits = urlObj.pathname.split("/");
   pathBits.forEach(function(chunk) {
-    if (chunk.match(/[A-Za-z]/) && chunk.length < 30) {
+    if (chunk.match(/[A-Za-z]/) && chunk.length < 20) {
       addToStats("_PATH_" + chunk, catNames);
       //addToStats("_HOST_PATH_" + host + "_" + chunk, catNames);
     }
@@ -66,11 +68,11 @@ function accumulate(url, title, topics) {
 function outputStats() {
   var precLevel = process.argv[3] || 50;
   var bestPrec = {};
-  Object.keys(stats)
-  .sort(function(a,b) {
-    stats[b].count - stats[a].count;
-  })
-  .forEach(function(key) {
+  var sortedKeys = Object.keys(stats).sort(function(a,b) {
+    return stats[b].count - stats[a].count;
+  });
+
+  sortedKeys.forEach(function(key) {
     var keyStats = stats[key];
     if (keyStats.count > 10) {
       var goodCats = [];

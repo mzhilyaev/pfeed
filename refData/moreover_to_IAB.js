@@ -53,7 +53,7 @@ exports.MoreoverToIABMap = {
 "iraq": "iraq",
 "germany": "germany",
 "canada": "canada",
-"entertainment: celebrity gossip": "arts & entertainment",
+"entertainment: celebrity gossip": "celebrities",
 "religion": "religion",
 "uk": "united kingdom",
 "central banks": "investing",

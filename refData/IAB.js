@@ -212,6 +212,8 @@ var Taxonomy = {
 		"design": true,
 		"music": true,
 		'radio': true,
+    "video games": true,
+    "celebrities": true,
 	},
 	"adult": {
 	},
@@ -277,7 +279,7 @@ var Taxonomy = {
 	},
 	"history": {
 		"archaeology": true,
-	}
+	},
 };
 
 exports.Taxonomy = Taxonomy;
