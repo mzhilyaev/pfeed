@@ -59,7 +59,7 @@ function accumulate(url, title, topics) {
   var pathBits = urlObj.pathname.split("/");
   pathBits.forEach(function(chunk) {
     if (chunk.match(/[A-Za-z]/) && chunk.length < 20) {
-      addToStats("_PATH_ " + host + "/" + chunk, catNames);
+      addToStats("_PATH_ " + process.argv[2] + "/" + chunk, catNames);
       //addToStats("_HOST_PATH_" + host + "_" + chunk, catNames);
     }
   });
