@@ -5,6 +5,7 @@ var when = require("when");
 var config = require("../config/config");
 var RevMap = require("../refData/IAB").RevMap;
 var MoreoverMap = require("../refData/moreover_to_IAB").MoreoverToIABMap;
+var stopWords = require('../modules/StopWords').StopWords;
 
 var dbHost = "ec2-54-87-201-148.compute-1.amazonaws.com";
 //var dbHost = "localhost";
@@ -51,7 +52,7 @@ function accumulate(url, title, topics) {
   var text = urlObj.pathname + " " + title;
   var terms = {};
   text.toLowerCase().replace(kNotWordPattern, " ").split(/\s+/).forEach(function(term) {
-    if (term.match(/[a-z]/) && term.length > 2 && term.length < 20) {
+    if (term.match(/[a-z]/) && !stopWords[term] && term.length > 2 && term.length < 20) {
       terms[term] = true;
     }
   });
