@@ -16,6 +16,7 @@ SiteStats.prototype = {
   consumeDoc: function(doc) {
     var seen = {};
     var wcount = 0;
+    if (!doc || !doc.url) return;
     for (var i in doc.words) {
       var word = doc.words[i].toLowerCase();
       if (!seen[word]) {
