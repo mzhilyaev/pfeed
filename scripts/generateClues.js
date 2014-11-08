@@ -54,12 +54,12 @@ function accumulate(url, title, topics) {
 
   var catNames = Object.keys(cats);
   addToStats("_ANY_", catNames);
-  addToStats("_HOST_"+host, catNames);
+  addToStats("_HOST_ "+host, catNames);
 
   var pathBits = urlObj.pathname.split("/");
   pathBits.forEach(function(chunk) {
     if (chunk.match(/[A-Za-z]/) && chunk.length < 20) {
-      addToStats("_PATH_" + chunk, catNames);
+      addToStats("_PATH_ " + host + "/" + chunk, catNames);
       //addToStats("_HOST_PATH_" + host + "_" + chunk, catNames);
     }
   });
@@ -88,9 +88,21 @@ function outputStats() {
       });
       if (goodCats.length > 0) {
         if (key == "_ANY_") {
-          key = "_ANY_" + process.argv[2];
+          key = "_ANY_ " + process.argv[2];
         }
-        console.log(key + ":" + keyStats.count, JSON.stringify(goodCats.sort(function(a,b) {return b[1] - a[1];}).slice(0,4)));
+        var orderedCats = goodCats.sort(function(a,b) {return b[1] - a[1];});
+        var firstPrec = orderedCats[0][1];
+        var catsOutput = "";
+
+        // make an output
+        orderedCats.forEach(function(item) {
+          if (item[1] > 0.6 * firstPrec) {
+            if (catsOutput) catsOutput += ",";
+            catsOutput += item[0] + ":" + item[1];
+          }
+        });
+
+        console.log(key + ":" + firstPrec + ":" + keyStats.count + "," + catsOutput);
       }
     }
   });
