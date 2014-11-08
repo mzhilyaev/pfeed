@@ -45,7 +45,7 @@ function accumulate(url, title, topics) {
     }
   });
   if (process.argv[4] != null) {
-    console.log("d " + url, " : ", Object.keys(cats), " <= ", JSON.stringify(topics));
+    console.log("d " + url, " : ", JSON.stringify(Object.keys(cats)), " <= ", JSON.stringify(topics));
   }
   //deal with hosts
   var urlObj = require("url").parse(url);
