@@ -56,6 +56,7 @@ var Utils = {
 
   removeHostTrailer: function(host, title) {
     var domain = tld.getDomain(host);
+    if (!domain) return title;
     // extract the first name of the domain
     var trailer = domain.split('.')[0];
     var regex = new RegExp("[^A-Za-z0-9]*" + trailer + ".*$", "i");
