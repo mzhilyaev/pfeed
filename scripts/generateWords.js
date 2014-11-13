@@ -48,23 +48,35 @@ function accumulate(url, title, topics) {
     }
   });
 
-  var urlObj = require("url").parse(url);
-  var text = urlObj.pathname + " " + title;
-  var terms = {};
-  text.toLowerCase().replace(kNotWordPattern, " ").split(/\s+/).forEach(function(term) {
-    if (term.match(/[a-z]/) && !stopWords[term] && term.length > 2 && term.length < 20) {
-      terms[term] = true;
-    }
-  });
   var catNames = Object.keys(cats);
 
-  //console.log(url, title, JSON.stringify(Object.keys(terms)));
-  Object.keys(terms).forEach(function(term) {
-    console.log(term);
-    catNames.forEach(function(cat) {
-      console.log(term + ":" + cat);
+  function outputTerms(text, suffix) {
+    var terms = {};
+    var lastTerm;
+    text.toLowerCase().replace(kNotWordPattern, " ").split(/\s+/).forEach(function(term) {
+      if (term.match(/[a-z]/) && !stopWords[term] && term.length > 2 && term.length < 20) {
+        terms[term+suffix] = true;
+        if (lastTerm) {
+          terms[lastTerm+term+suffix] = true;
+        }
+        lastTerm = term;
+      }
     });
-  });
+
+    //console.log(url, title, JSON.stringify(Object.keys(terms)));
+    Object.keys(terms).forEach(function(term) {
+      console.log(term);
+      catNames.forEach(function(cat) {
+        console.log(term + ":" + cat);
+      });
+    });
+  }
+
+  if (catNames.length > 0) {
+    outputTerms(url, "_U");
+    outputTerms(title, "_T");
+  }
+
 };
 
 when.promise(function(resolve) {
