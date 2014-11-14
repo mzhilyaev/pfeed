@@ -1,4 +1,3 @@
-var hasher = require('hash-string');
 var crypto = require('crypto');
 var tld = require('tldjs');
 var stem = require('stem-porter')

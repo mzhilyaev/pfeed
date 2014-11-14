@@ -1,7 +1,7 @@
 var fs = require("fs");
 var path = require("path");
 var tld = require('tldjs');
-var hasher = require('hash-string');
+var hasher = require('string-hash');
 var crypto = require('crypto');
 var config = require('../config/config');
 
@@ -51,7 +51,7 @@ var Utils = {
 
   computeStringHash: function(str) {
     var md5 = crypto.createHash('md5').update(str || "").digest("hex");
-    return Math.abs(hasher.hashCode(md5));
+    return Math.abs(hasher(md5));
   },
 
   removeHostTrailer: function(host, title) {

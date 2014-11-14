@@ -1,7 +1,6 @@
 var mongo = require('mongoskin');
 var crypto = require('crypto');
 var tldjs = require('tldjs');
-var hasher = require('hash-string');
 var config = require("../config/config");
 var Collection = require("./Collection");
 var docHelper = require("./DocHelper");
