@@ -4,6 +4,8 @@ var tld = require('tldjs');
 var hasher = require('string-hash');
 var crypto = require('crypto');
 var config = require('../config/config');
+var RevMap = require("../refData/IAB").RevMap;
+var MoreoverMap = require("../refData/moreover_to_IAB").MoreoverToIABMap;
 
 var Utils = {
 
@@ -62,6 +64,19 @@ var Utils = {
     var regex = new RegExp("[^A-Za-z0-9]*" + trailer + ".*$", "i");
     var cleansed = title.replace(regex, "");
     return cleansed;
+  },
+
+  mapTopicsToIAB: function(topics) {
+    var cats = {};
+    topics.forEach(function(topic) {
+      var cat = MoreoverMap[topic];
+      if (cat && RevMap[cat]) {
+        RevMap[cat].forEach(function(name) {
+          cats[name] = true;
+        });
+      }
+    });
+    return Object.keys(cats);
   },
 
 };

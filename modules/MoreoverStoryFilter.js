@@ -4,8 +4,6 @@ var stem = require('stem-porter')
 var stopWords = require('./StopWords').StopWords;
 var utils = require('./Utils');
 var config = require('../config/config');
-var RevMap = require("../refData/IAB").RevMap;
-var MoreoverMap = require("../refData/moreover_to_IAB").MoreoverToIABMap;
 
 const kNotWordPattern = /[^a-zA-Z0-9 ]+/g;
 
@@ -38,6 +36,7 @@ var MoreoverStoryFilter = {
       var keys = Object.keys(topics);
       if (keys.length > 0) {
         obj.topics = keys;
+        obj.iab = utils.mapTopicsToIAB(obj.topics);
       }
     }
   },
@@ -54,19 +53,6 @@ var MoreoverStoryFilter = {
         obj.companies = [doc.companies.company.name.toLowerCase()];
       }
     }
-  },
-
-  mapTopicsToIAB: function(topics) {
-    var cats = {};
-    topics.forEach(function(topic) {
-      var cat = MoreoverMap[topic];
-      if (cat && RevMap[cat]) {
-        RevMap[cat].forEach(function(name) {
-          cats[name] = true;
-        });
-      }
-    });
-    return Object.keys(cats);
   },
 
   getSemantic: function(doc, obj) {
@@ -176,9 +162,6 @@ var MoreoverStoryFilter = {
     this.getCompanies(doc, obj);
     var names = this.getSemantic(doc, obj);
     //this.getWordArray(doc, obj, names);
-    if (obj.topics) {
-      obj.iab = this.mapTopicsToIAB(obj.topics);
-    }
     return obj;
   },
 };
