@@ -119,6 +119,19 @@ var MoreoverStoryFilter = {
     this.textToWords(doc.content, obj.words, obj.stems, names);
   },
 
+  computeTitleHashes: function(host, title) {
+    var titleHashes = {};
+    if (title) {
+      var cleanedTitle = utils.removeHostTrailer(host, title);
+      var prefixCleanedTitle = cleanedTitle.replace(/^[^:][^:]*:[^A-Za-z0-9]*/,"");
+      titleHashes[utils.computeStringHash(title)] = true;
+      titleHashes[utils.computeStringHash(cleanedTitle)] = true;
+      titleHashes[utils.computeStringHash(prefixCleanedTitle)] = true;
+    }
+
+    return Object.keys(titleHashes);
+  },
+
   filter: function(doc) {
     if (!doc.originalUrl) {
       console.log("MISSING ORIGINAL URL " + JSON.stringify(doc));
@@ -130,21 +143,12 @@ var MoreoverStoryFilter = {
       console.log(JSON.stringify(doc));
       return null;
     }
-    // generate title hashes
-    var titleHashes = {};
-    if (doc.title) {
-      var cleanedTitle = utils.removeHostTrailer(host, doc.title);
-      var prefixCleanedTitle = cleanedTitle.replace(/^[^:][^:]*:[^A-Za-z0-9]*/,"");
-      titleHashes[utils.computeStringHash(doc.title)] = true;
-      titleHashes[utils.computeStringHash(cleanedTitle)] = true;
-      titleHashes[utils.computeStringHash(prefixCleanedTitle)] = true;
-    }
 
     var obj = {
       id: parseInt(doc.id),
       sequenceId: parseInt(doc.sequenceId),
       title: doc.title,
-      titleHash: Object.keys(titleHashes),
+      titleHash: this.computeTitleHashes(host, doc.title),
       content: doc.content,
       published: Math.floor(Date.parse(doc.publishedDate) / 1000),
       harvested: Math.floor(Date.parse(doc.harvestDate) / 1000),
@@ -163,6 +167,15 @@ var MoreoverStoryFilter = {
     var names = this.getSemantic(doc, obj);
     //this.getWordArray(doc, obj, names);
     return obj;
+  },
+
+  oldFormatFixUp: function(doc) {
+    // compute iab if needed
+    if (doc.topics && !doc.iab) {
+      doc.iab = utils.mapTopicsToIAB(doc.topics);
+    }
+    // recompute title hashes
+    doc.titleHash = this.computeTitleHashes(doc.host, doc.title);
   },
 };
 

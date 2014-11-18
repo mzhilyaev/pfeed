@@ -6,6 +6,7 @@ var Collection = require("./Collection");
 var docHelper = require("./DocHelper");
 var hostSaver = require("./HostSaver");
 var utils = require("./Utils");
+var moreoverFilter = require("../modules/MoreoverStoryFilter");
 
 var HOUR_MILLI_SECONDS = 3600000;
 
@@ -108,11 +109,10 @@ HostDrainer.drainHost = function(entry) {
       else {
         // insert next this chunk into database
         console.log("Inserting docs in " + host + "/" + file);
+        // @TODO - this hack is needed to avoid fixing old doctile hashes
         // check if docs have iab assigned
         docs.forEach(function(doc) {
-          if (doc.topics && !doc.iab) {
-            doc.iab = utils.mapTopicsToIAB(doc.topics);
-          }
+          moreoverFilter.oldFormatFixUp(doc);
         });
         docHelper.insertDocuments(docs, function() {
           console.log("Inserted " + docs.length + " from " + host + "/" + file);
