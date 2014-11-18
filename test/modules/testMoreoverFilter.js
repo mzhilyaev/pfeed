@@ -13,6 +13,7 @@ describe('test host saver', function(){
       var doc = result.articles.article[0];
       var filtered = moreoverFilter.filter(doc);
       //console.log(JSON.stringify(filtered, null, 1));
+      should.ok(filtered.iab.length > 0);
       done();
     });
   });
