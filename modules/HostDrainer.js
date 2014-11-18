@@ -86,7 +86,7 @@ HostDrainer.drainHost = function(entry) {
   function doit() {
     if (self.pleaseStop) {
       // if we are stopping, update and write host etnry
-      // then remove drain entry and call eaitForWorkersClosed
+      // then remove drain entry and call waitForWorkersClosed
       updateDbRecord(function() {
         // host is updated, remove it from drains array
         delete self.drains[host];
@@ -108,12 +108,20 @@ HostDrainer.drainHost = function(entry) {
       else {
         // insert next this chunk into database
         console.log("Inserting docs in " + host + "/" + file);
+        // check if docs have iab assigned
+        docs.forEach(function(doc) {
+          if (doc.topics && !doc.iab) {
+            doc.iab = utils.mapTopicsToIAB(doc.topics);
+          }
+        });
         docHelper.insertDocuments(docs, function() {
           console.log("Inserted " + docs.length + " from " + host + "/" + file);
           // insertion is over, update hostEntry
           hostEntry.file = file;
-          // setup next read
-          setTimeout(doit,1000);
+          updateDbRecord(function() {
+            // setup next read
+            setTimeout(doit);
+          });
         });
       }
     });
