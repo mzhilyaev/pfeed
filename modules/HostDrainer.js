@@ -5,7 +5,6 @@ var config = require("../config/config");
 var Collection = require("./Collection");
 var docHelper = require("./DocHelper");
 var hostSaver = require("./HostSaver");
-var SiteStats = require("./SiteStats");
 var utils = require("./Utils");
 
 var HOUR_MILLI_SECONDS = 3600000;
@@ -18,26 +17,17 @@ HostDrainer.init = function(dbname, collection, cb) {
   this.drainInterval = config.download.drainInterval || 60000;
   this.drains = {};
 
-  // stats configuration
-  this.stats = {};
-  this.statsRegenInterval = config.stats.regenInterval || HOUR_MILLI_SECONDS;
-  this.statsOutputDir = path.join(config.rootDir, config.stats.statsOutputDir);
-  utils.ensureDirectory(this.statsOutputDir);
-
   Collection.call(this, dbName, collectionName, function(col) {
     if (cb) cb();
   }.bind(this));
 };
 
 HostDrainer.readHostTable = function() {
-  this.collection.find({}, {"_id": 0, host: 1, drain: 1, statsGenerated: 1}).toArray(function(err, results) {
+  this.collection.find({}, {"_id": 0, host: 1, drain: 1}).toArray(function(err, results) {
     for (var i in results) {
       var entry = results[i];
       if (!this.drains[entry.host]  && (entry.drain == null || !entry.drain.done)) {
         this.drainHost(entry);
-      }
-      if (!this.stats[entry.host] && (entry.statsGenerated == null || entry.statsGenerated < (Date.now() - this.statsRegenInterval))) {
-        this.regenStats(entry);
       }
     }
   }.bind(this));
@@ -64,7 +54,7 @@ HostDrainer.stop = function(cb) {
 
 HostDrainer.waitForWorkersClosed = function() {
   // we must wait until all drains are done
-  if (Object.keys(this.drains).length == 0 && Object.keys(this.drains).stats == 0) {
+  if (Object.keys(this.drains).length == 0) {
     this.closeDb();
     if (this.stopCallback) this.stopCallback();
   }
@@ -94,7 +84,7 @@ HostDrainer.drainHost = function(entry) {
   function doit() {
     if (self.pleaseStop) {
       // if we are stopping, update and write host etnry
-      // then remove drain entry and call waitForWorkersClosed
+      // then remove drain entry and call eaitForWorkersClosed
       updateDbRecord(function() {
         // host is updated, remove it from drains array
         delete self.drains[host];
@@ -140,54 +130,6 @@ HostDrainer.drainHost = function(entry) {
 
   console.log("Draining host " + host);
   doit();
-}
-
-
-HostDrainer.regenStats = function(entry) {
-  var self = this;
-  var host = entry.host;
-  self.stats[host] = true;
-
-  console.log("Generating stats for " + host);
-  function updateDbRecord(cb) {
-    self.collection.update(
-      {host: host},
-      {$set: {statsGenerated: Date.now()}},
-      function(err, res) {
-        if (err) throw err;
-        // make sure the drain entry in the current host table same as in db
-        if (cb) cb();
-      }
-    );
-  };
-
-  var siteStats = new SiteStats(host);
-  // get host documents from the database
-  var cursor = docHelper.getHostCursor(host);
-
-  function readNextDoc() {
-    cursor.nextObject(function(err, doc) {
-      if (err) throw err;
-      if (self.pleaseStop) {
-        delete self.stats[host];
-        return;
-      }
-      if (doc) {
-        siteStats.consumeDoc(doc);
-        setTimeout(readNextDoc);
-      } else {
-        // cursor is done, write to disk
-        siteStats.cleanStats();
-        fs.writeFileSync(path.join(self.statsOutputDir, host), JSON.stringify(siteStats.getStats()));
-        updateDbRecord();
-        delete self.stats[host];
-        console.log("Stats generated for host" + host);
-      }
-    });
-  };
-
-  console.log("Computing stats for host " + host);
-  readNextDoc();
 }
 
 module.exports = HostDrainer;
