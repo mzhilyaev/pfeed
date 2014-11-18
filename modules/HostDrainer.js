@@ -18,7 +18,9 @@ HostDrainer.init = function(dbname, collection, cb) {
   this.drains = {};
 
   Collection.call(this, dbName, collectionName, function(col) {
-    if (cb) cb();
+    this.collection.ensureIndex( { host: 1 }, { unique: true }, function(err,res) {
+      if (cb) cb();
+    });
   }.bind(this));
 };
 
