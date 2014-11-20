@@ -62,41 +62,6 @@ describe('test host keeper', function(){
     }); // end of insertHosts
   }); // end of test
 
-  it('test crowdFactor', function(done) {
-    should(hostKeeper.hosts["foo.com"]).ok;
-    should(hostKeeper.hosts["foo.com"].crowdFactor).not.ok;
-    hostKeeper.updateCrowdFactor(function() {
-      should(hostKeeper.hosts["foo.com"].croudFactor,{size:1, factor:1});
-      should(hostKeeper.hosts["bar.com"].croudFactor,{size:1, factor:1});
-      // insert more docs
-      docHelper.insertDocuments(
-        helpers.conditionDocArray([
-          {id: 1, host: "foo.com"},
-          {id: 2, host: "foo.com"},
-          {id: 3, host: "foo.com"},
-          {id: 4, host: "foo.com"},
-          {id: 5, host: "foo.com"},
-          {id: 6, host: "foo.com"},
-          {id: 7, host: "foo.com"},
-          {id: 8, host: "foo.com"},
-          {id: 9, host: "bar.com"}
-        ]),
-        function() {
-          hostKeeper.updateCrowdFactor(function() {
-            should(hostKeeper.hosts["foo.com"].croudFactor,{size:9, factor:4});
-            should(hostKeeper.hosts["bar.com"].croudFactor,{size:2, factor:1});
-            var fooData = hostKeeper.getHostInfo("foo.com");
-            should(fooData).eql({"foo.com":{"host":"foo.com","crowdFactor":{"size":10,"factor":4}}});
-            var fooBarData = hostKeeper.getHostInfo(["foo.com", "bar.com"]);
-            should(fooBarData).eql({"foo.com":{"host":"foo.com","crowdFactor":{"size":10,"factor":4}},
-                                    "bar.com":{"host":"bar.com","crowdFactor":{"size":2,"factor":1}}});
-            done();
-          });
-        }
-      );
-    });
-  });
-
   it('test getHostDocsClearTitles', function(done) {
     // populate docs
     var docs = helpers.conditionDocArray(

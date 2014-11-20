@@ -97,31 +97,6 @@ DocHelper.getHostCursor = function(host) {
   return this.collection.find({host: host}, {"_id": 0});
 };
 
-DocHelper.selectDocByUrlHash = function(host, hashes, crowdFactor, cb) {
-  var cursor = this.collection.find({
-    host: host,
-  },
-  {
-    "_id": 0,
-  })
-  .sort({id: 1});
-  var res = {
-    host: host,
-    crowdFactor: crowdFactor,
-    docs: [],
-  };
-  cursor.each(function(err, doc) {
-    if (doc != null) {
-      var urlHash = doc.urlHash % crowdFactor;
-      if (hashes[urlHash]) {
-        res.docs.push(doc);
-      }
-    } else {
-      cb(res);
-    }
-  });
-};
-
 DocHelper.selectDocByTitleHash = function(host, hashes, cb) {
   var cursor = this.collection.find({
     host: host,

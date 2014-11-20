@@ -66,8 +66,7 @@ describe('route /hosts/topdomains', function(){
             .end(function(err, res) {
               should.not.exist(err);
               var hostInfo = JSON.parse(res.text);
-              should(hostInfo["foo.com"].crowdFactor).eql({"size":3,"factor":2});
-              should(hostInfo["bar.com"].crowdFactor).eql({"size":1,"factor":1});
+              should(Object.keys(hostInfo).length).eql(2);
               done();
             });
           });

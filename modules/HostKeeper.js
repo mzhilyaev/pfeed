@@ -28,54 +28,18 @@ HostKeeper.readHostTable = function(cb) {
 };
 
 HostKeeper.refresh = function(cb) {
-  this.readHostTable(function() {
-    this.updateCrowdFactor(cb);
-  }.bind(this));
+  this.readHostTable(cb);
 };
-
-HostKeeper.updateCrowdFactor = function(cb) {
-  // fiund out how many docs are stored for each host
-  docHelper.aggregateHostDocCount(function(results) {
-    var bulk = this.getUnorderedBulk();
-    var inserted = false;
-    Object.keys(results).forEach(function(host) {
-      var hostRecord = this.hosts[host];
-      if (!hostRecord) return;
-      // if there is not crowd factor or number of documents
-      // under the host increased by 30% over what it used to be
-      if (!hostRecord.crowdFactor || results[host] >= 1.3 * hostRecord.crowdFactor.size) {
-        // recompute the croadFactor so there is about 3 coliisions
-        hostRecord.crowdFactor = {
-          size: results[host],
-          factor: Math.floor(results[host]/3) + 1,
-        };
-        bulk.find({host: host}).update({$set: {crowdFactor: hostRecord.crowdFactor}});
-        inserted = true;
-      }
-    }.bind(this));
-    // if there's an operation recorded in bulk
-    if (inserted) {
-      bulk.execute(function(err, res) {
-        // console.log("modified " + res.nModified);
-        if (err) throw err;
-        if (cb) cb();
-      });
-    } else {
-    // otherwise run callback
-      cb();
-    }
-  }.bind(this));
-}
 
 HostKeeper.getHostInfo = function(arg) {
   var ret = {};
   if (arg instanceof Array) {
     arg.forEach(function(host) {
-      ret[host] = this.hosts[host];
+      if (this.hosts[host]) ret[host] = this.hosts[host];
     }.bind(this));
   }
   else {
-    ret[arg] = this.hosts[arg];
+    if (this.hosts[arg]) ret[arg] = this.hosts[arg];
   }
   return ret;
 };
