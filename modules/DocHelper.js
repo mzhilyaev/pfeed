@@ -30,7 +30,7 @@ DocHelper.getRecentDocsForSite = function(callback, searchEntry) {
   //console.log(JSON.stringify(searchEntry));
   var findEntry = {
     // @TODO - esacope periods in regexp otherwise riskmatching wrong hosts
-    revHost: {$regex: new RegExp("^" + utils.normalizeReverseHost(searchEntry.host))},
+    revHost: {$regex: new RegExp("^" + utils.normalizeReverseHost(searchEntry.host).replace(/\./,"\\."))},
   };
   if (searchEntry.sequenceId) {
     findEntry.sequenceId  = {$gt: searchEntry.sequenceId};
