@@ -2,6 +2,7 @@
 
 var mongo = require("mongoskin");
 var when = require("when");
+var fs = require('fs');
 var config = require("../config/config");
 var RevMap = require("../refData/IAB").RevMap;
 var MoreoverMap = require("../refData/moreover_to_IAB").MoreoverToIABMap;
@@ -10,7 +11,7 @@ var stopWords = require('../modules/StopWords').StopWords;
 var dbHost = "ec2-54-87-201-148.compute-1.amazonaws.com";
 //var dbHost = "localhost";
 var dbPort = 27017;
-var dbName = "moreover2";
+var dbName = "moreover";
 var colName = "docs";
 var host="cnn.com";
 var pattern = process.argv[2] || /\/politics\//;
@@ -75,8 +76,9 @@ function accumulate(url, title, topics) {
   if (catNames.length > 0) {
     outputTerms(url, "_U");
     outputTerms(title, "_T");
+    outputTerms(url + " " + title, "_A");
+    addToStats("_ANY", catNames);
   }
-
 };
 
 when.promise(function(resolve) {
@@ -102,6 +104,7 @@ when.promise(function(resolve) {
       accumulate(results.url, results.title, results.topics)
     }
     else {
+      fs.writeFile('cat.stats', JSON.stringify(stats));
       setTimeout(function() {db.close();});
     }
   });
