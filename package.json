@@ -18,7 +18,8 @@
     "byline": "*",
     "when": "*",
     "xml2js": "*",
-    "stem-porter": "*"
+    "stem-porter": "*",
+    "node-getopt": "*"
   },
   "devDependencies": {
      "tobi": "0.3.2",
