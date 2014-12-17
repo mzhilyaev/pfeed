@@ -18,8 +18,8 @@ var StatsCollector = require('../stats/StatsCollector');
 var classifiers = [];
 var statsCollector = new StatsCollector();
 
-function accumulate(url, title, topics) {
-  // compute IAB cats
+function processOneDocument(url, title, topics) {
+  // map Moreover topcis to IAB cats
   var cats = {};
   topics.forEach(function(topic) {
     var cat = MoreoverMap[topic];
@@ -37,18 +37,17 @@ function accumulate(url, title, topics) {
 
   // classify for rulesets
   // console.log(url, title, expectedCats);
-  var allInterests = [];
-  classifiers.forEach(function(dfr) {
-    var interests = dfr.classify(url, title);
+  var allResults = [];
+  classifiers.forEach(function(classifier) {
+    var results = classifier.classify(url, title);
     // console.log(dfr.name, interests);
-    statsCollector.add(domain, dfr.name, expectedCats, interests);
-    allInterests = allInterests.concat(interests);
+    statsCollector.add(domain, classifier.name, expectedCats, results);
+    allResults = allResults.concat(results);
   });
 
   // add all interests to stats
-  statsCollector.add(domain, "ALL", expectedCats, allInterests);
+  statsCollector.add(domain, "ALL", expectedCats, allResults);
 }
-
 
 function runSearch(options) {
   var dbHost = options.dbHost || "localhost";
@@ -98,7 +97,7 @@ function runSearch(options) {
       var titles = {};
       var count = 0;
       if (results != null) {
-        accumulate(results.url, results.title, results.topics)
+        processOneDocument(results.url, results.title, results.topics)
       }
       else {
         //fs.writeFile('cat.stats', JSON.stringify(stats));
@@ -129,7 +128,8 @@ console.log(getopts);
 for (var i in getopts.argv) {
  var fileContent = fs.readFileSync(getopts.argv[i], "utf8");
  var jsonObj = JSON.parse(fileContent);
- classifiers.push(new DFRClassifier(jsonObj, path.basename(getopts.argv[i], ".json")));
+ var fileName = path.basename(getopts.argv[i], ".json");
+ classifiers.push(new DFRClassifier(jsonObj, fileName));
 }
 
 runSearch(getopts.options);
