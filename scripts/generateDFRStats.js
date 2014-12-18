@@ -36,11 +36,11 @@ function processOneDocument(url, title, topics) {
   var domain = tld.getDomain(urlObj.hostname);
 
   // classify for rulesets
-  // console.log(url, title, expectedCats);
+  //console.log(url, title, expectedCats);
   var allResults = [];
   classifiers.forEach(function(classifier) {
     var results = classifier.classify(url, title);
-    // console.log(dfr.name, interests);
+    //console.log(classifier.name, results);
     statsCollector.add(domain, classifier.name, expectedCats, results);
     allResults = allResults.concat(results);
   });
@@ -123,7 +123,6 @@ var getopts = new Getopt([
          "[[OPTIONS]]")
 .parseSystem();
 
-console.log(getopts);
 // read DFRs  
 for (var i in getopts.argv) {
  var fileContent = fs.readFileSync(getopts.argv[i], "utf8");
