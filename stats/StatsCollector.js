@@ -20,9 +20,8 @@ StatsCollector.prototype = {
       stats[ruleSet] = {
         OVERALL: makeCatStats(),
         OVERALL_SUB: makeCatStats(),
+        OVERALL_TOP: makeCatStats(),
       };
-      stats[ruleSet].OVERALL.correctSeenCount = 0;
-      stats[ruleSet].OVERALL_SUB.correctSeenCount = 0;
     }
     var statsObj = stats[ruleSet];   // stats object
     var eCats = {};  // expected cats map
@@ -34,12 +33,14 @@ StatsCollector.prototype = {
         total: 0,     // expected total count
         categorized: 0, // categorized total count
         correct: 0,  // categorized correct count
+        correctSeenCount: 0, // for OVERALL recall computation
       };
     }
 
     // if expcted cats exist bump the OVERALL count
     if (expected.length > 0) {
       statsObj.OVERALL.total ++;
+      statsObj.OVERALL_TOP.total ++;
     }
 
     // populate expected cats maps and update total count
@@ -67,6 +68,9 @@ StatsCollector.prototype = {
       if (isSub) {
         statsObj.OVERALL_SUB.categorized ++;
       }
+      else {
+        statsObj.OVERALL_TOP.categorized ++;
+      }
       statsObj[cat].categorized++;  // update total assinged count
       if (eCats[cat]) {
         statsObj[cat].correct++; // update correct count
@@ -76,18 +80,21 @@ StatsCollector.prototype = {
           statsObj.OVERALL_SUB.correct++
           overallSubCorrectSeen = true;
         }
+        else {
+          statsObj.OVERALL_TOP.correct++
+        }
       }
       aCats[cat] = true; // mark category as processed
     });
 
     if (overallCorrectSeen) {
       statsObj.OVERALL.correctSeenCount++;
+      statsObj.OVERALL_TOP.correctSeenCount++;
     }
 
     if (overallSubCorrectSeen) {
       statsObj.OVERALL_SUB.correctSeenCount++;
     }
-
   },
 
   // output function
@@ -100,10 +107,10 @@ StatsCollector.prototype = {
         var cats = Object.keys(ruleSetsObject[ruleSet]).sort();
         cats.forEach(function(cat) {
           var catStats = ruleSetsObject[ruleSet][cat];
-          var precision = (catStats.categorized) ? catStats.correct / catStats.categorized : "NULL";
-          var recall = (catStats.total) ? catStats.correct / catStats.total : 0;
-          if (cat == "OVERALL" || cat == "OVERALL_SUB") {
-            recall = (catStats.total) ? catStats.correctSeenCount / catStats.total : 0;
+          var precision = (catStats.categorized) ? Math.round(catStats.correct * 100/ catStats.categorized) : "NULL";
+          var recall = (catStats.total) ? Math.round(catStats.correct * 100 / catStats.total) : 0;
+          if (cat.match("OVERALL")) {
+            recall = (catStats.total) ? Math.round(catStats.correctSeenCount * 100 / catStats.total) : 0;
           }
           console.log("'%s','%s','%s',%s,%s,%s",domain, ruleSet, cat, precision, recall, catStats.total);
         });
