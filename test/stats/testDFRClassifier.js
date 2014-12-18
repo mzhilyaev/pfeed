@@ -57,6 +57,9 @@ var testDomainRules = {
     "frontline": [
       "test"
     ],
+    "/politics": [
+       "politics"
+    ],
   },
 };
 
@@ -138,6 +141,12 @@ var matchTests = [
   url:  "https://google.com",
   title: "front line",
   expectedInterests: ["test"],
+},
+{
+  info: "Match Test 13 (Rules): frontline bigram",
+  url:  "http://us.cnn.com/2014/11/16/politics/g20-summit-putin/index.html?hpt=hp_inthenews",
+  title: "G20 summit",
+  expectedInterests: ["politics"],
 },
 ];
 

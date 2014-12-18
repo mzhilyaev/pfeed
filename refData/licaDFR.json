@@ -1,0 +1,2226 @@
+{
+ "__ANY": {
+  "420_u": [
+   "drugs",
+   "drugs/cannabis"
+  ],
+  "fashion_u": [
+   "fashion"
+  ],
+  "fashions_u": [
+   "fashion"
+  ],
+  "bodyart_u": [
+   "fashion",
+   "fashion/body art"
+  ],
+  "clothing_u": [
+   "fashion",
+   "fashion/clothing"
+  ],
+  "jewelry_u": [
+   "fashion",
+   "fashion/jewelry"
+  ],
+  "jewellery_u": [
+   "fashion",
+   "fashion/jewelry"
+  ],
+  "beauty_u": [
+   "fashion",
+   "fashion/beauty"
+  ],
+  "cellphones_u": [
+   "cell phones"
+  ],
+  "cellphone_u": [
+   "cell phones"
+  ],
+  "family_u": [
+   "family & parenting"
+  ],
+  "families_u": [
+   "family & parenting"
+  ],
+  "pregnancy_u": [
+   "family & parenting",
+   "family & parenting/pregnancy"
+  ],
+  "pregnancies_u": [
+   "family & parenting",
+   "family & parenting/pregnancy"
+  ],
+  "parenting_u": [
+   "family & parenting",
+   "family & parenting/parenting"
+  ],
+  "parents_u": [
+   "family & parenting",
+   "family & parenting/parenting"
+  ],
+  "eat_u": [
+   "food & drink"
+  ],
+  "dine_u": [
+   "food & drink"
+  ],
+  "drinks_u": [
+   "food & drink"
+  ],
+  "drink_u": [
+   "food & drink"
+  ],
+  "food_u": [
+   "food & drink"
+  ],
+  "foods_u": [
+   "food & drink"
+  ],
+  "cuisine_u": [
+   "food & drink"
+  ],
+  "cuisines_u": [
+   "food & drink"
+  ],
+  "cheese_u": [
+   "food & drink",
+   "food & drink/cheese"
+  ],
+  "cheeses_u": [
+   "food & drink",
+   "food & drink/cheese"
+  ],
+  "baking_u": [
+   "food & drink",
+   "food & drink/baking"
+  ],
+  "pastry_u": [
+   "food & drink",
+   "food & drink/baking"
+  ],
+  "cocktail_u": [
+   "food & drink",
+   "food & drink/cocktails"
+  ],
+  "cocktails_u": [
+   "food & drink",
+   "food & drink/cocktails"
+  ],
+  "dining_u": [
+   "food & drink",
+   "food & drink/dining out"
+  ],
+  "restaurant_u": [
+   "food & drink",
+   "food & drink/dining out"
+  ],
+  "chef_u": [
+   "food & drink",
+   "food & drink/dining out"
+  ],
+  "tea_u": [
+   "food & drink",
+   "food & drink/tea"
+  ],
+  "vegetarian_u": [
+   "food & drink",
+   "food & drink/vegetarian"
+  ],
+  "cooking_u": [
+   "food & drink",
+   "food & drink/cooking"
+  ],
+  "cider_u": [
+   "food & drink",
+   "food & drink/cider"
+  ],
+  "barbecue_u": [
+   "food & drink",
+   "food & drink/barbecues & grilling"
+  ],
+  "barbecues_u": [
+   "food & drink",
+   "food & drink/barbecues & grilling"
+  ],
+  "bbq_u": [
+   "food & drink",
+   "food & drink/barbecues & grilling"
+  ],
+  "grilling_u": [
+   "food & drink",
+   "food & drink/barbecues & grilling"
+  ],
+  "vegan_u": [
+   "food & drink",
+   "food & drink/vegan"
+  ],
+  "healthy_u": [
+   "food & drink",
+   "food & drink/healthy eating"
+  ],
+  "beer_u": [
+   "food & drink",
+   "food & drink/beer"
+  ],
+  "beers_u": [
+   "food & drink",
+   "food & drink/beer"
+  ],
+  "ale_u": [
+   "food & drink",
+   "food & drink/beer"
+  ],
+  "stout_u": [
+   "food & drink",
+   "food & drink/beer"
+  ],
+  "coffee_u": [
+   "food & drink",
+   "food & drink/coffee"
+  ],
+  "coffees_u": [
+   "food & drink",
+   "food & drink/coffee"
+  ],
+  "pasta_u": [
+   "food & drink",
+   "food & drink/pasta"
+  ],
+  "fruit_u": [
+   "food & drink",
+   "food & drink/fruit"
+  ],
+  "wine_u": [
+   "food & drink",
+   "food & drink/wine"
+  ],
+  "vineyard_u": [
+   "food & drink",
+   "food & drink/wine"
+  ],
+  "society_u": [
+   "society"
+  ],
+  "sociology_u": [
+   "society",
+   "society/sociology"
+  ],
+  "gay_u": [
+   "society",
+   "society/gay life"
+  ],
+  "lesbian_u": [
+   "society",
+   "society/gay life"
+  ],
+  "lgbt_u": [
+   "society",
+   "society/gay life"
+  ],
+  "lgbtq_u": [
+   "society",
+   "society/gay life"
+  ],
+  "anthropology_u": [
+   "society",
+   "society/anthropology"
+  ],
+  "marriage_u": [
+   "society",
+   "society/marriage"
+  ],
+  "weddings_u": [
+   "society",
+   "society/marriage"
+  ],
+  "wedding_u": [
+   "society",
+   "society/marriage"
+  ],
+  "dating_u": [
+   "society",
+   "society/dating"
+  ],
+  "socialnetworking_u": [
+   "society",
+   "society/social networking"
+  ],
+  "socialnetworks_u": [
+   "society",
+   "society/social networking"
+  ],
+  "finance_u": [
+   "personal finance"
+  ],
+  "finances_u": [
+   "personal finance"
+  ],
+  "financial_u": [
+   "personal finance"
+  ],
+  "retirement_u": [
+   "personal finance",
+   "personal finance/retirement planning"
+  ],
+  "invest_u": [
+   "personal finance",
+   "personal finance/investing"
+  ],
+  "investing_u": [
+   "personal finance",
+   "personal finance/investing"
+  ],
+  "bank_u": [
+   "personal finance",
+   "personal finance/banking"
+  ],
+  "banking_u": [
+   "personal finance",
+   "personal finance/banking"
+  ],
+  "banks_u": [
+   "personal finance",
+   "personal finance/banking"
+  ],
+  "credit_u": [
+   "personal finance",
+   "personal finance/credit, debt & loans"
+  ],
+  "debt_u": [
+   "personal finance",
+   "personal finance/credit, debt & loans"
+  ],
+  "debts_u": [
+   "personal finance",
+   "personal finance/credit, debt & loans"
+  ],
+  "loan_u": [
+   "personal finance",
+   "personal finance/credit, debt & loans"
+  ],
+  "loans_u": [
+   "personal finance",
+   "personal finance/credit, debt & loans"
+  ],
+  "stocks_u": [
+   "personal finance",
+   "personal finance/stocks"
+  ],
+  "ipo_u": [
+   "personal finance",
+   "personal finance/stocks"
+  ],
+  "insure_u": [
+   "personal finance",
+   "personal finance/insurance"
+  ],
+  "insurance_u": [
+   "personal finance",
+   "personal finance/insurance"
+  ],
+  "taxes_u": [
+   "personal finance",
+   "personal finance/tax"
+  ],
+  "taxation_u": [
+   "personal finance",
+   "personal finance/tax"
+  ],
+  "tax_u": [
+   "personal finance",
+   "personal finance/tax"
+  ],
+  "accounting_u": [
+   "personal finance",
+   "personal finance/tax"
+  ],
+  "accountant_u": [
+   "personal finance",
+   "personal finance/tax"
+  ],
+  "appliances_u": [
+   "home",
+   "home/appliances"
+  ],
+  "landscaping_u": [
+   "home",
+   "home/garden"
+  ],
+  "gardening_u": [
+   "home",
+   "home/garden"
+  ],
+  "gardens_u": [
+   "home",
+   "home/garden"
+  ],
+  "garden_u": [
+   "home",
+   "home/garden"
+  ],
+  "interiors_u": [
+   "home",
+   "home/interior design"
+  ],
+  "politics_u": [
+   "politics"
+  ],
+  "political_u": [
+   "politics"
+  ],
+  "democrat_u": [
+   "politics"
+  ],
+  "republican_u": [
+   "politics"
+  ],
+  "conservative_u": [
+   "politics"
+  ],
+  "liberal_u": [
+   "politics"
+  ],
+  "democratic_u": [
+   "politics"
+  ],
+  "democrats_u": [
+   "politics"
+  ],
+  "republicans_u": [
+   "politics"
+  ],
+  "liberals_u": [
+   "politics"
+  ],
+  "conservatives_u": [
+   "politics"
+  ],
+  "parliament_u": [
+   "politics"
+  ],
+  "senate_u": [
+   "politics"
+  ],
+  "government_u": [
+   "politics",
+   "politics/government"
+  ],
+  "govt_u": [
+   "politics",
+   "politics/government"
+  ],
+  "education_u": [
+   "education"
+  ],
+  "school_u": [
+   "education"
+  ],
+  "grad_u": [
+   "education"
+  ],
+  "grads_u": [
+   "education"
+  ],
+  "graduate_u": [
+   "education"
+  ],
+  "graduates_u": [
+   "education"
+  ],
+  "schools_u": [
+   "education"
+  ],
+  "college_u": [
+   "education",
+   "education/university"
+  ],
+  "colleges_u": [
+   "education",
+   "education/university"
+  ],
+  "universities_u": [
+   "education",
+   "education/university"
+  ],
+  "university_u": [
+   "education",
+   "education/university"
+  ],
+  "languages_u": [
+   "education",
+   "education/languages"
+  ],
+  "linguistics_u": [
+   "education",
+   "education/languages"
+  ],
+  "academic_u": [
+   "education",
+   "education/academia"
+  ],
+  "academia_u": [
+   "education",
+   "education/academia"
+  ],
+  "homeschooling_u": [
+   "education",
+   "education/homeschooling"
+  ],
+  "agriculture_u": [
+   "agriculture"
+  ],
+  "drugs_u": [
+   "drugs"
+  ],
+  "marijuana_u": [
+   "drugs",
+   "drugs/cannabis"
+  ],
+  "cannabis_u": [
+   "drugs",
+   "drugs/cannabis"
+  ],
+  "hobby_u": [
+   "hobbies & interests"
+  ],
+  "hobbies_u": [
+   "hobbies & interests"
+  ],
+  "dance_u": [
+   "hobbies & interests",
+   "hobbies & interests/dance"
+  ],
+  "dancing_u": [
+   "hobbies & interests",
+   "hobbies & interests/dance"
+  ],
+  "woodworking_u": [
+   "hobbies & interests",
+   "hobbies & interests/woodworking"
+  ],
+  "birdwatching_u": [
+   "hobbies & interests",
+   "hobbies & interests/birdwatching"
+  ],
+  "boardgames_u": [
+   "hobbies & interests",
+   "hobbies & interests/board games"
+  ],
+  "chess_u": [
+   "hobbies & interests",
+   "hobbies & interests/board games"
+  ],
+  "coins_u": [
+   "hobbies & interests",
+   "hobbies & interests/coins"
+  ],
+  "coin_u": [
+   "hobbies & interests",
+   "hobbies & interests/coins"
+  ],
+  "bullion_u": [
+   "hobbies & interests",
+   "hobbies & interests/coins"
+  ],
+  "numismatics_u": [
+   "hobbies & interests",
+   "hobbies & interests/coins"
+  ],
+  "numismatic_u": [
+   "hobbies & interests",
+   "hobbies & interests/coins"
+  ],
+  "numismatist_u": [
+   "hobbies & interests",
+   "hobbies & interests/coins"
+  ],
+  "crafts_u": [
+   "hobbies & interests",
+   "hobbies & interests/arts & crafts"
+  ],
+  "antique_u": [
+   "hobbies & interests",
+   "hobbies & interests/antiques"
+  ],
+  "antiques_u": [
+   "hobbies & interests",
+   "hobbies & interests/antiques"
+  ],
+  "writing_u": [
+   "hobbies & interests",
+   "hobbies & interests/writing"
+  ],
+  "stamps_u": [
+   "hobbies & interests",
+   "hobbies & interests/stamps"
+  ],
+  "gambling_u": [
+   "hobbies & interests",
+   "hobbies & interests/gambling"
+  ],
+  "poker_u": [
+   "hobbies & interests",
+   "hobbies & interests/gambling"
+  ],
+  "blackjack_u": [
+   "hobbies & interests",
+   "hobbies & interests/gambling"
+  ],
+  "casino_u": [
+   "hobbies & interests",
+   "hobbies & interests/gambling"
+  ],
+  "betting_u": [
+   "hobbies & interests",
+   "hobbies & interests/gambling"
+  ],
+  "scifi_u": [
+   "hobbies & interests",
+   "hobbies & interests/sci-fi"
+  ],
+  "photography_u": [
+   "hobbies & interests",
+   "hobbies & interests/photography"
+  ],
+  "dslr_u": [
+   "hobbies & interests",
+   "hobbies & interests/photography"
+  ],
+  "slr_u": [
+   "hobbies & interests",
+   "hobbies & interests/photography"
+  ],
+  "canon_u": [
+   "hobbies & interests",
+   "hobbies & interests/photography"
+  ],
+  "nikon_u": [
+   "hobbies & interests",
+   "hobbies & interests/photography"
+  ],
+  "smoking_u": [
+   "hobbies & interests",
+   "hobbies & interests/smoking"
+  ],
+  "cigar_u": [
+   "hobbies & interests",
+   "hobbies & interests/smoking"
+  ],
+  "cigars_u": [
+   "hobbies & interests",
+   "hobbies & interests/smoking"
+  ],
+  "tobacco_u": [
+   "hobbies & interests",
+   "hobbies & interests/smoking"
+  ],
+  "pottery_u": [
+   "hobbies & interests",
+   "hobbies & interests/pottery"
+  ],
+  "scouting_u": [
+   "hobbies & interests",
+   "hobbies & interests/scouting"
+  ],
+  "scouts_u": [
+   "hobbies & interests",
+   "hobbies & interests/scouting"
+  ],
+  "genealogy_u": [
+   "hobbies & interests",
+   "hobbies & interests/genealogy"
+  ],
+  "familytree_u": [
+   "hobbies & interests",
+   "hobbies & interests/genealogy"
+  ],
+  "ancestry_u": [
+   "hobbies & interests",
+   "hobbies & interests/genealogy"
+  ],
+  "horseracing_u": [
+   "hobbies & interests",
+   "hobbies & interests/horse racing"
+  ],
+  "needlework_u": [
+   "hobbies & interests",
+   "hobbies & interests/needlework"
+  ],
+  "metalworking_u": [
+   "hobbies & interests",
+   "hobbies & interests/metalworking"
+  ],
+  "travel_u": [
+   "travel"
+  ],
+  "vacations_u": [
+   "travel"
+  ],
+  "vacation_u": [
+   "travel"
+  ],
+  "trip_u": [
+   "travel"
+  ],
+  "cruise_u": [
+   "travel",
+   "travel/cruise vacations"
+  ],
+  "cruises_u": [
+   "travel",
+   "travel/cruise vacations"
+  ],
+  "adventure_u": [
+   "travel",
+   "travel/adventure travel"
+  ],
+  "backpacking_u": [
+   "travel",
+   "travel/budget travel"
+  ],
+  "hotel_u": [
+   "travel",
+   "travel/hotels"
+  ],
+  "hotels_u": [
+   "travel",
+   "travel/hotels"
+  ],
+  "airline_u": [
+   "travel",
+   "travel/air travel"
+  ],
+  "flight_u": [
+   "travel",
+   "travel/air travel"
+  ],
+  "flights_u": [
+   "travel",
+   "travel/air travel"
+  ],
+  "airlines_u": [
+   "travel",
+   "travel/air travel"
+  ],
+  "airways_u": [
+   "travel",
+   "travel/air travel"
+  ],
+  "trains_u": [
+   "travel",
+   "travel/trains"
+  ],
+  "rail_u": [
+   "travel",
+   "travel/trains"
+  ],
+  "railway_u": [
+   "travel",
+   "travel/trains"
+  ],
+  "railways_u": [
+   "travel",
+   "travel/trains"
+  ],
+  "sport_u": [
+   "sports"
+  ],
+  "sports_u": [
+   "sports"
+  ],
+  "athlete_u": [
+   "sports"
+  ],
+  "football_u": [
+   "sports"
+  ],
+  "nfl_u": [
+   "sports",
+   "sports/american football"
+  ],
+  "skate_u": [
+   "sports",
+   "sports/skating"
+  ],
+  "skating_u": [
+   "sports",
+   "sports/skating"
+  ],
+  "skater_u": [
+   "sports",
+   "sports/skating"
+  ],
+  "walking_u": [
+   "sports",
+   "sports/walking"
+  ],
+  "tennis_u": [
+   "sports",
+   "sports/tennis"
+  ],
+  "golf_u": [
+   "sports",
+   "sports/golf"
+  ],
+  "golfer_u": [
+   "sports",
+   "sports/golf"
+  ],
+  "skateboards_u": [
+   "sports",
+   "sports/skateboarding"
+  ],
+  "skateboarding_u": [
+   "sports",
+   "sports/skateboarding"
+  ],
+  "skateboarder_u": [
+   "sports",
+   "sports/skateboarding"
+  ],
+  "wrestling_u": [
+   "sports",
+   "sports/wrestling"
+  ],
+  "wrestler_u": [
+   "sports",
+   "sports/wrestling"
+  ],
+  "gymnastics_u": [
+   "sports",
+   "sports/gymnastics"
+  ],
+  "gymnast_u": [
+   "sports",
+   "sports/gymnastics"
+  ],
+  "athletics_u": [
+   "sports",
+   "sports/athletics"
+  ],
+  "volleyball_u": [
+   "sports",
+   "sports/volleyball"
+  ],
+  "ski_u": [
+   "sports",
+   "sports/skiing"
+  ],
+  "skiing_u": [
+   "sports",
+   "sports/skiing"
+  ],
+  "skiier_u": [
+   "sports",
+   "sports/skiing"
+  ],
+  "bodybuilding_u": [
+   "sports",
+   "sports/bodybuilding"
+  ],
+  "basketball_u": [
+   "sports",
+   "sports/basketball"
+  ],
+  "nba_u": [
+   "sports",
+   "sports/basketball"
+  ],
+  "yoga_u": [
+   "sports",
+   "sports/yoga"
+  ],
+  "fencing_u": [
+   "sports",
+   "sports/fencing"
+  ],
+  "boxing_u": [
+   "sports",
+   "sports/boxing"
+  ],
+  "olympic_u": [
+   "sports",
+   "sports/olympics"
+  ],
+  "olympics_u": [
+   "sports",
+   "sports/olympics"
+  ],
+  "hockey_u": [
+   "sports",
+   "sports/hockey"
+  ],
+  "nhl_u": [
+   "sports",
+   "sports/hockey"
+  ],
+  "soccer_u": [
+   "sports",
+   "sports/soccer"
+  ],
+  "afc_u": [
+   "sports",
+   "sports/soccer"
+  ],
+  "martial_u": [
+   "sports",
+   "sports/martial arts"
+  ],
+  "karate_u": [
+   "sports",
+   "sports/martial arts"
+  ],
+  "judo_u": [
+   "sports",
+   "sports/martial arts"
+  ],
+  "taekwondo_u": [
+   "sports",
+   "sports/martial arts"
+  ],
+  "muay_u": [
+   "sports",
+   "sports/martial arts"
+  ],
+  "kung_u": [
+   "sports",
+   "sports/martial arts"
+  ],
+  "krav_u": [
+   "sports",
+   "sports/martial arts"
+  ],
+  "jeet_u": [
+   "sports",
+   "sports/martial arts"
+  ],
+  "cricket_u": [
+   "sports",
+   "sports/cricket"
+  ],
+  "cheerleading_u": [
+   "sports",
+   "sports/cheerleading"
+  ],
+  "jogging_u": [
+   "sports",
+   "sports/jogging"
+  ],
+  "marathon_u": [
+   "sports",
+   "sports/jogging"
+  ],
+  "surfing_u": [
+   "sports",
+   "sports/surfing"
+  ],
+  "surfer_u": [
+   "sports",
+   "sports/surfing"
+  ],
+  "baseball_u": [
+   "sports",
+   "sports/baseball"
+  ],
+  "mlb_u": [
+   "sports",
+   "sports/baseball"
+  ],
+  "darts_u": [
+   "sports",
+   "sports/darts"
+  ],
+  "cycle_u": [
+   "sports",
+   "sports/cycling"
+  ],
+  "cycling_u": [
+   "sports",
+   "sports/cycling"
+  ],
+  "cyclist_u": [
+   "sports",
+   "sports/cycling"
+  ],
+  "archery_u": [
+   "sports",
+   "sports/archery"
+  ],
+  "climbing_u": [
+   "sports",
+   "sports/climbing"
+  ],
+  "bouldering_u": [
+   "sports",
+   "sports/climbing"
+  ],
+  "rugby_u": [
+   "sports",
+   "sports/rugby"
+  ],
+  "sailing_u": [
+   "sports",
+   "sports/sailing"
+  ],
+  "racing_u": [
+   "sports",
+   "sports/racing"
+  ],
+  "motorsport_u": [
+   "sports",
+   "sports/racing"
+  ],
+  "nascar_u": [
+   "sports",
+   "sports/racing"
+  ],
+  "formula1_u": [
+   "sports",
+   "sports/racing"
+  ],
+  "formulaone_u": [
+   "sports",
+   "sports/racing"
+  ],
+  "rowing_u": [
+   "sports",
+   "sports/rowing"
+  ],
+  "sculls_u": [
+   "sports",
+   "sports/rowing"
+  ],
+  "sculling_u": [
+   "sports",
+   "sports/rowing"
+  ],
+  "kayaking_u": [
+   "sports",
+   "sports/kayaking"
+  ],
+  "canoeing_u": [
+   "sports",
+   "sports/kayaking"
+  ],
+  "bowling_u": [
+   "sports",
+   "sports/bowling"
+  ],
+  "snowboarding_u": [
+   "sports",
+   "sports/snowboarding"
+  ],
+  "snowboard_u": [
+   "sports",
+   "sports/snowboarding"
+  ],
+  "scuba_u": [
+   "sports",
+   "sports/diving"
+  ],
+  "hunting_u": [
+   "sports",
+   "sports/hunting"
+  ],
+  "fishing_u": [
+   "sports",
+   "sports/fishing"
+  ],
+  "swimming_u": [
+   "sports",
+   "sports/swimming"
+  ],
+  "swimmer_u": [
+   "sports",
+   "sports/swimming"
+  ],
+  "religion_u": [
+   "religion"
+  ],
+  "religions_u": [
+   "religion"
+  ],
+  "religious_u": [
+   "religion"
+  ],
+  "jewish_u": [
+   "religion",
+   "religion/judaism"
+  ],
+  "judaism_u": [
+   "religion",
+   "religion/judaism"
+  ],
+  "wiccan_u": [
+   "religion",
+   "religion/wicca"
+  ],
+  "wicca_u": [
+   "religion",
+   "religion/wicca"
+  ],
+  "pagan_u": [
+   "religion",
+   "religion/wicca"
+  ],
+  "christian_u": [
+   "religion",
+   "religion/christianity"
+  ],
+  "church_u": [
+   "religion",
+   "religion/christianity"
+  ],
+  "bible_u": [
+   "religion",
+   "religion/christianity"
+  ],
+  "christianity_u": [
+   "religion",
+   "religion/christianity"
+  ],
+  "buddhism_u": [
+   "religion",
+   "religion/buddhism"
+  ],
+  "shinto_u": [
+   "religion",
+   "religion/shinto"
+  ],
+  "hindu_u": [
+   "religion",
+   "religion/hinduism"
+  ],
+  "hinduism_u": [
+   "religion",
+   "religion/hinduism"
+  ],
+  "muslim_u": [
+   "religion",
+   "religion/islam"
+  ],
+  "islam_u": [
+   "religion",
+   "religion/islam"
+  ],
+  "pet_u": [
+   "pets"
+  ],
+  "pets_u": [
+   "pets"
+  ],
+  "aquarium_u": [
+   "pets",
+   "pets/aquariums"
+  ],
+  "aquariums_u": [
+   "pets",
+   "pets/aquariums"
+  ],
+  "cats_u": [
+   "pets",
+   "pets/cats"
+  ],
+  "kitten_u": [
+   "pets",
+   "pets/cats"
+  ],
+  "kittens_u": [
+   "pets",
+   "pets/cats"
+  ],
+  "reptile_u": [
+   "pets",
+   "pets/reptiles"
+  ],
+  "reptiles_u": [
+   "pets",
+   "pets/reptiles"
+  ],
+  "dog_u": [
+   "pets",
+   "pets/dogs"
+  ],
+  "dogs_u": [
+   "pets",
+   "pets/dogs"
+  ],
+  "puppy_u": [
+   "pets",
+   "pets/dogs"
+  ],
+  "puppies_u": [
+   "pets",
+   "pets/dogs"
+  ],
+  "bird_u": [
+   "pets",
+   "pets/birds"
+  ],
+  "birds_u": [
+   "pets",
+   "pets/birds"
+  ],
+  "tech_u": [
+   "technology & computing"
+  ],
+  "technology_u": [
+   "technology & computing"
+  ],
+  "hacking_u": [
+   "technology & computing"
+  ],
+  "hacker_u": [
+   "technology & computing"
+  ],
+  "hack_u": [
+   "technology & computing"
+  ],
+  "computer_u": [
+   "technology & computing"
+  ],
+  "computers_u": [
+   "technology & computing"
+  ],
+  "computing_u": [
+   "technology & computing"
+  ],
+  "unix_u": [
+   "technology & computing",
+   "technology & computing/unix"
+  ],
+  "linux_u": [
+   "technology & computing",
+   "technology & computing/unix"
+  ],
+  "freeware_u": [
+   "technology & computing",
+   "technology & computing/freeware"
+  ],
+  "graphics_u": [
+   "technology & computing",
+   "technology & computing/graphics"
+  ],
+  "3d_u": [
+   "technology & computing",
+   "technology & computing/graphics"
+  ],
+  "software_u": [
+   "technology & computing",
+   "technology & computing/software"
+  ],
+  "app_u": [
+   "technology & computing",
+   "technology & computing/software"
+  ],
+  "hardware_u": [
+   "technology & computing",
+   "technology & computing/hardware"
+  ],
+  "gaming_u": [
+   "arts & entertainment",
+   "arts & entertainment/video games"
+  ],
+  "windows_u": [
+   "technology & computing",
+   "technology & computing/windows"
+  ],
+  "programming_u": [
+   "technology & computing",
+   "technology & computing/programming"
+  ],
+  "programmer_u": [
+   "technology & computing",
+   "technology & computing/programming"
+  ],
+  "javascript_u": [
+   "technology & computing",
+   "technology & computing/programming"
+  ],
+  "perl_u": [
+   "technology & computing",
+   "technology & computing/programming"
+  ],
+  "api_u": [
+   "technology & computing",
+   "technology & computing/programming"
+  ],
+  "database_u": [
+   "technology & computing",
+   "technology & computing/database"
+  ],
+  "databases_u": [
+   "technology & computing",
+   "technology & computing/database"
+  ],
+  "apple_u": [
+   "technology & computing",
+   "technology & computing/apple"
+  ],
+  "mac_u": [
+   "technology & computing",
+   "technology & computing/apple"
+  ],
+  "career_u": [
+   "careers"
+  ],
+  "careers_u": [
+   "careers"
+  ],
+  "jobs_u": [
+   "careers"
+  ],
+  "job_u": [
+   "careers"
+  ],
+  "business_u": [
+   "business"
+  ],
+  "businesses_u": [
+   "business"
+  ],
+  "profit_u": [
+   "business"
+  ],
+  "logistic_u": [
+   "business",
+   "business/logistics"
+  ],
+  "logistics_u": [
+   "business",
+   "business/logistics"
+  ],
+  "retail_u": [
+   "business",
+   "business/commerce"
+  ],
+  "commerce_u": [
+   "business",
+   "business/commerce"
+  ],
+  "mining_u": [
+   "business",
+   "business/mining"
+  ],
+  "nonprofit_u": [
+   "business",
+   "business/non proft"
+  ],
+  "publishing_u": [
+   "business",
+   "business/publishing"
+  ],
+  "biotech_u": [
+   "business",
+   "business/biotech"
+  ],
+  "marketing_u": [
+   "business",
+   "business/marketing"
+  ],
+  "energy_u": [
+   "business",
+   "business/energy"
+  ],
+  "humanresources_u": [
+   "business",
+   "business/human resources"
+  ],
+  "metals_u": [
+   "business",
+   "business/metals"
+  ],
+  "forestry_u": [
+   "business",
+   "business/forestry"
+  ],
+  "construction_u": [
+   "business",
+   "business/construction"
+  ],
+  "advertising_u": [
+   "business",
+   "business/advertising"
+  ],
+  "adtech_u": [
+   "business",
+   "business/advertising"
+  ],
+  "shipping_u": [
+   "business",
+   "business/shipping"
+  ],
+  "manufacture_u": [
+   "business",
+   "business/manufacturing"
+  ],
+  "manufacturing_u": [
+   "business",
+   "business/manufacturing"
+  ],
+  "ecommerce_u": [
+   "business",
+   "business/ecommerce"
+  ],
+  "biomedical_u": [
+   "business",
+   "business/biomedical"
+  ],
+  "pharma_u": [
+   "business",
+   "business/biomedical"
+  ],
+  "pharmaceutical_u": [
+   "business",
+   "business/biomedical"
+  ],
+  "pharmaceuticals_u": [
+   "business",
+   "business/biomedical"
+  ],
+  "autos_u": [
+   "automotive"
+  ],
+  "car_u": [
+   "automotive"
+  ],
+  "automotive_u": [
+   "automotive"
+  ],
+  "cars_u": [
+   "automotive"
+  ],
+  "vehicles_u": [
+   "automotive"
+  ],
+  "vehicle_u": [
+   "automotive"
+  ],
+  "bmw_u": [
+   "automotive",
+   "automotive/car brands"
+  ],
+  "benz_u": [
+   "automotive",
+   "automotive/car brands"
+  ],
+  "mercedes_u": [
+   "automotive",
+   "automotive/car brands"
+  ],
+  "chevvy_u": [
+   "automotive",
+   "automotive/car brands"
+  ],
+  "chevy_u": [
+   "automotive",
+   "automotive/car brands"
+  ],
+  "chevrolet_u": [
+   "automotive",
+   "automotive/car brands"
+  ],
+  "lexus_u": [
+   "automotive",
+   "automotive/car brands"
+  ],
+  "bentley_u": [
+   "automotive",
+   "automotive/car brands"
+  ],
+  "mazda_u": [
+   "automotive",
+   "automotive/car brands"
+  ],
+  "honda_u": [
+   "automotive",
+   "automotive/car brands"
+  ],
+  "audi_u": [
+   "automotive",
+   "automotive/car brands"
+  ],
+  "buick_u": [
+   "automotive",
+   "automotive/car brands"
+  ],
+  "cadillac_u": [
+   "automotive",
+   "automotive/car brands"
+  ],
+  "chrysler_u": [
+   "automotive",
+   "automotive/car brands"
+  ],
+  "ferrari_u": [
+   "automotive",
+   "automotive/car brands"
+  ],
+  "hyundai_u": [
+   "automotive",
+   "automotive/car brands"
+  ],
+  "jeep_u": [
+   "automotive",
+   "automotive/car brands"
+  ],
+  "kia_u": [
+   "automotive",
+   "automotive/car brands"
+  ],
+  "maserati_u": [
+   "automotive",
+   "automotive/car brands"
+  ],
+  "nissan_u": [
+   "automotive",
+   "automotive/car brands"
+  ],
+  "renault_u": [
+   "automotive",
+   "automotive/car brands"
+  ],
+  "opel_u": [
+   "automotive",
+   "automotive/car brands"
+  ],
+  "peugeot_u": [
+   "automotive",
+   "automotive/car brands"
+  ],
+  "porsche_u": [
+   "automotive",
+   "automotive/car brands"
+  ],
+  "subaru_u": [
+   "automotive",
+   "automotive/car brands"
+  ],
+  "skoda_u": [
+   "automotive",
+   "automotive/car brands"
+  ],
+  "suzuki_u": [
+   "automotive",
+   "automotive/car brands"
+  ],
+  "tesla_u": [
+   "automotive",
+   "automotive/car brands"
+  ],
+  "pickup_u": [
+   "automotive",
+   "automotive/pickup trucks"
+  ],
+  "pickups_u": [
+   "automotive",
+   "automotive/pickup trucks"
+  ],
+  "truck_u": [
+   "automotive",
+   "automotive/pickup trucks"
+  ],
+  "trucks_u": [
+   "automotive",
+   "automotive/pickup trucks"
+  ],
+  "motorcycle_u": [
+   "automotive",
+   "automotive/motorcycles"
+  ],
+  "motorcycling_u": [
+   "automotive",
+   "automotive/motorcycles"
+  ],
+  "motorcycles_u": [
+   "automotive",
+   "automotive/motorcycles"
+  ],
+  "convertible_u": [
+   "automotive",
+   "automotive/convertibles"
+  ],
+  "convertibles_u": [
+   "automotive",
+   "automotive/convertibles"
+  ],
+  "minivan_u": [
+   "automotive",
+   "automotive/minivans"
+  ],
+  "minivans_u": [
+   "automotive",
+   "automotive/minivans"
+  ],
+  "sedan_u": [
+   "automotive",
+   "automotive/sedans"
+  ],
+  "sedans_u": [
+   "automotive",
+   "automotive/sedans"
+  ],
+  "wagon_u": [
+   "automotive",
+   "automotive/wagons"
+  ],
+  "wagons_u": [
+   "automotive",
+   "automotive/wagons"
+  ],
+  "hatchback_u": [
+   "automotive",
+   "automotive/hatchbacks"
+  ],
+  "hatchbacks_u": [
+   "automotive",
+   "automotive/hatchbacks"
+  ],
+  "coupe_u": [
+   "automotive",
+   "automotive/coupe"
+  ],
+  "philosophy_u": [
+   "philosophy"
+  ],
+  "arts_u": [
+   "arts & entertainment"
+  ],
+  "art_u": [
+   "arts & entertainment"
+  ],
+  "entertainment_u": [
+   "arts & entertainment"
+  ],
+  "celebrity_u": [
+   "arts & entertainment",
+   "arts & entertainment/celebrities"
+  ],
+  "celebrities_u": [
+   "arts & entertainment",
+   "arts & entertainment/celebrities"
+  ],
+  "tv_u": [
+   "arts & entertainment",
+   "arts & entertainment/television"
+  ],
+  "television_u": [
+   "arts & entertainment",
+   "arts & entertainment/television"
+  ],
+  "books_u": [
+   "arts & entertainment",
+   "arts & entertainment/literature"
+  ],
+  "literature_u": [
+   "arts & entertainment",
+   "arts & entertainment/literature"
+  ],
+  "author_u": [
+   "arts & entertainment",
+   "arts & entertainment/literature"
+  ],
+  "humor_u": [
+   "arts & entertainment",
+   "arts & entertainment/humor"
+  ],
+  "comedian_u": [
+   "arts & entertainment",
+   "arts & entertainment/humor"
+  ],
+  "comedy_u": [
+   "arts & entertainment",
+   "arts & entertainment/humor"
+  ],
+  "theatres_u": [
+   "arts & entertainment",
+   "arts & entertainment/theatre"
+  ],
+  "theaters_u": [
+   "arts & entertainment",
+   "arts & entertainment/theatre"
+  ],
+  "theater_u": [
+   "arts & entertainment",
+   "arts & entertainment/theatre"
+  ],
+  "theatre_u": [
+   "arts & entertainment",
+   "arts & entertainment/theatre"
+  ],
+  "opera_u": [
+   "arts & entertainment",
+   "arts & entertainment/opera"
+  ],
+  "operas_u": [
+   "arts & entertainment",
+   "arts & entertainment/opera"
+  ],
+  "poetry_u": [
+   "arts & entertainment",
+   "arts & entertainment/poetry"
+  ],
+  "poem_u": [
+   "arts & entertainment",
+   "arts & entertainment/poetry"
+  ],
+  "poet_u": [
+   "arts & entertainment",
+   "arts & entertainment/poetry"
+  ],
+  "movies_u": [
+   "arts & entertainment",
+   "arts & entertainment/film"
+  ],
+  "movie_u": [
+   "arts & entertainment",
+   "arts & entertainment/film"
+  ],
+  "film_u": [
+   "arts & entertainment",
+   "arts & entertainment/film"
+  ],
+  "films_u": [
+   "arts & entertainment",
+   "arts & entertainment/film"
+  ],
+  "actor_u": [
+   "arts & entertainment",
+   "arts & entertainment/film"
+  ],
+  "actress_u": [
+   "arts & entertainment",
+   "arts & entertainment/film"
+  ],
+  "dvds_u": [
+   "arts & entertainment",
+   "arts & entertainment/film"
+  ],
+  "dvd_u": [
+   "arts & entertainment",
+   "arts & entertainment/film"
+  ],
+  "bluray_u": [
+   "arts & entertainment",
+   "arts & entertainment/film"
+  ],
+  "blueray_u": [
+   "arts & entertainment",
+   "arts & entertainment/film"
+  ],
+  "bollywood_u": [
+   "arts & entertainment",
+   "arts & entertainment/film"
+  ],
+  "anime_u": [
+   "arts & entertainment",
+   "arts & entertainment/anime"
+  ],
+  "manga_u": [
+   "arts & entertainment",
+   "arts & entertainment/comics"
+  ],
+  "comics_u": [
+   "arts & entertainment",
+   "arts & entertainment/comics"
+  ],
+  "animation_u": [
+   "arts & entertainment",
+   "arts & entertainment/animation"
+  ],
+  "design_u": [
+   "arts & entertainment",
+   "arts & entertainment/design"
+  ],
+  "music_u": [
+   "arts & entertainment",
+   "arts & entertainment/music"
+  ],
+  "song_u": [
+   "arts & entertainment",
+   "arts & entertainment/music"
+  ],
+  "singer_u": [
+   "arts & entertainment",
+   "arts & entertainment/music"
+  ],
+  "radio_u": [
+   "arts & entertainment",
+   "arts & entertainment/radio"
+  ],
+  "pornography_u": [
+   "adult"
+  ],
+  "porn_u": [
+   "adult"
+  ],
+  "folklore_u": [
+   "folklore"
+  ],
+  "paranormal_u": [
+   "folklore",
+   "folklore/paranormal phenomena"
+  ],
+  "ufo_u": [
+   "folklore",
+   "folklore/paranormal phenomena"
+  ],
+  "astrology_u": [
+   "folklore",
+   "folklore/astrology"
+  ],
+  "weather_u": [
+   "weather"
+  ],
+  "forecast_u": [
+   "weather"
+  ],
+  "justice_u": [
+   "law"
+  ],
+  "law_u": [
+   "law"
+  ],
+  "laws_u": [
+   "law"
+  ],
+  "arrested_u": [
+   "law",
+   "law/crime"
+  ],
+  "charged_u": [
+   "law",
+   "law/crime"
+  ],
+  "crimes_u": [
+   "law",
+   "law/crime"
+  ],
+  "sentenced_u": [
+   "law",
+   "law/crime"
+  ],
+  "crime_u": [
+   "law",
+   "law/crime"
+  ],
+  "immigrant_u": [
+   "law",
+   "law/immigration"
+  ],
+  "immigrants_u": [
+   "law",
+   "law/immigration"
+  ],
+  "immigration_u": [
+   "law",
+   "law/immigration"
+  ],
+  "science_u": [
+   "science"
+  ],
+  "sciences_u": [
+   "science"
+  ],
+  "scientific_u": [
+   "science"
+  ],
+  "scientist_u": [
+   "science"
+  ],
+  "mechanical_u": [
+   "science",
+   "science/mechanics"
+  ],
+  "mechanics_u": [
+   "science",
+   "science/mechanics"
+  ],
+  "botany_u": [
+   "science",
+   "science/botany"
+  ],
+  "biological_u": [
+   "science",
+   "science/biology"
+  ],
+  "biology_u": [
+   "science",
+   "science/biology"
+  ],
+  "chemistry_u": [
+   "science",
+   "science/chemistry"
+  ],
+  "chemical_u": [
+   "science",
+   "science/chemistry"
+  ],
+  "geology_u": [
+   "science",
+   "science/geology"
+  ],
+  "virology_u": [
+   "science",
+   "science/virology"
+  ],
+  "pathogen_u": [
+   "science",
+   "science/virology"
+  ],
+  "palaeontology_u": [
+   "science",
+   "science/palaeontology"
+  ],
+  "mathematics_u": [
+   "science",
+   "science/mathematics"
+  ],
+  "math_u": [
+   "science",
+   "science/mathematics"
+  ],
+  "statistics_u": [
+   "science",
+   "science/mathematics"
+  ],
+  "astronomy_u": [
+   "science",
+   "science/astronomy"
+  ],
+  "nasa_u": [
+   "science",
+   "science/astronomy"
+  ],
+  "astronaut_u": [
+   "science",
+   "science/astronomy"
+  ],
+  "planet_u": [
+   "science",
+   "science/astronomy"
+  ],
+  "astronomer_u": [
+   "science",
+   "science/astronomy"
+  ],
+  "astronomers_u": [
+   "science",
+   "science/astronomy"
+  ],
+  "astronauts_u": [
+   "science",
+   "science/astronomy"
+  ],
+  "robotics_u": [
+   "science",
+   "science/physics"
+  ],
+  "physics_u": [
+   "science",
+   "science/physics"
+  ],
+  "geography_u": [
+   "science",
+   "science/geography"
+  ],
+  "economic_u": [
+   "science",
+   "science/economics"
+  ],
+  "economics_u": [
+   "science",
+   "science/economics"
+  ],
+  "health_u": [
+   "health & fitness"
+  ],
+  "fitness_u": [
+   "health & fitness"
+  ],
+  "surgery_u": [
+   "health & fitness"
+  ],
+  "surgeon_u": [
+   "health & fitness"
+  ],
+  "hospital_u": [
+   "health & fitness"
+  ],
+  "medicine_u": [
+   "health & fitness"
+  ],
+  "prescription_u": [
+   "health & fitness"
+  ],
+  "medical_u": [
+   "health & fitness"
+  ],
+  "prescriptions_u": [
+   "health & fitness"
+  ],
+  "symptom_u": [
+   "health & fitness"
+  ],
+  "symptoms_u": [
+   "health & fitness"
+  ],
+  "diseases_u": [
+   "health & fitness"
+  ],
+  "disease_u": [
+   "health & fitness"
+  ],
+  "deafness_u": [
+   "health & fitness",
+   "health & fitness/deafness"
+  ],
+  "deaf_u": [
+   "health & fitness",
+   "health & fitness/deafness"
+  ],
+  "bowel_u": [
+   "health & fitness",
+   "health & fitness/bowel incontinence"
+  ],
+  "bowels_u": [
+   "health & fitness",
+   "health & fitness/bowel incontinence"
+  ],
+  "incontinence_u": [
+   "health & fitness",
+   "health & fitness/bowel incontinence"
+  ],
+  "epilepsy_u": [
+   "health & fitness",
+   "health & fitness/epilepsy"
+  ],
+  "epileptic_u": [
+   "health & fitness",
+   "health & fitness/epilepsy"
+  ],
+  "dental_u": [
+   "health & fitness",
+   "health & fitness/dental care"
+  ],
+  "dentist_u": [
+   "health & fitness",
+   "health & fitness/dental care"
+  ],
+  "dentistry_u": [
+   "health & fitness",
+   "health & fitness/dental care"
+  ],
+  "diet_u": [
+   "health & fitness",
+   "health & fitness/dieting"
+  ],
+  "dieting_u": [
+   "health & fitness",
+   "health & fitness/dieting"
+  ],
+  "homeopathy_u": [
+   "health & fitness",
+   "health & fitness/alternative medicine"
+  ],
+  "derma_u": [
+   "health & fitness",
+   "health & fitness/dermatology"
+  ],
+  "dermatology_u": [
+   "health & fitness",
+   "health & fitness/dermatology"
+  ],
+  "autism_u": [
+   "health & fitness",
+   "health & fitness/autism"
+  ],
+  "psychology_u": [
+   "health & fitness",
+   "health & fitness/psychology & psychiatry"
+  ],
+  "psychological_u": [
+   "health & fitness",
+   "health & fitness/psychology & psychiatry"
+  ],
+  "psychiatry_u": [
+   "health & fitness",
+   "health & fitness/psychology & psychiatry"
+  ],
+  "psychiatrist_u": [
+   "health & fitness",
+   "health & fitness/psychology & psychiatry"
+  ],
+  "asthma_u": [
+   "health & fitness",
+   "health & fitness/asthma"
+  ],
+  "vitamin_u": [
+   "health & fitness",
+   "health & fitness/vitamins"
+  ],
+  "vitamins_u": [
+   "health & fitness",
+   "health & fitness/vitamins"
+  ],
+  "influenza_u": [
+   "health & fitness",
+   "health & fitness/cold & flu"
+  ],
+  "flu_u": [
+   "health & fitness",
+   "health & fitness/cold & flu"
+  ],
+  "cancer_u": [
+   "health & fitness",
+   "health & fitness/cancer"
+  ],
+  "tumor_u": [
+   "health & fitness",
+   "health & fitness/cancer"
+  ],
+  "cancers_u": [
+   "health & fitness",
+   "health & fitness/cancer"
+  ],
+  "tumors_u": [
+   "health & fitness",
+   "health & fitness/cancer"
+  ],
+  "orthopedic_u": [
+   "health & fitness",
+   "health & fitness/orthopedic"
+  ],
+  "orthopedics_u": [
+   "health & fitness",
+   "health & fitness/orthopedic"
+  ],
+  "orthopaedic_u": [
+   "health & fitness",
+   "health & fitness/orthopedic"
+  ],
+  "orthopaedics_u": [
+   "health & fitness",
+   "health & fitness/orthopedic"
+  ],
+  "exercise_u": [
+   "health & fitness",
+   "health & fitness/exercise"
+  ],
+  "nutrition_u": [
+   "health & fitness",
+   "health & fitness/nutrition"
+  ],
+  "pediatric_u": [
+   "health & fitness",
+   "health & fitness/pediatrics"
+  ],
+  "pediatrics_u": [
+   "health & fitness",
+   "health & fitness/pediatrics"
+  ],
+  "chronic_u": [
+   "health & fitness",
+   "health & fitness/chronic pain"
+  ],
+  "pain_u": [
+   "health & fitness",
+   "health & fitness/chronic pain"
+  ],
+  "anatomy_u": [
+   "health & fitness",
+   "health & fitness/anatomy"
+  ],
+  "aids_u": [
+   "health & fitness",
+   "health & fitness/aids hiv"
+  ],
+  "hiv_u": [
+   "health & fitness",
+   "health & fitness/aids hiv"
+  ],
+  "diabetic_u": [
+   "health & fitness",
+   "health & fitness/diabetes"
+  ],
+  "diabetes_u": [
+   "health & fitness",
+   "health & fitness/diabetes"
+  ],
+  "stress_u": [
+   "health & fitness",
+   "health & fitness/stress"
+  ],
+  "thyroid_u": [
+   "health & fitness",
+   "health & fitness/thyroid"
+  ],
+  "depression_u": [
+   "health & fitness",
+   "health & fitness/depression"
+  ],
+  "sexuality_u": [
+   "health & fitness",
+   "health & fitness/sex"
+  ],
+  "cardiac_u": [
+   "health & fitness",
+   "health & fitness/cardiac"
+  ],
+  "architect_u": [
+   "architecture"
+  ],
+  "architecture_u": [
+   "architecture"
+  ],
+  "realestate_u": [
+   "real estate"
+  ],
+  "mortgage_u": [
+   "real estate",
+   "real estate/mortgages"
+  ],
+  "mortgages_u": [
+   "real estate",
+   "real estate/mortgages"
+  ],
+  "military_u": [
+   "military"
+  ],
+  "army_u": [
+   "military"
+  ],
+  "navy_u": [
+   "military"
+  ],
+  "terrorist_u": [
+   "military",
+   "military/terrorism"
+  ],
+  "terrorism_u": [
+   "military",
+   "military/terrorism"
+  ],
+  "historical_u": [
+   "history"
+  ],
+  "historian_u": [
+   "history"
+  ],
+  "ancient_u": [
+   "history"
+  ],
+  "archaeology_u": [
+   "history",
+   "history/archaeology"
+  ],
+  "archaeologist_u": [
+   "history",
+   "history/archaeology"
+  ],
+  "archaeologists_u": [
+   "history",
+   "history/archaeology"
+  ]
+ }
+}

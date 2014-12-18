@@ -288,7 +288,7 @@ exports.RevMap = (function() {
   Object.keys(Taxonomy).forEach(function(key) {
     revMap[key] = [key];
     Object.keys(Taxonomy[key]).forEach(function(subKey) {
-      revMap[subKey] = [subKey, key];
+      revMap[subKey] = [key, key + "/" + subKey];
     });
   });
   return revMap;
