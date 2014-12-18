@@ -107,12 +107,15 @@ StatsCollector.prototype = {
         var cats = Object.keys(ruleSetsObject[ruleSet]).sort();
         cats.forEach(function(cat) {
           var catStats = ruleSetsObject[ruleSet][cat];
-          var precision = (catStats.categorized) ? Math.round(catStats.correct * 100/ catStats.categorized) : "NULL";
+          var precision = (catStats.categorized) ? Math.round(catStats.correct * 100/ catStats.categorized) : -1;
           var recall = (catStats.total) ? Math.round(catStats.correct * 100 / catStats.total) : 0;
           if (cat.match("OVERALL")) {
+            // special case recall computation for OVERALL cats
             recall = (catStats.total) ? Math.round(catStats.correctSeenCount * 100 / catStats.total) : 0;
           }
-          console.log("'%s','%s','%s',%s,%s,%s",domain, ruleSet, cat, precision, recall, catStats.total);
+          // remove ',' from cat
+          cat = cat.replace(",","");
+          console.log("%s,%s,%s,%s,%s,%s",domain, ruleSet, cat, precision, recall, catStats.total);
         });
       });
     }
