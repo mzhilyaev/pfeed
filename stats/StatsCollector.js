@@ -10,8 +10,10 @@ StatsCollector.prototype = {
     if (!this.catStats["ANY"]) this.catStats["ANY"] = {};
     this.addToStatsObj(this.catStats["ANY"], ruleSet, expected, categorized);
     // skip domain statistics for now
-    //if (!this.catStats[domain]) this.catStats[domain] = {};
-    //addToStatsObj(this.catStats[domain], ruleSet, expected, categorized);
+    if (!this.catStats[domain]) {
+      this.catStats[domain] = {};
+    }
+    this.addToStatsObj(this.catStats[domain], ruleSet, expected, categorized);
   },
 
   // adds results of classification to a single stats object
