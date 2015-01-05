@@ -6,7 +6,7 @@ var config = require("../config/config");
 var RevMap = require("../refData/IAB").RevMap;
 var MoreoverMap = require("../refData/moreover_to_IAB").MoreoverToIABMap;
 
-var dbHost = "ec2-54-87-201-148.compute-1.amazonaws.com";
+var dbHost = "localhost";
 //var dbHost = "localhost";
 var dbPort = 27017;
 var dbName = "moreover2";
