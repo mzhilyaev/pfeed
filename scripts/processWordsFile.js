@@ -1,7 +1,7 @@
 #!/usr/local/bin/node
 
 var when = require("when");
-var LineStream = require('byline').LineStream;
+var readline = require("readline");
 
 var wordData = {};
 var currentWord;
@@ -24,43 +24,58 @@ function outputWordData(word) {
       wordData[suf].prec.sort(function(a,b) {
         return b[1] - a[1];
       });
-      wordData[suf].prec.splice(5, Number.MAX_VALUE);
-      console.log(word, suf, wordData[suf].prec);
+      if (wordData[suf].prec.length) {
+        wordData[suf].prec.splice(5, Number.MAX_VALUE);
+        console.log(word, suf, wordData[suf].count, JSON.stringify(wordData[suf].prec));
+      }
     });
   }
 }
 
 function consumeWord(line) {
   if (line.match(":")) {
-    var ar = line.split(":");
-    var cat = ar[1];
-    var wc = ar[0].split("_");
+    var ar = line.split(/\t/);
+    var arcat = ar[0].split(":");
+    var cat = arcat[1];
+    var wc = arcat[0].split("_");
     var suf = wc[1];
-    wordData[suf].cats[cat] = (wordData[suf].cats[cat] || 0) + 1;
+    try {
+      wordData[suf].cats[cat] = parseInt(ar[1]);
+    } catch (e) {
+    }
   }
   else {
-    var wc = line.split("_");
+    var ar = line.split(/\t/);
+    var wc = ar[0].split("_");
     var word = wc[0];
     var suf = wc[1];
     if (currentWord != word) {
       outputWordData(currentWord);
       currentWord = word;
+      wordData = {};
     }
-    wordData[suf] = wordData[suf] || {count: 0, cats: {}};
-    wordData[suf].count ++;
+    wordData[suf] = {
+      count: parseInt(ar[1]),
+      cats: {},
+    };
   }
 }
 
 function readWords(stream) {
-  var lineStream = new LineStream();
-  lineStream.on('data', function(line) {
-    consumeWord(line.toString());
+  var rl = readline.createInterface({
+    input: stream,
+    output: process.stdout
   });
-  lineStream.on('end', function() {
-    // execute callback when function exists
-    outputWordData(currentWord);
+  rl.on('line', function(line) {
+    consumeWord(line.toString());;
   });
-  stream.pipe(lineStream);
+  rl.on('close', function() {
+    setTimeout(function() {
+      outputWordData(currentWord);
+      rl.close();
+    });
+  });
+  rl.resume();
 }
 
 readWords(process.stdin);
