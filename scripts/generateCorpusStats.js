@@ -3,26 +3,15 @@
 var mongo = require("mongoskin");
 var when = require("when");
 var fs = require('fs');
+var Getopt = require('node-getopt');
 var config = require("../config/config");
 var RevMap = require("../refData/IAB").RevMap;
 var MoreoverMap = require("../refData/moreover_to_IAB").MoreoverToIABMap;
 var stopWords = require('../modules/StopWords').StopWords;
-
-var dbHost = "locahost";
-//var dbHost = "localhost";
-var dbPort = 27017;
-var dbName = "moreover";
-var colName = "docs";
-var host="cnn.com";
-var pattern = process.argv[2] || /\/politics\//;
-var category = process.argv[2] || "politics";
-
-var db = mongo.db("mongodb://" + dbHost + ":" + dbPort + "/" + dbName, {native_parser:true, safe:true});
-var collection;
+var StatsUtils = require('../stats/StatsUtils');
 
 var stats = {};
 const kNotWordPattern = /[^a-zA-Z0-9 ]+/g;
-
 
 function addToStats(key, cats) {
   if(!stats[key]) {
@@ -81,31 +70,23 @@ function accumulate(url, title, topics) {
   }
 };
 
-when.promise(function(resolve) {
-  db.collection(colName, function(err, col) {
-    if (err) throw err;
-    collection = col;
-    resolve();
-  });
-})
-.then(function () {
-  var cursor = collection.find({
-    //"host": process.argv[2],
-    "topics": {$exists: true}
-  },
-  {url: 1, title: 1, topics: 1, "_id": 0})
-  .limit(process.argv[2] || 1000000000)
-  ;
-  cursor.each(function(err, results) {
-    var array = [];
-    var titles = {};
-    var count = 0;
-    if (results != null) {
-      accumulate(results.url, results.title, results.topics)
-    }
-    else {
-      fs.writeFile('cat.stats', JSON.stringify(stats));
-      setTimeout(function() {db.close();});
-    }
-  });
-})
+function finalize() {
+  fs.writeFile('cat.stats', JSON.stringify(stats));
+}
+
+/*********** main section **********/
+var getopts = new Getopt([
+  ['h' , 'help',          'display this help'],
+  ['d' , 'dbHost=ARG',    'db hosts: default=localhost'],
+  ['p' , 'dbPort=ARG',    'db port: default=27017'],
+  ['f' , 'fromDate=ARG',  'starting from date in yyyy/mm/dd format (like 2014/10/01): default none'],
+  ['t' , 'toDate=ARG',    'ending from date in yyyy/mm/dd format (like 2014/10/01): default none'],
+  ['l' , 'limit=ARG',     'docs limit: default none'],
+])
+.bindHelp()
+.setHelp("USAGE: generateCorpusStats.js [OPTIONS]\n" +
+         "Generates Corpus URL and Title stats\n\n" +
+         "[[OPTIONS]]")
+.parseSystem();
+
+StatsUtils.runSearch(getopts.options, accumulate, finalize);
