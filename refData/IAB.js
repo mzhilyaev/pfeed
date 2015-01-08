@@ -41,7 +41,7 @@ var Taxonomy = {
 			"retirement planning": true,
 			"investing": true,
 			"banking": true,
-			"credit, debt & loans": true,
+			"credit & debt & loans": true,
 			"stocks": true,
 			"insurance": true,
 			"tax": true,
