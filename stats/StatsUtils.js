@@ -46,7 +46,7 @@ var StatsUtils = {
     .then(function () {
       var cursor = collection.find(
       searchObj,
-      {url: 1, title: 1, topics: 1, "_id": 0})
+      {url: 1, title: 1, topics: 1, urlHash: 1, "_id": 0})
       .limit((options.limit) ? parseInt(options.limit) : 1000000000);
 
       cursor.each(function(err, results) {
@@ -54,7 +54,7 @@ var StatsUtils = {
         var titles = {};
         var count = 0;
         if (results != null) {
-          collectCb(results.url, results.title, results.topics)
+          collectCb(results.url, results.title, results.topics, results.urlHash)
         }
         else {
           //fs.writeFile('cat.stats', JSON.stringify(stats));
