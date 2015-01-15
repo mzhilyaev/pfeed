@@ -65,7 +65,9 @@ DFRClassifier.prototype = {
     };
 
     // tokenize and add url and title text to words object
-    addToWords(this.tokenize(url, title));
+    // addToWords(this.tokenize(url, title));
+    // tokenize and add url only chunks
+    addToWords(this.tokenize(title), {suffix: "_t"});
     // tokenize and add url only chunks
     addToWords(this.tokenize(url), {suffix: "_u"});
     // parse and add hosts chunks
