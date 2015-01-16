@@ -53,6 +53,7 @@ function processOneDocument(url, title, topics) {
 /*********** main section **********/
 var getopts = new Getopt([
   ['h' , 'help',          'display this help'],
+  ['v' , 'verbous',       'display debug info'],
   ['d' , 'dbHost=ARG',    'db hosts: default=localhost'],
   ['p' , 'dbPort=ARG',    'db port: default=27017'],
   ['f' , 'fromDate=ARG',  'starting from date in yyyy/mm/dd format (like 2014/10/01): default none'],

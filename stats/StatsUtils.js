@@ -49,7 +49,14 @@ var StatsUtils = {
       {url: 1, title: 1, topics: 1, urlHash: 1, "_id": 0})
       .limit((options.limit) ? parseInt(options.limit) : 1000000000);
 
+      var index = 0;
+      var lastTime = Date.now();
       cursor.each(function(err, results) {
+        index++;
+        if (options.verbous && index % 100 == 0) {
+          console.log("%d - %d\r", (Date.now() - lastTime), index);
+          lastTime = Date.now();
+        }
         var array = [];
         var titles = {};
         var count = 0;
