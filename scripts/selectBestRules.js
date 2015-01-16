@@ -147,7 +147,7 @@ function addURule(key, cats, dfrObject) {
     dfrObject["__ANY"] = {};
   }
   if (key.indexOf("+") != -1) {
-    key.replace("+", "");
+    key = key.replace("+", "");
   }
   dfrObject["__ANY"][key + "_u"] = cats;
 }
@@ -157,13 +157,15 @@ function addTRule(key, cats, dfrObject) {
     dfrObject["__ANY"] = {};
   }
   if (key.indexOf("+") != -1) {
-    key.replace("+", "");
+    key = key.replace("+", "");
   }
   dfrObject["__ANY"][key + "_t"] = cats;
 }
 
-function generateDfrForRule(key, cats, dfrObject) {
+function generateDfrForRule(key, cats, dfrObject, suffixList) {
   var ar = key.split("_");
+  // check if the suffix is in the suffix list
+  if (suffixList && suffixList.indexOf(ar[1]) == -1) return;
   switch (ar[1]) {
     case "D":
       addDomain(ar[0], cats, dfrObject);
@@ -183,14 +185,18 @@ function generateDfrForRule(key, cats, dfrObject) {
   }
 }
 
-function generateDFR(rules, dfrObject) {
+function generateDFR(rules, dfrObject, suffixList) {
   Object.keys(rules).forEach(function(key) {
-    generateDfrForRule(key, Object.keys(rules[key]), dfrObject);
+    generateDfrForRule(key, Object.keys(rules[key]), dfrObject, suffixList);
   });
 }
 
-function outputDFR(dfrObject) {
-  console.log(JSON.stringify(dfrObject));
+function outputDFR(dfrObject, outputFile) {
+  if (outputFile) {
+    fs.writeFile(outputFile, JSON.stringify(dfrObject));
+  } else {
+    console.log(JSON.stringify(dfrObject));
+  }
 }
 
 /*********** main section **********/
@@ -200,6 +206,7 @@ var getopts = new Getopt([
   ['p' , 'prec=ARG',      'precision limit: default=0.9'],
   ['v' , 'verbous',       'show debug output'],
   ['l' , 'limit=ARG',     'number of rules to include'],
+  ['s' , 'split',         'split DFRs into rules, ulr, and title files'],
   ['g' , 'gen',           'generate DFR'],
 ])
 .bindHelp()
@@ -216,8 +223,20 @@ var ruleSet = bruteForceRuleSelect(ruleCounts, getopts.options);
 
 if (getopts.options.gen) {
   var dfr = {};
-  generateDFR(ruleSet, dfr);
-  outputDFR(dfr);
+  if (getopts.options.split) {
+    generateDFR(ruleSet, dfr, "DHP");
+    outputDFR(dfr,"hostRules.dfr")
+    dfr = {};
+    generateDFR(ruleSet, dfr, "U");
+    outputDFR(dfr,"urlTerms.dfr")
+    dfr = {};
+    generateDFR(ruleSet, dfr, "T");
+    outputDFR(dfr,"titleTerms.dfr")
+  }
+  else {
+    generateDFR(ruleSet, dfr);
+    outputDFR(dfr);
+  }
 }
 
 
