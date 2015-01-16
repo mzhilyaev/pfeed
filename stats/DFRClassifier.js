@@ -51,25 +51,30 @@ DFRClassifier.prototype = {
       var prev;
       var prefix = options.prefix || "";
       var suffix = options.suffix || "";
+      var clearText = !(options.prefix == null && options.suffix == null) && options.clearText;
 
       for (var i in chunks) {
         if (chunks[i]) {
           words[prefix + chunks[i] + suffix] = true;
+          if (clearText) {
+            words[chunks[i]] = true;
+          }
           if (prev) {
             // add bigram
             words[prefix + prev + chunks[i] + suffix] = true;
+            if (clearText) {
+              words[prev + chunks[i]] = true;
+            }
           }
           prev = chunks[i];
         }
       }
     };
 
-    // tokenize and add url and title text to words object
-    // addToWords(this.tokenize(url, title));
-    // tokenize and add url only chunks
-    addToWords(this.tokenize(title), {suffix: "_t"});
-    // tokenize and add url only chunks
-    addToWords(this.tokenize(url), {suffix: "_u"});
+    // tokenize and add title chunks
+    addToWords(this.tokenize(title), {suffix: "_t", clearText: true});
+    // tokenize and add url chunks
+    addToWords(this.tokenize(url), {suffix: "_u", clearText: true});
     // parse and add hosts chunks
     addToWords(host.substring(0, host.length - baseDomain.length).split("."), {suffix: "."});
     // parse and add path chunks
@@ -112,9 +117,21 @@ DFRClassifier.prototype = {
       });
     }
 
+    // __ANY rule does not support multiple keys in the rule
+    // __ANY rule matches any single term rule - but not the term combination
+    // as in "/foo bar_u baz_t"
+    function matchANYRuleInterests(rule) {
+      for (var key in words) {
+        var ruleInts = rule[key];
+        if (ruleInts) {
+          interests = interests.concat(ruleInts);
+        }
+      }
+    }
+
     // process __ANY rule first
     if (this.dfr["__ANY"]) {
-      matchRuleInterests(this.dfr["__ANY"]);
+      matchANYRuleInterests(this.dfr["__ANY"]);
     }
 
     var domainRule = this.dfr[baseDomain];
