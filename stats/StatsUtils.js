@@ -22,16 +22,20 @@ var StatsUtils = {
 
     // check for from parameter
     if (options.fromDate) {
+      if (options.verbous) console.log(options.fromDate);
       var fromDateParams = options.fromDate.split("/").map(function(chunk) {return parseInt(chunk);});
       var date = new Date(fromDateParams);
-      searchObj.harvested = {$gt: date.getTime() / 1000};
+      if (!searchObj.harvested) searchObj.harvested = {};
+      searchObj.harvested["$gt"] = date.getTime() / 1000;
     }
 
     // check for to parameter
     if (options.toDate) {
+      if (options.verbous) console.log(options.toDate);
       var toDateParams = options.toDate.split("/").map(function(chunk) {return parseInt(chunk);});
       var date = new Date(toDateParams);
-      searchObj.harvested = {$lt: date.getTime() / 1000};
+      if (!searchObj.harvested) searchObj.harvested = {};
+      searchObj.harvested["$lt"] = date.getTime() / 1000;
     }
 
     // init the collection and make the search
@@ -44,17 +48,18 @@ var StatsUtils = {
       });
     })
     .then(function () {
+      if (options.verbous) console.log("SEARCH OBJ" , searchObj);
       var cursor = collection.find(
       searchObj,
-      {url: 1, title: 1, topics: 1, urlHash: 1, "_id": 0})
+      {url: 1, title: 1, topics: 1, urlHash: 1, harvested: 1, "_id": 0})
       .limit((options.limit) ? parseInt(options.limit) : 1000000000);
 
       var index = 0;
       var lastTime = Date.now();
       cursor.each(function(err, results) {
         index++;
-        if (options.verbous && index % 100 == 0) {
-          console.log("%d - %d\r", (Date.now() - lastTime), index);
+        if (options.verbous && index % 1000 == 0) {
+          console.log("%d - %d  %s\r", (Date.now() - lastTime), index, new Date(results.harvested*1000));
           lastTime = Date.now();
         }
         var array = [];

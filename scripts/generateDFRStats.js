@@ -21,6 +21,7 @@ var statsCollector = new StatsCollector();
 
 function processOneDocument(url, title, topics) {
   // map Moreover topcis to IAB cats
+  if (!topics || !url || !title) return;
   var cats = {};
   topics.forEach(function(topic) {
     var cat = MoreoverMap[topic];
