@@ -48,7 +48,7 @@ var StatsUtils = {
       });
     })
     .then(function () {
-      if (options.verbous) console.log("SEARCH OBJ" , searchObj);
+      if (options.verbous) console.error("SEARCH OBJ" , searchObj);
       var cursor = collection.find(
       searchObj,
       {url: 1, title: 1, topics: 1, urlHash: 1, harvested: 1, "_id": 0})
@@ -59,7 +59,7 @@ var StatsUtils = {
       cursor.each(function(err, results) {
         index++;
         if (options.verbous && index % 1000 == 0) {
-          console.log("%d - %d  %s\r", (Date.now() - lastTime), index, new Date(results.harvested*1000));
+          console.error("%d - %d  %s\r", (Date.now() - lastTime), index, new Date(results.harvested*1000));
           lastTime = Date.now();
         }
         var array = [];
