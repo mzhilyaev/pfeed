@@ -10,8 +10,10 @@
 
 3. populate tables with stats and rank data
 mysql -u admin up
-mysql >> echo "load data infile '/Users/maximzhilyaev/pfeed/mysql/top50K.sites' into table siteRanks FIELDS TERMINATED BY ' ';
-mysql >> echo "load data infile '/Users/maximzhilyaev/pfeed/mysql/stats.out' into table siteRanks FIELDS TERMINATED BY ',';
+mysql >> delete from siteRanks;
+mysql >> load data infile '/Users/maximzhilyaev/pfeed/mysql/top50K.sites' into table siteRanks FIELDS TERMINATED BY ' ';
+mysql >> delete from uptest;
+mysql >> load data infile '/Users/maximzhilyaev/pfeed/mysql/stats.out' into table uptest FIELDS TERMINATED BY ',';
 
 4. generate reports
 mysql -u admin --column-names --table up < compute_stats.sql
