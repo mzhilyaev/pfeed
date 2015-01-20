@@ -22,7 +22,7 @@ var StatsUtils = {
 
     // check for from parameter
     if (options.fromDate) {
-      if (options.verbous) console.log(options.fromDate);
+      if (options.verbous) console.error(options.fromDate);
       var fromDateParams = options.fromDate.split("/").map(function(chunk) {return parseInt(chunk);});
       var date = new Date(fromDateParams);
       if (!searchObj.harvested) searchObj.harvested = {};
@@ -31,7 +31,7 @@ var StatsUtils = {
 
     // check for to parameter
     if (options.toDate) {
-      if (options.verbous) console.log(options.toDate);
+      if (options.verbous) console.error(options.toDate);
       var toDateParams = options.toDate.split("/").map(function(chunk) {return parseInt(chunk);});
       var date = new Date(toDateParams);
       if (!searchObj.harvested) searchObj.harvested = {};
