@@ -3,11 +3,15 @@
 select "Overall Performance across all sites and categories" as '';
 (select cat, ruleset, total as docs, prec, recall
  from uptest
- where cat like "%OVERALL%" and domain like 'ANY' and ruleset like 'rulesDFR')
+ where cat like "%OVERALL%" and domain like 'ANY' and ruleset like 'hostRules%')
 union
 (select cat, ruleset, total as docs, prec, recall
  from uptest
- where cat like "%OVERALL%" and domain like 'ANY' and ruleset like 'licaDFR')
+ where cat like "%OVERALL%" and domain like 'ANY' and ruleset like 'titleTerms%')
+union
+(select cat, ruleset, total as docs, prec, recall
+ from uptest
+ where cat like "%OVERALL%" and domain like 'ANY' and ruleset like 'urlTerms%')
 union
 (select cat, ruleset, total as docs, prec, recall
  from uptest
@@ -32,7 +36,7 @@ from (
     from uptest t, siteRanks s
     where t.domain = s.domain and cat like 'OVERALL'
           and t.domain not like 'ANY'
-          and total > 1000
+          and total > 50
     order by rank
   limit 100
 ) as x
@@ -67,7 +71,7 @@ select t.domain, total as docs, prec, recall, rank
   from uptest t, siteRanks s
   where t.domain = s.domain and cat like 'OVERALL'
         and t.domain not like 'ANY' and ruleset like 'ALL'
-        and total > 1000
+        and total > 50
   order by rank
   limit 100;
 
