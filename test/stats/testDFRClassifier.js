@@ -60,6 +60,12 @@ var testDomainRules = {
     "/politics": [
        "politics"
     ],
+    "foo_u": [
+       "foo"
+    ],
+    "bar_t": [
+       "bar"
+    ],
   },
 };
 
@@ -147,6 +153,18 @@ var matchTests = [
   url:  "http://us.cnn.com/2014/11/16/politics/g20-summit-putin/index.html?hpt=hp_inthenews",
   title: "G20 summit",
   expectedInterests: ["politics"],
+},
+{
+  info: "Match Test 14 (Rules): foo in URL",
+  url:  "http://us.cnn.com/2014/11/16/foo/xyz",
+  title: "G20 summit",
+  expectedInterests: ["foo"],
+},
+{
+  info: "Match Test 15 (Rules): bar in title",
+  url:  "http://us.cnn.com/xxx",
+  title: "G20 bar summit",
+  expectedInterests: ["bar"],
 },
 ];
 
