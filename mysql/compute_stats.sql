@@ -36,7 +36,7 @@ from (
     from uptest t, siteRanks s
     where t.domain = s.domain and cat like 'OVERALL'
           and t.domain not like 'ANY'
-          and total > 50
+          and total > 100
     order by rank
   limit 100
 ) as x
@@ -71,7 +71,7 @@ select t.domain, total as docs, prec, recall, rank
   from uptest t, siteRanks s
   where t.domain = s.domain and cat like 'OVERALL'
         and t.domain not like 'ANY' and ruleset like 'ALL'
-        and total > 50
+        and total > 100
   order by rank
   limit 100;
 
