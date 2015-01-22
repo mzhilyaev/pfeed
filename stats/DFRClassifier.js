@@ -76,14 +76,25 @@ DFRClassifier.prototype = {
     // tokenize and add url chunks
     addToWords(this.tokenize(url), {suffix: "_u", clearText: true});
     // parse and add hosts chunks
-    addToWords(host.substring(0, host.length - baseDomain.length).split("."), {suffix: "."});
+    var hostChunks = host.substring(0, host.length - baseDomain.length)
+                     .split(".")
+                     .filter(function(item) {return item && item.length > 0;})
+                     .reverse();
+    addToWords(hostChunks, {suffix: "."});
+    // add subdomains under __SCOPED keyword
+    var scopedHosts = [baseDomain];
+    var hostString = baseDomain;
+    for (var i in hostChunks) {
+      hostString = hostChunks[i].concat(".", hostString);
+      scopedHosts.push(hostString);
+    }
     // parse and add path chunks
     var pathChunks = path.split("/");
     for (var i in pathChunks) {
       addToWords(this.tokenize(pathChunks[i], ""), {prefix: "/"});
     }
 
-    return words;
+    return [words, scopedHosts];
   },
 
   ruleClassify: function(host, baseDomain, path, title, url) {
@@ -95,7 +106,9 @@ DFRClassifier.prototype = {
     }
 
     // populate words object with visit data
-    var words = this.parseVisit(host, baseDomain, path, title, url);
+    var ret = this.parseVisit(host, baseDomain, path, title, url);
+    var words = ret[0];
+    var scopedHosts = ret[1];
 
     // this funcation tests for exitence of rule terms in the words object
     // if all rule tokens are found in the wrods object return true
@@ -129,9 +142,32 @@ DFRClassifier.prototype = {
       }
     }
 
+    // checks if any of the provided scoped hosts are white listed
+    function isWhiteListed(hosts, whiteList) {
+      for (var i in hosts) {
+        if (whiteList.hasOwnProperty(hosts[i])) return true;
+      }
+      return false;
+    }
+
     // process __ANY rule first
     if (this.dfr["__ANY"]) {
       matchANYRuleInterests(this.dfr["__ANY"]);
+    }
+
+    if (this.dfr["__SCOPES"]) {
+      // dfr has scoped rules - check for scope domains and sub-domains
+      // check if scopedHosts are white-listed in any of the __SCOPED rule
+      // and if so apply the rule
+      for (var i in this.dfr["__SCOPES"]) {
+        // the scopedRule is of the form {"__HOSTS": {"foo.com", "bar.org"}, "__ANY": {... the rule...}}
+        var scopedRule = this.dfr["__SCOPES"][i];
+        if (isWhiteListed(scopedHosts, scopedRule["__HOSTS"])) {
+          matchANYRuleInterests(scopedRule["__ANY"]);
+          // we do not exect same page belong to two different genre
+          break;
+        }
+      }
     }
 
     var domainRule = this.dfr[baseDomain];

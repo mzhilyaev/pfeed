@@ -67,6 +67,26 @@ var testDomainRules = {
        "bar"
     ],
   },
+  "__SCOPES": [
+    {
+      "__HOSTS": {
+        "blast.com": true,
+        "heavy.blast2.com": true,
+        "super.heavy.blast3.com": true,
+      },
+      "__ANY": {
+          "ebola_t": [ "science"],
+      },
+    },
+    {
+      "__HOSTS": {
+        "blast4.com": true,
+      },
+      "__ANY": {
+          "bank_t": [ "banking"],
+      },
+    },
+  ],
 };
 
 var matchTests = [
@@ -165,6 +185,36 @@ var matchTests = [
   url:  "http://us.cnn.com/xxx",
   title: "G20 bar summit",
   expectedInterests: ["bar"],
+},
+{
+  info: "Match Test 16 (Rules): scoped rule application",
+  url:  "http://little.blast.com",
+  title: "ebola rules",
+  expectedInterests: ["science"],
+},
+{
+  info: "Match Test 17 (Rules): scoped rule application",
+  url:  "http://little.blast3.com",
+  title: "ebola rules",
+  expectedInterests: [],
+},
+{
+  info: "Match Test 18 (Rules): scoped rule application",
+  url:  "http://heavy.blast2.com",
+  title: "ebola rules",
+  expectedInterests: ["science"],
+},
+{
+  info: "Match Test 19 (Rules): scoped rule application",
+  url:  "http://super.heavy.blast3.com",
+  title: "ebola rules",
+  expectedInterests: ["science"],
+},
+{
+  info: "Match Test 20 (Rules): scoped rule application",
+  url:  "http://super.heavy.blast4.com",
+  title: "bank rules",
+  expectedInterests: ["banking"],
 },
 ];
 
