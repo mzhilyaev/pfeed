@@ -5,10 +5,12 @@ use Data::Dumper;
 use Getopt::Long;
 
 my $help;
+my $limit = 0;
 
 if(
      !GetOptions (
             "help|h" => \$help ,
+            "limit|l=i" => \$limit ,
      )
      || defined( $help )  ### or help is wanted
 ) {
@@ -33,7 +35,7 @@ while (<STDIN>) {
   chomp($_);
   my ($pattern, $doc) = split(/,/, $_);
   if ($pattern ne $lastPattern) {
-    if ($doclist) {
+    if ($doclist && scalar(@doclist) > $limit) {
       print join(",", @$doclist)."\n";
     }
     $lastPattern = $pattern;
