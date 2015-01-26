@@ -62,7 +62,7 @@ function processSingleDir(dir, topDir, cb) {
   });
   
   function outputCollector() {
-    console.log(collector);
+    console.log(JSON.stringify(collector));
   }
 
   function readNextFile() {
