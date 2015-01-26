@@ -2,9 +2,7 @@
 
 use strict;
 use Data::Dumper;
-use JSON;
 use Getopt::Long;
-use XML::Simple;
 
 my $help;
 
