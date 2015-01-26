@@ -17,6 +17,12 @@ var profiledCats = {
   "business": true,
 };
 
+var profiledTerms = {
+  "us markets": [/(u\.s\.|us)\s+(markets|stocks|stock\s+markets?)/],
+  "s&p 500": [/s ?\& ?p ?500/],
+  "nikkei": [/nikkei/]
+}
+
 function processDoc(doc, collector) {
   collector.count++;
   var topics = doc.topics;
@@ -35,6 +41,18 @@ function processDoc(doc, collector) {
   Object.keys(cats).forEach(function(cat) {
     if (profiledCats[cat]) {
       collector.cats[cat] ++;
+    }
+  });
+  // matching terms
+  var title = doc.title.toLowerCase();
+  var content = (doc.content || "").toLowerCase();
+  Object.keys(profiledTerms).forEach(function(term) {
+    var patterns = profiledTerms[term];
+    for (var i in patterns) {
+      var regex = patterns[i];
+      if (title.match(regex) || content.match(regex)) {
+        collector.terms[term] ++;
+      }
     }
   });
 }
@@ -57,8 +75,11 @@ function processSingleDir(dir, topDir, cb) {
     cats: {},
     terms: {},
   };
-  Object.keys(profiledCats).forEach(function (cat) {
+  Object.keys(profiledCats).forEach(function(cat) {
     collector.cats[cat] = 0;
+  });
+  Object.keys(profiledTerms).forEach(function(term) {
+    collector.terms[term] = 0;
   });
   
   function outputCollector() {
