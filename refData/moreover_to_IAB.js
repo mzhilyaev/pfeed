@@ -1,5 +1,6 @@
 exports.MoreoverToIABMap = {
 "finance": "personal finance",
+"earnings": "personal finance",
 "sports": "sports",
 "business": "business",
 "sports:": "sports",
@@ -85,7 +86,7 @@ exports.MoreoverToIABMap = {
 "new york metro area": "usa",
 "sports: golf": "golf",
 "military": "military",
-"top finance stories": "financial news",
+"top finance stories": "personal finance",
 "european banking": "investing",
 "singapore": "singapore",
 "liberia": "liberia",
