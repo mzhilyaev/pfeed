@@ -1,4 +1,4 @@
 Pfeed - back end server implentation for
-  a) corpus collection
-  a) corpus data analysis
-  b) news personalization
+  1. corpus collection
+  2. corpus data analysis
+  3. news personalization
