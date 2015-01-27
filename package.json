@@ -19,7 +19,8 @@
     "when": "*",
     "xml2js": "*",
     "stem-porter": "*",
-    "node-getopt": "*"
+    "node-getopt": "*",
+    "heap": "*"
   },
   "devDependencies": {
      "tobi": "0.3.2",
