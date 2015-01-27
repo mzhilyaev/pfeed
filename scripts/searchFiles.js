@@ -90,6 +90,8 @@ function processSingleDir(dir, topDir, cb) {
      hostReader.next(function (docs) {
        if (docs) {
          processDocs(docs, collector);
+         // docs never clean up - workaround memory leak
+         docs.splice(0,docs.length);
          setTimeout(readNextFile);
        }
        else {
@@ -101,8 +103,15 @@ function processSingleDir(dir, topDir, cb) {
   readNextFile();
 }
 
-function processDirectory(dir) {
+function processDirectory(dir, after) {
   var subDirs = fs.readdirSync(dir);
+  if (after) {
+    var index = 0;
+    for (index  = 0; index < subDirs.length; index++) {
+      if (subDirs[index] == after) break;
+    }
+    subDirs.splice(0, index+1);
+  }
   function doNextDir() {
     var nextDir = subDirs.shift();
     if (nextDir) {
@@ -119,6 +128,7 @@ var getopts = new Getopt([
   ['h' , 'help',          'display this help'],
   ['v' , 'verbous',       'display debug info'],
   ['d' , 'dir=ARG',       'directory to start from'],
+  ['a' , 'after=ARG',      'start after dir'],
 ])
 .bindHelp()
 .setHelp("USAGE: searchFiles.js [OPTIONS]\n" +
@@ -126,4 +136,4 @@ var getopts = new Getopt([
          "[[OPTIONS]]")
 .parseSystem();
 
-processDirectory(getopts.options.dir);
+processDirectory(getopts.options.dir, getopts.options.after);
