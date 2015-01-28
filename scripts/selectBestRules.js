@@ -17,7 +17,15 @@ function bruteForceRuleSelect(rules, options) {
   var precLevel = (options.prec) ? parseFloat(options.prec) : 0.9;
   var ruleLimit = (options.limit) ? parseInt(options.limit) : 1000000000;
 
-  // order rules by ALL count and only select rules with 90+ precision
+  // check for suffix exclusion
+  var exldSuffixes = {};
+  if (options.xld) {
+    options.xld.split("").forEach(function(suffix) {
+      exldSuffixes[suffix] = true;
+    });
+  }
+
+  // order rules by ALL count
   var orderKeys = Object.keys(rules).sort(function(a,b) {
     if (rules[b]['ALL'] > rules[a]['ALL']) return 1;
     if (rules[b]['ALL'] < rules[a]['ALL']) return -1;
@@ -25,7 +33,7 @@ function bruteForceRuleSelect(rules, options) {
     return a.length - b.length;
   });
 
-  // now walk the list and only print rules with high enough precision 
+  // now walk the list and only choose rules with high enough precision
   var rulesAdded = 0;
   for (var i = 0; i < orderKeys.length; i++) {
     var key = orderKeys[i];
@@ -40,9 +48,9 @@ function bruteForceRuleSelect(rules, options) {
         }
       }
     });
-    if (Object.keys(res).length > 0 && validateRule(key, res, ruleSet)) {
+    if (Object.keys(res).length > 0 && validateRule(key, res, ruleSet, exldSuffixes)) {
       if (options.verbous) {
-        console.log(key, total, JSON.stringify(res));
+        console.error(key, total, JSON.stringify(res));
       }
       ruleSet[key] = res;
       rulesAdded++;
@@ -96,8 +104,11 @@ function vlaidateTRule(term, cats, ruleSet) {
 
 // returns false if the rule is invalid
 // for example, if it's covered by a stronger rule
-function validateRule(key, cats, ruleSet) {
+function validateRule(key, cats, ruleSet, exldSuffixes) {
   var ar = key.split("_");
+  // ignore the rule if suffix is excluded
+  if (exldSuffixes[ar[1]]) return false;
+  // now test a rule
   switch (ar[1]) {
     case "H":
       return vlaidateHostRule(ar[0], cats, ruleSet);
@@ -206,6 +217,7 @@ var getopts = new Getopt([
   ['p' , 'prec=ARG',      'precision limit: default=0.9'],
   ['v' , 'verbous',       'show debug output'],
   ['l' , 'limit=ARG',     'number of rules to include'],
+  ['x' , 'xld=ARG',       'exlude suffixes'],
   ['s' , 'split',         'split DFRs into rules, ulr, and title files'],
   ['g' , 'gen',           'generate DFR'],
 ])
