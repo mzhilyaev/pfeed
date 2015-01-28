@@ -35,7 +35,7 @@ while (<STDIN>) {
   chomp($_);
   my ($pattern, $doc) = split(/,/, $_);
   if ($pattern ne $lastPattern) {
-    if ($doclist && scalar(@doclist) > $limit) {
+    if ($doclist && scalar(@$doclist) > $limit) {
       print join(",", @$doclist)."\n";
     }
     $lastPattern = $pattern;
