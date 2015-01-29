@@ -65,8 +65,6 @@ function areCovered(testCats, coveringCats) {
   for (var cat in testCats) {
     var coveredPrec = coveringCats[cat];
     if (coveredPrec == null) return false; // no corresponding cat covering
-    // otherwise test precision diffs, should be more then coveredPrec
-    if (testCats[cat] > (coveredPrec*1.05)) return false;
   }
   return true;
 }
