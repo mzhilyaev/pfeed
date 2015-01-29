@@ -7,6 +7,7 @@ var path = require('path');
 var Getopt = require('node-getopt');
 var urlParser = require("url");
 var tld = require('tldjs');
+var Heap = require("heap");
 
 var config = require("../config/config");
 var RevMap = require("../refData/IAB").RevMap;
@@ -208,6 +209,120 @@ function outputDFR(dfrObject, outputFile) {
   }
 }
 
+/********** IG selection ***********/
+
+function heapCompare(a,b) {
+  return b.igCount - a.igCount;
+}
+
+function IGSelect(ruleSet, docMap, options) {
+  var docs2rules = [];
+  var igRuleSet = {};
+  var rlist = Object.keys(ruleSet);
+
+  // extract _DHP rules into igRuleSet - we always want to keep them
+  for (var i = 0; i < rlist.length; i++) {
+    var key = rlist[i];
+    var ar = key.split("_");
+    switch (ar[1]) {
+      case "D":
+      case "H":
+      case "P":
+        igRuleSet[key] = ruleSet[key];
+        break;
+    }
+  }
+
+  // for rest of the rules
+  var heap = new Heap(heapCompare);
+  for (var i = 0; i < rlist.length; i++) {
+    var key = rlist[i];
+    if (igRuleSet[key]) continue;
+    // refactor rule entry
+    var cats = ruleSet[key];
+    var ig = {
+      ruleKey: key,
+      igCount: 0,
+    }
+    var ruleCats = Object.keys(cats);
+    ruleCats.forEach(function(cat) {
+      ig[cat] = {};
+    });
+
+    // walk over rule's docs and populate docs2rules & ig object
+    var doclist = docMap[key];
+    if (doclist) {
+      for (var j = 0; j < doclist.length; j++) {
+        var docId = doclist[j];
+        if (!docs2rules[docId]) docs2rules[docId] = [];
+        docs2rules[docId].push(ig);
+      }
+      ig.igCount = doclist.length * ruleCats.length;
+      // ig is populated drop it into heap
+      heap.push(ig);
+    }
+  }
+
+  // read heap until is either empty or information gain becomes 0
+  while (!heap.empty()) {
+    var headItem = heap.pop();
+
+    // check for information gain
+    if (headItem.igCount == 0) break;
+    // get the rule key
+    var key = headItem.ruleKey;
+    // and the rule to new ruleset
+    igRuleSet[key] = ruleSet[key];
+    // get the doclist and cats for that rule
+    var doclist = docMap[key];
+    var catNames = Object.keys(ruleSet[key]);
+
+    if (options.verbous) {
+      console.error("best ", headItem.ruleKey, headItem.igCount, doclist.length, JSON.stringify(ruleSet[key]));
+    }
+    // for every doc in the list, knock down correponding counts in its rules
+    for (var j = 0; j < doclist.length; j++) {
+      var docId = doclist[j];
+      var docmap = docs2rules[docId];
+      for (var k = 0; k < docmap.length; k++) {
+        var igObj = docmap[k];
+        // ignore rules already collected
+        if (!igRuleSet[igObj.ruleKey]) {
+          for (var z = 0; z < catNames.length; z++) {
+            var cat = catNames[z];
+            if (igObj[cat] && !igObj[cat][docId] ) {
+              igObj.igCount--;
+              igObj[cat][docId] = true;
+            }
+          }
+        }
+      }
+    }
+    heap.heapify();
+  }
+
+  if (!options.igLimit) return igRuleSet;
+
+  // trim rules to the limit
+  var ruleLimit = parseInt(options.igLimit);
+  var sortedRules = Object.keys(igRuleSet).sort(function(a,b) {
+    // always pick up domain and host rules
+    if (b.match(/[HD]/)) return 1;
+    if (a.match(/[HD]/)) return -1;
+    if (!docMap[a]) return 1;
+    if (!docMap[b]) return -1;
+    return docMap[b].length - docMap[a].length;
+  });
+
+  if (sortedRules.length < ruleLimit) return igRuleSet;
+
+  var trimmedRules = {};
+  for (var i = 0; i < ruleLimit; i++) {
+    trimmedRules[sortedRules[i]] = igRuleSet[sortedRules[i]];
+  }
+  return trimmedRules;
+}
+
 /*********** main section **********/
 var getopts = new Getopt([
   ['h' , 'help',          'display this help'],
@@ -218,6 +333,8 @@ var getopts = new Getopt([
   ['x' , 'xld=ARG',       'exlude suffixes'],
   ['s' , 'split',         'split DFRs into rules, ulr, and title files'],
   ['g' , 'gen',           'generate DFR'],
+  ['m',  'igLimit=ARG',   'max number of rules to include in IG selection'],
+  ['d' , 'docs=ARG',      'rules to docs map file'],
 ])
 .bindHelp()
 .setHelp("USAGE: selectBestRules.js [OPTIONS] RULES_FILE\n" +
@@ -230,6 +347,13 @@ var fileContent = fs.readFileSync(getopts.argv[0], "utf8");
 var ruleCounts = JSON.parse(fileContent);
 
 var ruleSet = bruteForceRuleSelect(ruleCounts, getopts.options);
+
+if (getopts.options.docs) {
+  // now run IG selection
+  fileContent = fs.readFileSync(getopts.options.docs, "utf8");
+  var docMap = JSON.parse(fileContent);
+  ruleSet = IGSelect(ruleSet, docMap, getopts.options);
+}
 
 if (getopts.options.gen) {
   var dfr = {};
